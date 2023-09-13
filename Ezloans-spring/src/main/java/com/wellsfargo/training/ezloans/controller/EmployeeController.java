@@ -13,8 +13,6 @@ import com.wellsfargo.training.ezloans.exception.ResourceNotFoundException;
 import com.wellsfargo.training.ezloans.model.Employee;
 import com.wellsfargo.training.ezloans.service.EmployeeService;
 
-
-
 @RestController
 @RequestMapping(value="/api")
 public class EmployeeController {
@@ -24,8 +22,6 @@ public class EmployeeController {
 	@PostMapping("/empreg")
 	public ResponseEntity<String> createUser(@Validated @RequestBody Employee employee){
 		try {
-			
-		
 			
 			Employee emp=eservice.registerEmployee(employee);
 			if(emp!=null) {
@@ -45,12 +41,12 @@ public class EmployeeController {
 		
 		Boolean isloggedin=false;
 		
-		String employee_name=employee.getEname();
-		String password=employee.getEmployee_password();
+		String email=employee.getEmail();
+		String password=employee.getPassword();
 		
-		Employee emp=eservice.loginEmployee(employee_name).orElseThrow(()->new ResourceNotFoundException("Employee not found for this email"));
+		Employee emp=eservice.loginEmployee(email).orElseThrow(()->new ResourceNotFoundException("Employee not found for this email"));
 		
-		if(employee_name.equals(employee.getEname())&&password.equals(emp.getEmployee_password())){
+		if(email.equals(employee.getEmail())&&password.equals(emp.getPassword())){
 			isloggedin=true;
 		}
 		
@@ -59,3 +55,19 @@ public class EmployeeController {
 	}
 
 }
+
+/*
+ * 
+ Sample POST request for http://localhost:8085/ezloans/api/empreg
+ {
+    "fname": "Jane",
+    "lname": "Doe",
+    "email": "jane@ezloans.com",
+    "password":"password",
+    "designation": "Program Associate",
+    "department": "DTI",
+    "gender": "Female",
+    "dob": "2000-10-02",
+    "doj": "2021-11-19"
+}
+ * */
