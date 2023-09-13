@@ -8,26 +8,24 @@ import jakarta.persistence.*;
 public class EmployeeCard {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	private long employe_card_id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "employee_card_id")
+	private long cardId;
 	
 	@ManyToOne
-	@JoinColumn(name = "employee_id")
+	@JoinColumn(name = "eid")
 	private Employee employee;
 	
 	@ManyToOne
-	@JoinColumn(name = "loan_id")
-	private LoanCard loan_id;
+	@JoinColumn(name = "loanId")
+	private LoanCard loanId;
 	
 	
-	@Column
-	private Date card_issue_date;
+	@Column(name="card_issue_date")
+	private Date issueDate;
 
 	public EmployeeCard() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	
-	
 	
 }

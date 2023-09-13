@@ -9,6 +9,6 @@ import com.wellsfargo.training.ezloans.model.Employee;
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	
 	
-	public Optional<Employee> findByEname(String Ename);
+	public Optional<Employee> findByEmail(String email);
 
 }

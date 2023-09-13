@@ -10,11 +10,9 @@ import com.wellsfargo.training.ezloans.repository.EmployeeRepository;
 
 import jakarta.transaction.Transactional;
 
-
 @Service
 @Transactional
 public class EmployeeService {
-	
 	
 	@Autowired
 	private EmployeeRepository erepo;
@@ -23,9 +21,8 @@ public class EmployeeService {
 		return erepo.save(employee);
 	}
 	
-	public Optional<Employee> loginEmployee(String Ename){
-		
-		return erepo.findByEname(Ename);
+	public Optional<Employee> loginEmployee(String email){
+		return erepo.findByEmail(email);
 		
 	}
 
