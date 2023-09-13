@@ -2,6 +2,7 @@ package com.wellsfargo.training.ezloans.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,36 +16,32 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="Employee_Issue_Details")
+@Table(name="employee_issue_details")
 public class EmployeeIssue {
 	
 	@Id
-//	@SequenceGenerator(name = "employee_issue_seq",initialValue = 100 , allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.IDENTITY )
-	//, generator = "employee_issue_seq")
-	private Long issue_Id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="issue_id")
+	private Long issueId;
 
-	
 	@ManyToOne
-	@JoinColumn(name = "employee_id")
+	@JoinColumn(name = "eid")
 	private Employee employee;
 	
 	@ManyToOne
-	@JoinColumn(name = "item_id")
+	@JoinColumn(name = "itemId")
 	private Item item;
 	
-	@Column(nullable = false)
-	private Date issue_date;
+	@Column(nullable = false, name="issue_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date issueDate;
 	
-	@Column(nullable = false)
-	private Date return_date;
-	
+	@Column(nullable = false, name="return_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	private Date returnDate;
 	
 	public EmployeeIssue() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
-	
-
 }

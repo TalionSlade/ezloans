@@ -1,8 +1,6 @@
 package com.wellsfargo.training.ezloans.model;
 
-import java.nio.charset.StandardCharsets;
 import java.sql.Date;
-import java.util.Base64;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,7 +12,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -22,143 +19,141 @@ import jakarta.persistence.Table;
 @Table(name = "employee_master")
 public class Employee {
 
-	
 	@Id
 	@SequenceGenerator(name = "employee_seq",initialValue = 100 , allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.IDENTITY , generator = "employee_seq")
-	private Long employee_Id;
+	@Column(name="employee_id")
+	private Long eid;
 	
+	@Column(nullable = false, name="first_name")
+	private String fname;
 	
-	@Column(nullable = false)
-	private String ename;
+	@Column(nullable = false, name="last_name")
+	private String lname;
 	
-	@Column(nullable = false)
-	private String employee_password;
+	@Column(nullable = false, name="employee_email")
+	private String email;
 	
-	@Column(nullable = false)
-	private String employee_designation;
+	@Column(nullable = false, name="employee_password")
+	private String password;
 	
-	@Column(nullable = false)
-	private String employee_department;
+	@Column(nullable = false, name="designation")
+	private String designation;
 	
-	@Column(nullable = false)
-	private String employee_gender;
+	@Column(nullable = false, name="department")
+	private String department;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, name="gender")
+	private String gender;
+	
+	@Column(nullable = false, name="date_of_birth")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date employee_dob;
+	private Date dob;
 	
-	
-	@Column(nullable = false)
+	@Column(nullable = false, name="date_of_joining")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date employee_doj;
+	private Date doj;
 
 	@OneToMany(mappedBy = "employee" , cascade = CascadeType.ALL)
-	private Set<EmployeeIssue> employeeissue;
+	private Set<EmployeeIssue> employeeIssue;
 		
-//	private EmployeeIssue employeeissue;
-
 	public Employee() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-
-	public Employee(Long employee_Id, String employee_name,String employee_password, String employee_designation, String employee_department,
-			String employee_gender, Date employee_dob, Date employee_doj) {
+	public Employee(Long eid, String fname, String lname, String email, String password, String designation,
+			String department, String gender, Date dob, Date doj) {
 		super();
-		this.employee_Id = employee_Id;
-		this.ename = employee_name;
-		this.employee_designation = employee_designation;
-		this.employee_department = employee_department;
-		this.employee_gender = employee_gender;
-		this.employee_dob = employee_dob;
-		this.employee_doj = employee_doj;
-		this.employee_password=employee_password;
+		this.eid = eid;
+		this.fname = fname;
+		this.lname = lname;
+		this.email = email;
+		this.password = password;
+		this.designation = designation;
+		this.department = department;
+		this.gender = gender;
+		this.dob = dob;
+		this.doj = doj;
 	}
 
-
-	public Long getEmployee_Id() {
-		return employee_Id;
+	public Long getEid() {
+		return eid;
 	}
 
-
-	public void setEmployee_Id(Long employee_Id) {
-		this.employee_Id = employee_Id;
+	public void setEid(Long eid) {
+		this.eid = eid;
 	}
 
-
-	public String getEname() {
-		return ename;
+	public String getFname() {
+		return fname;
 	}
 
-
-	public void setEname(String employee_name) {
-		this.ename = employee_name;
-	}
-	
-	public String getEmployee_password() {
-		return employee_password;
+	public void setFname(String fname) {
+		this.fname = fname;
 	}
 
-
-	public void setEmployee_password(String password) {
-		Base64.Encoder encoder = Base64.getEncoder();  
-        String normalString = password;
-        String encodedString = encoder.encodeToString(   // encrypt password in database field
-        normalString.getBytes(StandardCharsets.UTF_8) );
-		this.employee_password = encodedString ;
+	public String getLname() {
+		return lname;
 	}
 
-
-	public String getEmployee_designation() {
-		return employee_designation;
+	public void setLname(String lname) {
+		this.lname = lname;
 	}
 
-
-	public void setEmployee_designation(String employee_designation) {
-		this.employee_designation = employee_designation;
+	public String getEmail() {
+		return email;
 	}
 
-
-	public String getEmployee_department() {
-		return employee_department;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-
-	public void setEmployee_department(String employee_department) {
-		this.employee_department = employee_department;
+	public String getPassword() {
+		return password;
 	}
 
-
-	public String getEmployee_gender() {
-		return employee_gender;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-
-	public void setEmployee_gender(String employee_gender) {
-		this.employee_gender = employee_gender;
+	public String getDesignation() {
+		return designation;
 	}
 
-
-	public Date getEmployee_dob() {
-		return employee_dob;
+	public void setDesignation(String designation) {
+		this.designation = designation;
 	}
 
-
-	public void setEmployee_dob(Date employee_dob) {
-		this.employee_dob = employee_dob;
+	public String getDepartment() {
+		return department;
 	}
 
-
-	public Date getEmployee_doj() {
-		return employee_doj;
+	public void setDepartment(String department) {
+		this.department = department;
 	}
 
-
-	public void setEmployee_doj(Date employee_doj) {
-		this.employee_doj = employee_doj;
+	public String getGender() {
+		return gender;
 	}
-	
-	
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public Date getDoj() {
+		return doj;
+	}
+
+	public void setDoj(Date doj) {
+		this.doj = doj;
+	}
+
 }

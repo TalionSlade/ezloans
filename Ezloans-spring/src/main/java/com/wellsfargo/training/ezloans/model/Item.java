@@ -20,40 +20,36 @@ public class Item {
 	@GeneratedValue(strategy = GenerationType.IDENTITY , generator = "item_seq")
 	private Long itemId;
 	
-	@Column(nullable = false)
-	private String item_desc;
+	@Column(nullable = false, name="item_desc")
+	private String desc;
 	
-	@Column(nullable = false)
-	private String item_status;
+	@Column(nullable = false, name="item_status")
+	private String status;
 	
-	@Column(nullable = false)
-	private String item_make;
+	@Column(nullable = false, name="item_make")
+	private String make;
 	
-	@Column(nullable = false)
-	private String item_category;
+	@Column(nullable = false, name="item_category")
+	private String category;
 	
-	@Column(nullable = false)
-	private long item_valuation;
-	
-	
+	@Column(nullable = false, name="item_valuation")
+	private long valuation;
 	
 	@OneToMany(mappedBy = "item" , cascade = CascadeType.ALL)
-	private Set<EmployeeIssue> employeeissue;
+	private Set<EmployeeIssue> employeeIssue;
 
 	public Item() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Item(Long itemId, String item_desc, String item_status, String item_make, String item_category,
-			long item_valuation) {
+	public Item(Long itemId, String desc, String status, String make, String category, long valuation) {
 		super();
 		this.itemId = itemId;
-		this.item_desc = item_desc;
-		this.item_status = item_status;
-		this.item_make = item_make;
-		this.item_category = item_category;
-		this.item_valuation = item_valuation;
+		this.desc = desc;
+		this.status = status;
+		this.make = make;
+		this.category = category;
+		this.valuation = valuation;
 	}
 
 	public Long getItemId() {
@@ -64,46 +60,45 @@ public class Item {
 		this.itemId = itemId;
 	}
 
-	public String getItem_desc() {
-		return item_desc;
+	public String getDesc() {
+		return desc;
 	}
 
-	public void setItem_desc(String item_desc) {
-		this.item_desc = item_desc;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
-	public String getItem_status() {
-		return item_status;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setItem_status(String item_status) {
-		this.item_status = item_status;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String getItem_make() {
-		return item_make;
+	public String getMake() {
+		return make;
 	}
 
-	public void setItem_make(String item_make) {
-		this.item_make = item_make;
+	public void setMake(String make) {
+		this.make = make;
 	}
 
-	public String getItem_category() {
-		return item_category;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setItem_category(String item_category) {
-		this.item_category = item_category;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
-	public long getItem_valuation() {
-		return item_valuation;
+	public long getValuation() {
+		return valuation;
 	}
 
-	public void setItem_valuation(long item_valuation) {
-		this.item_valuation = item_valuation;
+	public void setValuation(long valuation) {
+		this.valuation = valuation;
 	}
+
 	
-	
-
 }
