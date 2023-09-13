@@ -22,7 +22,7 @@ public class Employee {
 	@Id
 	@SequenceGenerator(name = "employee_seq",initialValue = 100 , allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.IDENTITY , generator = "employee_seq")
-	@Column(name="employee_id")
+	@Column(nullable = false, name="employee_id")
 	private Long eid;
 	
 	@Column(nullable = false, name="first_name")
