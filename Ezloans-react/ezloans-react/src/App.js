@@ -1,5 +1,5 @@
 import './App.css';
-
+import NavBar from './components/Navbar';
 import Registeration from './components/Registeration';
 import Login from './components/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -23,6 +23,7 @@ function App() {
           minWidth:"100vh"
         }}>
         <Router>
+          <NavBar/>
           <Routes>
             <Route path="/register" element={<Registeration/>}/>
             <Route path="/login" element={<Login/>}/>
