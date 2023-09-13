@@ -30,7 +30,7 @@ public class Employee {
 	
 	
 	@Column(nullable = false)
-	private String employee_name;
+	private String ename;
 	
 	@Column(nullable = false)
 	private String employee_password;
@@ -68,7 +68,7 @@ public class Employee {
 			String employee_gender, Date employee_dob, Date employee_doj) {
 		super();
 		this.employee_Id = employee_Id;
-		this.employee_name = employee_name;
+		this.ename = employee_name;
 		this.employee_designation = employee_designation;
 		this.employee_department = employee_department;
 		this.employee_gender = employee_gender;
@@ -88,13 +88,13 @@ public class Employee {
 	}
 
 
-	public String getEmployee_name() {
-		return employee_name;
+	public String getEname() {
+		return ename;
 	}
 
 
-	public void setEmployee_name(String employee_name) {
-		this.employee_name = employee_name;
+	public void setEname(String employee_name) {
+		this.ename = employee_name;
 	}
 	
 	public String getEmployee_password() {

@@ -40,22 +40,22 @@ public class EmployeeController {
 		}
 	}
 	
-//	@PostMapping("/login")
-//	public boolean loginDealer(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
-//		
-//		Boolean isloggedin=false;
-//		
-//		String employee_name=employee.getEmployee_name();
-//		String password=employee.getEmployee_password();
-//		
-//		Employee emp=eservice.loginEmployee(employee_name).orElseThrow(()->new ResourceNotFoundException("Employee not found for this email"));
-//		
-//		if(employee_name.equals(employee.getEmployee_name())&&password.equals(emp.getEmployee_password())){
-//			isloggedin=true;
-//		}
-//		
-//		return isloggedin;
-//		
-//	}
+	@PostMapping("/login")
+	public boolean loginDealer(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
+		
+		Boolean isloggedin=false;
+		
+		String employee_name=employee.getEname();
+		String password=employee.getEmployee_password();
+		
+		Employee emp=eservice.loginEmployee(employee_name).orElseThrow(()->new ResourceNotFoundException("Employee not found for this email"));
+		
+		if(employee_name.equals(employee.getEname())&&password.equals(emp.getEmployee_password())){
+			isloggedin=true;
+		}
+		
+		return isloggedin;
+		
+	}
 
 }

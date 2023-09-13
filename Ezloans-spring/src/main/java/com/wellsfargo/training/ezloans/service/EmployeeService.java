@@ -23,10 +23,10 @@ public class EmployeeService {
 		return erepo.save(employee);
 	}
 	
-//	public Optional<Employee> loginEmployee(String name){
-//		
-//		return erepo.findByEmployee_name(name);
-//		
-//	}
+	public Optional<Employee> loginEmployee(String Ename){
+		
+		return erepo.findByEname(Ename);
+		
+	}
 
 }
