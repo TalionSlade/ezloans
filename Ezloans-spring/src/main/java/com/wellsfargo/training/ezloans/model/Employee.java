@@ -1,7 +1,11 @@
 package com.wellsfargo.training.ezloans.model;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.Date;
+import java.util.Base64;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -26,7 +30,10 @@ public class Employee {
 	
 	
 	@Column(nullable = false)
-	private String employee_name;
+	private String ename;
+	
+	@Column(nullable = false)
+	private String employee_password;
 	
 	@Column(nullable = false)
 	private String employee_designation;
@@ -38,10 +45,12 @@ public class Employee {
 	private String employee_gender;
 	
 	@Column(nullable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date employee_dob;
 	
 	
 	@Column(nullable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date employee_doj;
 
 	@OneToMany(mappedBy = "employee" , cascade = CascadeType.ALL)
@@ -55,16 +64,17 @@ public class Employee {
 	}
 
 
-	public Employee(Long employee_Id, String employee_name, String employee_designation, String employee_department,
+	public Employee(Long employee_Id, String employee_name,String employee_password, String employee_designation, String employee_department,
 			String employee_gender, Date employee_dob, Date employee_doj) {
 		super();
 		this.employee_Id = employee_Id;
-		this.employee_name = employee_name;
+		this.ename = employee_name;
 		this.employee_designation = employee_designation;
 		this.employee_department = employee_department;
 		this.employee_gender = employee_gender;
 		this.employee_dob = employee_dob;
 		this.employee_doj = employee_doj;
+		this.employee_password=employee_password;
 	}
 
 
@@ -78,13 +88,26 @@ public class Employee {
 	}
 
 
-	public String getEmployee_name() {
-		return employee_name;
+	public String getEname() {
+		return ename;
 	}
 
 
-	public void setEmployee_name(String employee_name) {
-		this.employee_name = employee_name;
+	public void setEname(String employee_name) {
+		this.ename = employee_name;
+	}
+	
+	public String getEmployee_password() {
+		return employee_password;
+	}
+
+
+	public void setEmployee_password(String password) {
+		Base64.Encoder encoder = Base64.getEncoder();  
+        String normalString = password;
+        String encodedString = encoder.encodeToString(   // encrypt password in database field
+        normalString.getBytes(StandardCharsets.UTF_8) );
+		this.employee_password = encodedString ;
 	}
 
 
