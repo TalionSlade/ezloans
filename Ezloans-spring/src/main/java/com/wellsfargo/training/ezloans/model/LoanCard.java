@@ -9,60 +9,51 @@ import jakarta.persistence.*;
 public class LoanCard {
 	
 	@Id
-	private String load_id;
+	private String loanId;
 	
-	@Column
-	private String loan_type;
+	@Column(name="loan_type",nullable=false)
+	private String type;
 	
 	
-	@Column
-	private int loan_duration;
+	@Column(name="loan_duration",nullable=false)
+	private int duration;
 
-	@OneToMany(mappedBy = "loan_id" , cascade = CascadeType.ALL)
-	private Set<EmployeeCard> employeecard;
+	@OneToMany(mappedBy = "loanId" , cascade = CascadeType.ALL)
+	private Set<EmployeeCard> employeeCard;
 
 	public LoanCard() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-
-	public LoanCard(String load_id, String loan_type, int loan_duration) {
+	public LoanCard(String loanId, String type, int duration) {
 		super();
-		this.load_id = load_id;
-		this.loan_type = loan_type;
-		this.loan_duration = loan_duration;
+		this.loanId = loanId;
+		this.type = type;
+		this.duration = duration;
 	}
 
-
-	public String getLoad_id() {
-		return load_id;
+	public String getLoanId() {
+		return loanId;
 	}
 
-
-	public void setLoad_id(String load_id) {
-		this.load_id = load_id;
+	public void setLoanId(String loanId) {
+		this.loanId = loanId;
 	}
 
-
-	public String getLoan_type() {
-		return loan_type;
+	public String getType() {
+		return type;
 	}
 
-
-	public void setLoan_type(String loan_type) {
-		this.loan_type = loan_type;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-
-	public int getLoan_duration() {
-		return loan_duration;
+	public int getDuration() {
+		return duration;
 	}
 
-
-	public void setLoan_duration(int loan_duration) {
-		this.loan_duration = loan_duration;
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
-	
-	
+
 }
