@@ -76,11 +76,18 @@ const validateForm = () => {
     validationErrors.email = 'Email is required.';
   }
   if (!employee.fname) {
-    validationErrors.fname = 'Name is required.';
+    validationErrors.fname = 'First Name is required.';
   }
-    else if (!/^[a-zA-Z]*$/.test(employee.fnamename)) {
+    else if (!/^[a-zA-Z]*$/.test(employee.fname)) {
       validationErrors.fname = 'Enter Alphabets Only';
     }
+
+    if (!employee.lnamename) {
+        validationErrors.lname = 'Last Name is required.';
+      }
+        else if (!/^[a-zA-Z]*$/.test(employee.lname)) {
+          validationErrors.lname = 'Enter Alphabets Only';
+        }
 
   if (!employee.designation) {
     validationErrors.designation = 'Designation is required.';
