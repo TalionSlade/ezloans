@@ -76,39 +76,37 @@ const validateForm = () => {
     validationErrors.email = 'Email is required.';
   }
   if (!employee.fname) {
-    validationErrors.fname = 'Name is required.';
+    validationErrors.fname = 'First Name is required.';
   }
-    else if (!/^[a-zA-Z]*$/.test(employee.fnamename)) {
-      validationErrors.fname = 'Enter Alphabets Only';
-    }
-
+  else if (!/^[a-zA-Z]*$/.test(employee.fname)) {
+    validationErrors.fname = 'Enter Alphabets Only';
+  }
+  if (!employee.lname) {
+    validationErrors.lname = 'Last Name is required.';
+  }
+  else if (!/^[a-zA-Z]*$/.test(employee.lname)) {
+    validationErrors.lname = 'Enter Alphabets Only';
+  }
   if (!employee.designation) {
     validationErrors.designation = 'Designation is required.';
   }
-
   if (!employee.department) {
     validationErrors.department = 'Department is required.';
   }
-
   if (!employee.gender) {
     validationErrors.gender = 'Gender is required.';
   }
-
   if (!employee.password) {
     validationErrors.password = 'Password is required.';
   } else if (employee.password.length < 6) {
     validationErrors.password = 'Password must be at least 6 characters.';
   }
-
-   if (!employee.dob) {
+  if (!employee.dob) {
     validationErrors.dob = 'Date of Birth is required.';
   } 
   if (!employee.doj) {
     validationErrors.doj = 'Date of Joining is required.';
   } 
-
- 
-
   return validationErrors;
 };
 
