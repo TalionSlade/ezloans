@@ -9,7 +9,10 @@ import jakarta.persistence.*;
 public class LoanCard {
 	
 	@Id
-	private String loanId;
+	@SequenceGenerator(name = "loan_seq",initialValue = 1064 , allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY , generator = "loan_seq")
+	@Column(nullable = false, name="loan_id")
+	private Long loanId;
 	
 	@Column(name="loan_type",nullable=false)
 	private String type;
@@ -25,18 +28,18 @@ public class LoanCard {
 		super();
 	}
 
-	public LoanCard(String loanId, String type, int duration) {
+	public LoanCard(Long loanId, String type, int duration) {
 		super();
 		this.loanId = loanId;
 		this.type = type;
 		this.duration = duration;
 	}
 
-	public String getLoanId() {
+	public Long getLoanId() {
 		return loanId;
 	}
 
-	public void setLoanId(String loanId) {
+	public void setLoanId(Long loanId) {
 		this.loanId = loanId;
 	}
 
