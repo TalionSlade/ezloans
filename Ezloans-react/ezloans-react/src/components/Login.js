@@ -41,6 +41,7 @@ const Login = () => {
             <h2 style={{color:'green'}}>
                 Employee Login
             </h2>
+            <br></br>
             <div className='form-group'>
                 <label>Email: </label>
                 <input type='email' className='form-control' value={email} onChange={(e)=>setEmail(e.target.value)}></input>

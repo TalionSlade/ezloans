@@ -104,7 +104,7 @@ const validateForm = () => {
     validationErrors.dob = 'Date of Birth is required.';
   } 
   if (!employee.doj) {
-    validationErrors.dob = 'Date of Joining is required.';
+    validationErrors.doj = 'Date of Joining is required.';
   } 
 
  
@@ -115,7 +115,8 @@ const validateForm = () => {
   return (
     <div> <br></br>
     <div className='registration-container'>
-      <h2 style={{color: 'brown'}}>Employee Registration</h2>
+      <h2 style={{color: 'green'}}>Employee Registration</h2>
+      <br></br>
       {successMessage && <p className='success-message'>{successMessage}</p>}
       <form onSubmit={handleSubmit}>
       <div className="form-group">
@@ -178,14 +179,21 @@ const validateForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Gender:</label>
-          <input
+          <label>Gender: </label>
+          <select value={employee.gender} name="gender" onChange={handleChange}
+            className={errors.gender && 'error'}>
+            <option value="Default">Default</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            <option value="Other">Other</option>
+          </select>
+          {/* <input
             type="text"
             name="gender"
             value={employee.gender}
             onChange={handleChange}
             className={errors.gender && 'error'}
-          />
+          /> */}
           {errors.gender && <p className="error-message">{errors.gender}</p>}
         </div>
 
