@@ -1,8 +1,3 @@
-
-
-/* Please ❤ this if you like it! */
-
-
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 
 body{
@@ -35,6 +30,17 @@ p {
 h4 {
   font-weight: 600;
 }
+
+.Login-header{
+  background-color: #ffeba7;
+  color: #1f2029;
+  height: 60px; 
+  padding-top: 1%;
+  font-weight: 750;
+  align-items: center;
+}
+
+
 h6 span{
   padding: 0 20px;
   text-transform: uppercase;
@@ -290,4 +296,15 @@ h6 span{
 	height: 26px;
 	width: auto;
 	display: block;
+}
+
+ 
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: green;
+  margin-top: 10px;
 }

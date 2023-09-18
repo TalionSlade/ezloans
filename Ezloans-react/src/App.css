@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-logo {
   height: 10vmin;
   pointer-events: none;
@@ -14,22 +15,30 @@
 }
 
 .footer{
-  background-color: #282c34;
-  color: white;
+  background-color: #ffeba7;
+  color: #2a2b38;
   text-align: center;
-  height: 10vh;
+  vertical-align: middle;
+  height: 6vh;
   font-weight: bold;
-  border-top: 1px;
+  border-top: 3px;
+  align-items: center;
   
 }
+
+
 .App-header {
-  background-color: #282c34;
+  background-color: #1f2029;
   min-height: 10vh;
   display: flex;
   /* flex-direction: column; */
-  align-items: center;
+  /* align-items: center; */
+  font-weight: 300;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+
+  padding-top: 10%;
+  font-family: "popins", sans-serif;
   color: white;
 }
 
