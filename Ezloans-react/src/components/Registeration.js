@@ -230,20 +230,17 @@ const validateForm = () => {
             className={errors.password && 'error'}
           />
           {errors.password && <p className="error-message">{errors.password}</p>}
-        </div>
+      </div>
 
        
         <div className="form-group">
           <button type="submit" className="submit-button" onClick={handleSubmit}>
-
             Register
           </button>
-          
-            {successMessage && <p className="success-message">{successMessage}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
       </form>
-    </div>
-        
+    </div>   
     </div>
   )
 }
