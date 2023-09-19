@@ -1,13 +1,23 @@
 import React from 'react';
 import '../styles/Dashboard.css'
+import { useLocation } from 'react-router-dom';
+import { useAuth } from './AuthContext';
 
 const Dashboard = () => {
+
+  const  location = useLocation();
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn} = useAuth();
+  // const {role} = state;
+  // console.log(role);
   return (
     <div>
         <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <h4 style={{padding: "10px"}}>Dashboard</h4>
+            {isLoggedIn && <h4 style={{padding: "10px"}}>
+              {/* {location.state.role} */}
+              Dashboard {authUser.Name}
+              </h4>}
           </div>
         </div>
         <div class="row">

@@ -2,6 +2,9 @@ import React, {useState} from 'react'
 import '../styles/Login.css'
 import AuthenticationService from '../service/AuthenticationService';
 import {useNavigate} from "react-router-dom";
+import { useAuth } from './AuthContext';
+
+import { ReactSession } from 'react-client-session';
 
 const Login = () => {
     const history = useNavigate ();
@@ -9,21 +12,45 @@ const Login = () => {
     const [password,setPassword] =  useState('');
     const [errorMessage,seterrorMessage] =  useState('');
     const [successMessage,setsuccessMessage] =  useState('');
+	const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn, isUser,
+        setIsUser} = useAuth();
+	// const [isUser, setIsUser] = useState(false);
 
+	
     const handleLogin = async() => {
         if (!email || !password){
             seterrorMessage("Please enter both email and password");
             return;
         }
         const employee={email,password};
+		
         try{
             const loginSuccess = await AuthenticationService.login(employee);
             console.log("API response: ", loginSuccess.data);
             if (loginSuccess){
+
                 setsuccessMessage("Login Successful. Redirecting...");
-                setTimeout(() => {
-                  history('/product');  
-                }, 200);
+				// setLoginStatus(true);
+				// ReactSession.set("isLogin", true);
+				setIsLoggedIn(true)
+				setAuthUser({
+					Name: 'Sashrika'
+				})
+				if(email==='admin@ezloans.com') {
+					setTimeout(() => {
+						history('/dashboard');  
+					  }, 200);
+					setIsUser(false);
+
+				} else {
+					setIsUser(true);
+					setTimeout(() => {
+						history('/dashboard');  
+					  }, 200);
+
+				}
+                
+				
             }
             else{
                 seterrorMessage("Invalid email or password");
@@ -38,26 +65,6 @@ const Login = () => {
 
   return (
     <div> <br></br>
-
-
-        {/* <div className='container'>
-            <h2 style={{color:'green'}}>
-                Employee Login
-            </h2>
-            <br></br>
-            <div className='form-group'>
-                <label>Email: </label>
-                <input type='email' className='form-control' value={email} onChange={(e)=>setEmail(e.target.value)}></input>
-            </div>
-            <div className='form-group'>
-                <label>Password: </label>
-                <input type='password' className='form-control'  value={password} onChange={(e)=>setPassword(e.target.value)}></input>
-            </div>
-            <button className='btn btn-primary' onClick={handleLogin}>Login</button>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {successMessage && <p className="success-message">{successMessage}</p>}
-        </div> */}
-
 	<div class="section">
 		<div class="container">
 			<div class="row full-height justify-content-center">
@@ -74,14 +81,14 @@ const Login = () => {
 										<div class="section text-center">
 											<h4 class="mb-4 pb-3">Log In as Admin</h4>
 											<div class="form-group">
-												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off"/>
+											<input type="email" name="logemail" value={email} onChange={(e)=>setEmail(e.target.value)} class="form-style" placeholder="Your Email" id="logemail" autocomplete="off"/>
 												<i class="input-icon uil uil-at"></i>
 											</div>	
 											<div class="form-group mt-2">
-												<input type="password" name="logpass" class="form-style" placeholder="Your Password" id="logpass" autocomplete="off"/>
+											<input type="password" value={password} name="logpass" onChange={(e)=>setPassword(e.target.value)} class="form-style" placeholder="Your Password" id="logpass" autocomplete="off"/>
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<button className="btn mt-4">submit</button>
+											<button className="btn mt-4" onClick={handleLogin}>Submit</button>
 											{errorMessage && <p className="error-message">{errorMessage}</p>}
     										{successMessage && <p className="success-message">{successMessage}</p>}	
 												
@@ -100,7 +107,7 @@ const Login = () => {
 												<input type="password" value={password} name="logpass" onChange={(e)=>setPassword(e.target.value)} class="form-style" placeholder="Your Password" id="logpass" autocomplete="off"/>
 												<i class="input-icon uil uil-lock-alt"></i>
 											</div>
-											<button className="btn mt-4"  onClick={handleLogin}>submit</button>
+											<button className="btn mt-4"  onClick={handleLogin}>Submit</button>
 											{errorMessage && <p className="error-message">{errorMessage}</p>}
     										{successMessage && <p className="success-message">{successMessage}</p>}	
 				      					</div>
