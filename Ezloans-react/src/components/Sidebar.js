@@ -5,17 +5,20 @@ import { IoClose as CloseIcon } from 'react-icons/io5';
 import '../styles/NavBar.css';
 import '../styles/Sidebar.css';
 
-const Sidebar=({isOpen, closeSidebar}) => {
+const Sidebar=() => {
 
 
     return (
-        <div className={`sidebar ${isOpen && "open"}`}>
-            <span className='closeIcon' onClick={closeSidebar}>
+        <div className={`sidebar`}>
+            {/* <span className='closeIcon' onClick={closeSidebar}>
                 <CloseIcon size={30}/>
-            </span>
+            </span> */}
+            <div style={{height: "60px"}}></div>
             <div>
-                <NavLink to="/dashboard" className={({ isActive }) => isActive ? "activeLink" : "" } onClick= {closeSidebar}>Dashboard</NavLink>
-                <NavLink to="/login" className={({ isActive }) => isActive ? "activeLink" : ""} onClick= {closeSidebar}>Login</NavLink>
+                <a href="/dashboard" className={({ isActive }) => isActive ? "activeLink" : "" }>Dashboard</a>
+                <a href="#" className={({ isActive }) => isActive ? "activeLink" : ""} >View Loan</a>
+                <a href="#" className={({ isActive }) => isActive ? "activeLink" : ""} >Apply for Loan</a>
+                <a href="#" className={({ isActive }) => isActive ? "activeLink" : ""} >View Items Purchased</a>
             </div>
         </div>
     );
