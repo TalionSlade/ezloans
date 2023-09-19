@@ -6,7 +6,7 @@ body{
 	font-size: 15px;
 	line-height: 1.7;
 	color: #c4c3ca;
-	background-color: #1f2029;
+	background-color: #1f2029fe;
 	overflow-x: hidden;
 }
 a {
@@ -283,7 +283,7 @@ h6 span{
 
 
 
-
+/* 
 .logo {
 	position: absolute;
 	top: 30px;
@@ -296,7 +296,7 @@ h6 span{
 	height: 26px;
 	width: auto;
 	display: block;
-}
+} */
 
  
 .error-message {

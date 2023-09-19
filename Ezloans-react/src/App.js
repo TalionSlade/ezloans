@@ -1,8 +1,10 @@
 import './App.css';
-// import NavBar from './components/Navbar';
+import NavBar from './components/Navbar';
 import Registeration from './components/Registeration';
 import Login from './components/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Dashboard from './components/Dashboard';
+import Sidebar from './components/Sidebar';
 // import {library} from '@fortawesome/fontawesome-svg-core';
 // import {faSignIn, faCameraRetro} from '@fortawesome/free-solid-svg-icons';
 
@@ -10,10 +12,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      {/* <header className="App-header">
-        <h1>EZLOANS</h1>
-
-      </header> */}
       <section>
         <div style={{
           backgroundSize:"cover",
@@ -22,11 +20,14 @@ function App() {
           minWidth:"100vh"
         }}>
         <Router>
-          {/* <NavBar/> */}
-          <Routes>
+          <NavBar/>
+
+            <Routes>
             <Route path="/register" element={<Registeration/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/dashboard" element={<Dashboard/>}/>
           </Routes>
+          
         </Router>
         </div>
       </section>

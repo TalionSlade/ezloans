@@ -1,6 +1,6 @@
-/* NavBar.css */
+/* NavBar.css
 /* Common styles for all screen sizes*/
-.navbar {
+/* .navbar {
     background-color: #7c8596;
     color: black;
     padding: 5px;
@@ -33,8 +33,9 @@
   }
 
   /* Media queries for responsiveness */
-@media (max-width: 767px) {
+/* @media (max-width: 767px) { */
   /* Styles for mobile devices */
+  /*
   .nav-item {
     margin-right: 10px;
   }
@@ -56,4 +57,95 @@
   .nav-link {
     padding: 10px;
   }
-} 
+}  */ 
+/* .container {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  width: 100% !important
+} */
+
+/* .navbar-dark .nav-item .nav-link {
+  color: #fff;
+}
+
+.navbar-dark .nav-item .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  border-radius: 0.25rem;
+  color: #fff;
+}
+
+.fa-li {
+  position: relative;
+  left: 0;
+} */
+
+header a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  transition: all .2 ease;
+
+}
+
+header a:hover {
+  color: aqua;
+  cursor: pointer;
+}
+
+header {
+  position: relative;
+  padding: 0 2rem;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.navbar {
+  width: 100%;
+  height: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo a {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+}
+
+.links {
+  display: flex;
+  gap: 2rem
+}
+
+.activeLink {
+  border-bottom: 2px solid aqua;
+  color: aqua;
+}
+
+.menuBtn {
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+
+
+@media(max-width: 992px) {
+  header {
+    background-color: transparent;
+    backdrop-filter: none;
+  }
+
+  .links {
+    display: none;
+  }
+
+  .menuBtn {
+    display: block;
+    cursor: pointer;
+  }
+  
+}
