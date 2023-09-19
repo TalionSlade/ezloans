@@ -28,6 +28,14 @@ public class LoanCard {
 		super();
 	}
 
+	public LoanCard(Long loanId, String type, int duration, Set<EmployeeCard> employeeCard) {
+		super();
+		this.loanId = loanId;
+		this.type = type;
+		this.duration = duration;
+		this.employeeCard = employeeCard;
+	}
+
 	public LoanCard(Long loanId, String type, int duration) {
 		super();
 		this.loanId = loanId;
@@ -58,5 +66,15 @@ public class LoanCard {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+
+	public Set<EmployeeCard> getEmployeeCard() {
+		return employeeCard;
+	}
+
+	public void setEmployeeCard(Set<EmployeeCard> employeeCard) {
+		this.employeeCard = employeeCard;
+	}
+	
+	
 
 }

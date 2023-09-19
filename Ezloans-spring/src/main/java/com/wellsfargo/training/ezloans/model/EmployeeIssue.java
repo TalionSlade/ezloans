@@ -43,5 +43,56 @@ public class EmployeeIssue {
 	public EmployeeIssue() {
 		super();
 	}
+
+	public Long getIssueId() {
+		return issueId;
+	}
+
+	public void setIssueId(Long issueId) {
+		this.issueId = issueId;
+	}
+
+	public Employee getEmployee() {
+		return employee;
+	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+	public Date getIssueDate() {
+		return issueDate;
+	}
+
+	public void setIssueDate(Date issueDate) {
+		this.issueDate = issueDate;
+	}
+
+	public Date getReturnDate() {
+		return returnDate;
+	}
+
+	public void setReturnDate(Date returnDate) {
+		this.returnDate = returnDate;
+	}
+
+	public EmployeeIssue(Long issueId, Employee employee, Item item, Date issueDate, Date returnDate) {
+		super();
+		this.issueId = issueId;
+		this.employee = employee;
+		this.item = item;
+		this.issueDate = issueDate;
+		this.returnDate = returnDate;
+	}
+	
+	
 	
 }

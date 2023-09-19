@@ -58,6 +58,11 @@ public class Employee {
 
 	@OneToMany(mappedBy = "employee" , cascade = CascadeType.ALL)
 	private Set<EmployeeIssue> employeeIssue;
+	
+	@OneToMany(mappedBy = "employee" , cascade = CascadeType.ALL)
+	private Set<EmployeeCard> employeeCard;
+	
+
 		
 	public Employee() {
 		super();
