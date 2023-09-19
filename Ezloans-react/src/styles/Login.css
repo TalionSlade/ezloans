@@ -170,7 +170,7 @@ h6 span{
   line-height: 22px;
   letter-spacing: 0.5px;
   outline: none;
-  color: #c4c3ca;
+  color: #0E2954;
   background-color:WHITE;
   border: none;
   -webkit-transition: all 200ms linear;
@@ -283,7 +283,7 @@ h6 span{
 
 
 
-
+/* 
 .logo {
 	position: absolute;
 	top: 30px;
@@ -296,7 +296,7 @@ h6 span{
 	height: 26px;
 	width: auto;
 	display: block;
-}
+} */
 
  
 .error-message {
@@ -307,4 +307,16 @@ h6 span{
 .success-message {
   color: green;
   margin-top: 10px;
+}
+
+.card-al{
+/*   
+  align-items: center;
+  
+  
+  background-position: top center;
+  background-repeat: no-repeat;
+  position: absolute; */
+  background-color: #1f6e8c;
+  position: absolute;
 }

@@ -66,6 +66,7 @@ const Login = () => {
 						<h6 class="mb-0 pb-3"><span>Admin </span><span>User</span></h6>
 			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
 			          	<label for="reg-log"></label>
+						
 						<div class="card-3d-wrap mx-auto">
 							<div class="card-3d-wrapper">
 								<div class="card-front">
@@ -83,7 +84,7 @@ const Login = () => {
 											<button className="btn mt-4">submit</button>
 											{errorMessage && <p className="error-message">{errorMessage}</p>}
     										{successMessage && <p className="success-message">{successMessage}</p>}	
-                            				
+												
 				      					</div>
 			      					</div>
 			      				</div>
