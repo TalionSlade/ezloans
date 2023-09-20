@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { ReactSession } from 'react-client-session';
 import { AuthProvider } from './components/AuthContext';
+import Loan from './components/Loan';
 // import {library} from '@fortawesome/fontawesome-svg-core';
 // import {faSignIn, faCameraRetro} from '@fortawesome/free-solid-svg-icons';
 
@@ -38,9 +39,10 @@ function App() {
             <NavBar Toggle={Toggle}/>
             <Routes>
               
-            <Route path="/register" element={<Registeration/>}/>
+            <Route path="/addemp" element={<Registeration/>}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
+            <Route path="/loan" element={<Loan/>}/>
           </Routes>
           <footer className="footer">
         <p>

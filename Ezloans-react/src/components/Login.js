@@ -4,7 +4,6 @@ import AuthenticationService from '../service/AuthenticationService';
 import {useNavigate} from "react-router-dom";
 import { useAuth } from './AuthContext';
 
-import { ReactSession } from 'react-client-session';
 
 const Login = () => {
     const history = useNavigate ();
@@ -12,9 +11,7 @@ const Login = () => {
     const [password,setPassword] =  useState('');
     const [errorMessage,seterrorMessage] =  useState('');
     const [successMessage,setsuccessMessage] =  useState('');
-	const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn, isUser,
-        setIsUser} = useAuth();
-	// const [isUser, setIsUser] = useState(false);
+	const { isLoggedIn, setIsLoggedIn, isUser, setIsUser} = useAuth();
 
 	
     const handleLogin = async() => {
@@ -30,18 +27,15 @@ const Login = () => {
             if (loginSuccess){
 
                 setsuccessMessage("Login Successful. Redirecting...");
-				// setLoginStatus(true);
-				// ReactSession.set("isLogin", true);
 				setIsLoggedIn(true)
-				setAuthUser({
-					Name: 'Sashrika'
-				})
+				// setAuthUser({
+				// 	Name: 'Sashrika'
+				// })
 				if(email==='admin@ezloans.com') {
+					setIsUser(false);
 					setTimeout(() => {
 						history('/dashboard');  
-					  }, 200);
-					setIsUser(false);
-
+					  }, 200)
 				} else {
 					setIsUser(true);
 					setTimeout(() => {
@@ -49,8 +43,6 @@ const Login = () => {
 					  }, 200);
 
 				}
-                
-				
             }
             else{
                 seterrorMessage("Invalid email or password");
