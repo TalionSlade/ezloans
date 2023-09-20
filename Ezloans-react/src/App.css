@@ -14,6 +14,19 @@
   }
 }
 
+
+
+.card-header {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.card-body {
+  padding: 20px;
+}
+
 .footer{
   background-color: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(10px);
@@ -26,7 +39,6 @@
   align-items: center;
   
 }
-
 
 .App-header {
   background-color: #1f2029;
