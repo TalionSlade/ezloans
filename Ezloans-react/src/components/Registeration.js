@@ -113,7 +113,7 @@ const validateForm = () => {
   return (
     <div> <br></br>
     <div className='registration-container'>
-      <h2 style={{color: 'green'}}>Employee Registration</h2>
+      <h2 style={{color: 'green'}}>Add Employee Details</h2>
       <br></br>
       {successMessage && <p className='success-message'>{successMessage}</p>}
       <form onSubmit={handleSubmit}>

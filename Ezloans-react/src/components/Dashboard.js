@@ -1,23 +1,21 @@
 import React from 'react';
 import '../styles/Dashboard.css'
-import { useLocation } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 
 const Dashboard = () => {
+  const { isLoggedIn, setIsLoggedIn} = useAuth();
 
-  const  location = useLocation();
-  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn} = useAuth();
-  // const {role} = state;
-  // console.log(role);
+
   return (
     <div>
-        <div class="container-fluid">
+        {isLoggedIn && <div class="container-fluid">
+          
         <div class="row">
           <div class="col-md-12">
-            {isLoggedIn && <h4 style={{padding: "10px"}}>
-              {/* {location.state.role} */}
-              Dashboard {authUser.Name}
-              </h4>}
+            <h4 style={{padding: "10px"}}>
+              Dashboard 
+              {/* {authUser.Name} */}
+              </h4>
           </div>
         </div>
         <div class="row">
@@ -25,12 +23,6 @@ const Dashboard = () => {
             <div class="card h-100 count-card">
               <div class="card-header">Total Loans Taken</div>
               <div class="card-body py-5">3</div>
-              {/* <div class="card-footer d-flex">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </div> */}
             </div>
           </div>
           <div class="col-md-6 mb-6">
@@ -71,7 +63,7 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   );
 }

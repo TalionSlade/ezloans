@@ -50,15 +50,25 @@ const NavBar = ({Toggle}) => {
         </div>}
         
         <div class="collapse navbar-collapse links" id="navbarContent">
-            {/* <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" href="/about">About Us</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-            </ul>  */}
-            {authButton()}
+            {isLoggedIn &&
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                
+                <a class="nav-link" href="/">Logout</a>
+            </li>
+        </ul>
+            }
+            {!isLoggedIn &&
+            <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+                <a class="nav-link active" href="/about">About Us</a>
+                {/* <NavLink to="/dashboard" className={({ isActive }) => isActive ? "activeLink" : ""}>Dashboard</NavLink> */}
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            </ul>
+            }
         </div>
     </div>
 

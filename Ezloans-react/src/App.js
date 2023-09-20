@@ -32,7 +32,13 @@ function App() {
 
   return (
     <div className="App">
-          <div className='row'>
+          <div className='row' style = {{
+            backgroundImage: "url(/images/landing.jpg)",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            minHeight: "94vh",
+            minWidth: "100vh"
+          }}>
           <AuthProvider>
           <Router>
           { toggle && <div className='col-2 vh-100' style={{padding:0}}>
@@ -47,18 +53,18 @@ function App() {
             <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="/loan" element={<Loan/>}/>
           </Routes>
-          <footer className="footer">
-        <p>
-          &copy; All Rights Reserved to Ezloans
-        </p>
-
-      </footer>
+          
           </div>
           
         </Router>
         </AuthProvider>
           </div>
-        
+          <footer className="footer">
+            <p>
+              &copy; All Rights Reserved to Ezloans
+            </p>
+
+          </footer>
       
     </div>
     

@@ -25,3 +25,7 @@
   font-size: 18px;
   transition: all .2 ease;
 }
+.sideLink hover {
+  color: aqua;
+  cursor: pointer;
+}
