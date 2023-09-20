@@ -11,7 +11,7 @@ const Login = () => {
     const [password,setPassword] =  useState('');
     const [errorMessage,seterrorMessage] =  useState('');
     const [successMessage,setsuccessMessage] =  useState('');
-	const { isLoggedIn, setIsLoggedIn, isUser, setIsUser} = useAuth();
+	const {setIsLoggedIn, setIsUser} = useAuth();
 
 	
     const handleLogin = async() => {
@@ -35,12 +35,12 @@ const Login = () => {
 					setIsUser(false);
 					setTimeout(() => {
 						history('/dashboard');  
-					  }, 200)
+					}, 200)
 				} else {
 					setIsUser(true);
 					setTimeout(() => {
 						history('/dashboard');  
-					  }, 200);
+					}, 200);
 
 				}
             }

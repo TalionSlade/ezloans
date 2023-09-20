@@ -1,4 +1,4 @@
- .sidebar {
+.sidebar {
     
     position: relative;
     left: 0;
@@ -10,22 +10,27 @@
     backdrop-filter: blur(10px);
     /* overflow: hidden;
     transform: translateX(-100%); */ 
-    transition: transform 0.4s ease-in-out;
+    transition: width 2s;
 
 }
 
 .sidebar a {
-    padding: 0.7rem;
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
+  padding: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   color: #fff;
   font-size: 18px;
   transition: all .2 ease;
 }
-.sideLink hover {
+
+.sidebar a:hover {
   color: aqua;
   cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .active {
+  color: aqua !important;
 }

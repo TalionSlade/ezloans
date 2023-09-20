@@ -3,8 +3,7 @@ import '../styles/Dashboard.css'
 import { useAuth } from './AuthContext';
 
 const Dashboard = () => {
-  const { isLoggedIn, setIsLoggedIn} = useAuth();
-
+  const { isLoggedIn } = useAuth();
 
   return (
     <div>
@@ -27,13 +26,8 @@ const Dashboard = () => {
           </div>
           <div class="col-md-6 mb-6">
             <div class="card h-100 count-card">
-              <div class="card-body py-5">Total Items Bought</div>
-              <div class="card-footer d-flex">
-                View Details
-                <span class="ms-auto">
-                  <i class="bi bi-chevron-right"></i>
-                </span>
-              </div>
+              <div class="card-header py-5">Total Items Bought</div>
+              <div class="card-body py-5">3</div>
             </div>
           </div>
 

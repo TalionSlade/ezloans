@@ -1,18 +1,14 @@
 import React, {useState, useContext} from 'react'
 
-const AuthContext = React.createContext()
+const AuthContext = React.createContext("")
 
 export function useAuth() {
     return useContext(AuthContext);
 }
 export function AuthProvider(props) {
     const [authUser, setAuthUser] = useState(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isUser, setIsUser] = useState(false);
-
-    // useEffect(() => {
-        
-    // });
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isUser, setIsUser] = useState(true);
     const value = {
         authUser,
         setAuthUser,
@@ -25,5 +21,3 @@ export function AuthProvider(props) {
     <AuthContext.Provider value={value}> {props.children} </AuthContext.Provider>
   )
 }
-
-// export default AuthContext
