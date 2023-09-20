@@ -25,5 +25,8 @@ public class EmployeeService {
 		return erepo.findByEmail(email);
 		
 	}
+	public Optional<Employee> getEmployee(long id){
+		return erepo.findById(id);
+	}
 
 }
