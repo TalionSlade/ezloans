@@ -20,29 +20,29 @@ const NavBar = ({Toggle}) => {
     return(
     <header>
         <div className="navbar navbar-expand-lg">
-            <div class="container-fluid">
+            <div className="container-fluid">
                 <div className=" navbar-brand logo">
                     <NavLink to="/">EZLoans</NavLink>
                 </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style={{border: "1px solid red"}}>
-                    <span class="navbar-toggler-icon"></span>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style={{border: "1px solid red"}}>
+                    <span className="navbar-toggler-icon"></span>
                 </button> 
                 {isLoggedIn && <div className="sideToggleBtn nav-link" onClick={Toggle}>
                     <MenuIcon size={30} ></MenuIcon>
                 </div>}
-                <div class="collapse navbar-collapse links" id="navbarContent">
+                <div className="collapse navbar-collapse links" id="navbarContent">
                     {isLoggedIn &&
-                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                        <NavLink to = "/" className="nav-link" activeClassName="active" onClick={handleLogout}>Logout</NavLink>
+                    <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                        <NavLink to = "/" className="nav-link" activeclassname="active" onClick={handleLogout}>Logout</NavLink>
 
                             {/* <a class="nav-link" href="/">Logout</a> */}
                         </li>
                     </ul>}
                     {!isLoggedIn &&
-                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                        <NavLink to = "/login" className="nav-link" activeClassName="active">Login</NavLink>
+                    <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                        <NavLink to = "/login" className="nav-link" activeclassname="active">Login</NavLink>
                             {/* <a class="nav-link" href="/login">Login</a> */}
                         </li>
                     </ul>}

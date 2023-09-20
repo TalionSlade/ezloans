@@ -12,16 +12,16 @@ const Sidebar=() => {
         if(isUser) {
             return(
                 <div >
-                    <NavLink to="/dashboard" activeClassName="active">
+                    <NavLink to="/dashboard" activeclassname="active">
                         Dashboard
                     </NavLink>
-                    <NavLink to="/loan" activeClassName="active">
+                    <NavLink to="/loan" activeclassname="active">
                         View Loan
                     </NavLink>
-                    <NavLink to="/applyloan" activeClassName="active">
+                    <NavLink to="/applyloan" activeclassname="active">
                         Apply for Loan
                     </NavLink>
-                    <NavLink to="/viewitem" activeClassName="active">
+                    <NavLink to="/viewitem" activeclassname="active">
                         View Items Purchased
                     </NavLink>
             </div>
@@ -30,16 +30,16 @@ const Sidebar=() => {
         else {
             return(
                 <div>
-                    <NavLink to="/dashboard" activeClassName="active">
+                    <NavLink to="/dashboard" activeclassname="active">
                         Dashboard
                     </NavLink>
-                    <NavLink to="/addemp" activeClassName="active" >
+                    <NavLink to="/addemp" activeclassname="active" >
                         Customer Data Management
                     </NavLink>
-                    <NavLink to="/addloan" activeClassName="active">
+                    <NavLink to="/addloan" activeclassname="active">
                         Loan Card Management
                     </NavLink>
-                    <NavLink to="/additem" activeClassName="active">
+                    <NavLink to="/additem" activeclassname="active">
                         Items Master Management
                     </NavLink>
             </div>
