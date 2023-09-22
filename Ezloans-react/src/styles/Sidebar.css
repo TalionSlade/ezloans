@@ -1,0 +1,36 @@
+.sidebar {
+    
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    /* overflow: hidden;
+    transform: translateX(-100%); */ 
+    transition: width 2s;
+
+}
+
+.sidebar a {
+  padding: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  transition: all .2 ease;
+}
+
+.sidebar a:hover {
+  color: aqua;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .active {
+  color: aqua !important;
+}
