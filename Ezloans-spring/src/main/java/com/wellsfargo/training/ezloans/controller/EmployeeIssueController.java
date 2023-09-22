@@ -30,7 +30,7 @@ public class EmployeeIssueController {
 	public EmployeeService eservice;
 	@Autowired
 	public ItemService iservice;
-	@PostMapping("/itemissue")
+	@PostMapping("/employeeissue")
 	public ResponseEntity<String> issueItems(@Validated @RequestBody EmployeeIssue ei){
 		try {
 			
