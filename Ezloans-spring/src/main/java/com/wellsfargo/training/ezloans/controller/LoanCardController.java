@@ -102,6 +102,19 @@ public class LoanCardController {
 		response.put("Deleted", Boolean.TRUE);
 		return ResponseEntity.ok(response);
 	}
+	
+	@GetMapping("/loancardsofemployee/{id}")
+	public ResponseEntity<List<LoanCard>> getLoanCardsOfEmployee(@PathVariable(value="id") Long id){
+	
+		try {
+			List<LoanCard>loancards=lservice. getLoanCardsOfEmployee(id);
+			return ResponseEntity.ok(loancards);
+		}
+		catch(Exception e){
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+			
+		}
+	}
 
 
 	

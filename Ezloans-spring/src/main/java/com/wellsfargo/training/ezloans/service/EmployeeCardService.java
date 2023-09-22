@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.wellsfargo.training.ezloans.model.EmployeeCard;
 import com.wellsfargo.training.ezloans.model.Item;
+import com.wellsfargo.training.ezloans.model.LoanCard;
 import com.wellsfargo.training.ezloans.repository.EmployeeCardRepository;
 import com.wellsfargo.training.ezloans.repository.ItemRepository;
 
@@ -25,10 +26,15 @@ public class EmployeeCardService {
 		
 	}
 	
-public List<EmployeeCard> getEmployeeCards() {
+	public List<EmployeeCard> getEmployeeCards() {
 		
 		return ecardrepo.findAll();
 		
 	}
+	
+	public List<EmployeeCard> getEmployeeCardsOfEmployee(Long id){
+		return ecardrepo.getEmployeeCardsOfEmployee(id); //Invoke findAll() method of Jpa repository
+	}
+	
 
 }

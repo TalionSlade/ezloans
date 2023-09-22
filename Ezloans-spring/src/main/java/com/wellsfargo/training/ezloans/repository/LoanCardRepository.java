@@ -11,6 +11,9 @@ import com.wellsfargo.training.ezloans.model.LoanCard;
 
 
 public interface LoanCardRepository extends JpaRepository<LoanCard, Long>{
+	
+	@Query(value = "SELECT * FROM LOAN_CARD_MASTER ", nativeQuery = true)
+	public List<LoanCard>getLoanCardsOfEmployee(Long id);
 
 
 

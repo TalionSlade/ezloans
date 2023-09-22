@@ -35,6 +35,12 @@ public class LoanCardService {
 		 lrepo.deleteById(lid);
 	}
 	
+	public List<LoanCard> getLoanCardsOfEmployee(Long id){
+		return lrepo.getLoanCardsOfEmployee(id); //Invoke findAll() method of Jpa repository
+	}
+	
+	
+	
 
 	
 
