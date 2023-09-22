@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wellsfargo.training.ezloans.model.Employee;
 import com.wellsfargo.training.ezloans.model.EmployeeCard;
-import com.wellsfargo.training.ezloans.model.EmployeeCardAndLoanCardProjection;
+
 import com.wellsfargo.training.ezloans.model.EmployeeIssue;
 import com.wellsfargo.training.ezloans.model.LoanCard;
 import com.wellsfargo.training.ezloans.service.EmployeeCardService;
@@ -54,34 +54,7 @@ public class EmployeeCardController {
 		}
 	}
 	
-	@PostMapping("/addemployeecardtest")
-	public ResponseEntity<String> addEmployeeCard() {
-  
-		Date current=new Date();
-		Employee emp=new Employee().builder().department("HR").designation("ceo").dob((java.util.Date) current).doj((java.util.Date) current).email("anu@gmail.com").fname("anu").gender("male").lname("rajput").password("anu").build();
-		
-		Employee empsave=eservice.registerEmployee(emp);
-		
-		LoanCard loancard=new LoanCard().builder().duration(5).type("stationarysad").build();
-		LoanCard lsave=lservice.addLoanCard(loancard);
-		EmployeeCard empissue=new EmployeeCard().builder().employee(emp).loanId(loancard).issueDate((java.util.Date) current).build();
-		
-	    try {
-			
-				EmployeeCard empcardcreated=ecardservice.addEmployeeCard(empissue);
-				if(empcardcreated!=null) {
-					return ResponseEntity.ok("Employee Card added Successfully");
-				}
-				else
-					return ResponseEntity.badRequest().body("Failed to add Employee Card");
-			}
-			catch(Exception e) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-						.body("An Error has Occured: "+ e.getMessage());
-			
-		
-				}
-	}
+	
 	
 	@GetMapping("/employeecards")
 	public ResponseEntity<List<EmployeeCard>> getEmployeeCardsInfo(){
