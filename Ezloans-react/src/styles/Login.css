@@ -70,7 +70,7 @@ h6 span{
   padding: 0;
   margin:  auto;
   cursor: pointer;
-  background-color: #84a7a1;
+  background-color: white;
 }
 .checkbox:checked + label:before,
 .checkbox:not(:checked) + label:before{
@@ -119,7 +119,7 @@ h6 span{
 .card-front, .card-back {
   width: 100%;
   height: 100%;
-  background-color: #1f6e8c;
+  background-color: white;
   /* background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg'); */
   background-position: bottom center;
   background-repeat: no-repeat;
@@ -265,20 +265,20 @@ h6 span{
   -ms-flex-pack: center;
   text-align: center;
   border: none;
-  background-color: #0E2954;
-  color: #84a7a1;
+  background-color: #1f6e8c;
+  color: white;
   box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
 }
 .btn:active,
 .btn:focus{  
-  background-color: #84a7a1;
-  color: #0E2954;
+  background-color: white;
+  color: #1f6d8cbd;
   box-shadow: 0 8px 24px 0 #0E2954;
 }
 .btn:hover{  
-  background-color: #0E2954;
-  color: #84a7a1;
-  box-shadow: 0 8px 24px 0 #0E2954;
+  background-color: #1f6d8cbd;
+  color: white;
+  box-shadow: 0 8px 24px 0 white;
 }
 
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Registeration.css';
-
+import { Container, Col, Carousel, Row } from 'react-bootstrap';
 import AuthenticationService from '../service/AuthenticationService';
 
 const Registration = () => {
@@ -21,12 +21,7 @@ const Registration = () => {
   });
   const [errors,setErrors] = useState('');
   const [successMessage,setSuccessMessage] = useState('');
-  
-  /*
-The JavaScript spread operator (...) allows us to quickly copy all or 
-part of an existing array or object into another array or object.
-*/
-//Updates the state of a empolyee Object when user enters data in the input fields
+
 const handleChange = (e) => {
   const { name, value } = e.target;
   if (name.includes('.')) {   
@@ -111,14 +106,14 @@ const validateForm = () => {
 };
 
   return (
-    <div> <br></br>
-    <div className='registration-container'>
-      <h2 style={{color: 'green'}}>Add Employee Details</h2>
-      <br></br>
-      {successMessage && <p className='success-message'>{successMessage}</p>}
-      <form onSubmit={handleSubmit}>
+    <div>
+    <br />
+    <div className="registration-container">
+      <form onSubmit={handleSubmit} className="form-grid">
+        <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>User Registeration</h2>
+        <div className="column">
       <div className="form-group">
-          <label>Email:</label>
+          <label style={{ color: '#1f6e8c'}}>Email:</label>
           <input
             type="email"
             name="email"
@@ -129,7 +124,19 @@ const validateForm = () => {
           {errors.email && <p className="error-message">{errors.email}</p>}
         </div>
         <div className="form-group">
-          <label>First Name:</label>
+          <label style={{ color: '#1f6e8c'}}>Password:</label>
+          <input
+            type="password"
+            name="password"
+            value={employee.password}
+            onChange={handleChange}
+            className={errors.password && 'error'}
+          />
+          {errors.password && <p className="error-message">{errors.password}</p>}
+      </div>
+
+        <div className="form-group">
+          <label style={{ color: '#1f6e8c'}}>First Name:</label>
           <input
             type="text"
             name="fname"
@@ -141,7 +148,7 @@ const validateForm = () => {
         </div>
 
         <div className="form-group">
-          <label>Last Name:</label>
+          <label style={{ color: '#1f6e8c'}}>Last Name:</label>
           <input
             type="text"
             name="lname"
@@ -151,33 +158,9 @@ const validateForm = () => {
           />
           {errors.lname && <p className="error-message">{errors.lname}</p>}
         </div>
-
+    
         <div className="form-group">
-          <label>Designation:</label>
-          <input
-            type="text"
-            name="designation"
-            value={employee.designation}
-            onChange={handleChange}
-            className={errors.designation && 'error'}
-          />
-          {errors.designation && <p className="error-message">{errors.designation}</p>}
-        </div>
-
-        <div className="form-group">
-          <label>Department:</label>
-          <input
-            type="text"
-            name="department"
-            value={employee.department}
-            onChange={handleChange}
-            className={errors.department && 'error'}
-          />
-          {errors.department && <p className="error-message">{errors.department}</p>}
-        </div>
-
-        <div className="form-group">
-          <label>Gender: </label>
+          <label style={{ color: '#1f6e8c'}}>Gender:   </label>
           <select value={employee.gender} name="gender" onChange={handleChange}
             className={errors.gender && 'error'}>
             <option value="Default">Default</option>
@@ -194,10 +177,36 @@ const validateForm = () => {
           /> */}
           {errors.gender && <p className="error-message">{errors.gender}</p>}
         </div>
-
+ 
+      </div>
+      <div className="column">
+        <div className="form-group">
+       
+          <label style={{ color: '#1f6e8c'}}>Designation:</label>
+          <input
+            type="text"
+            name="designation"
+            value={employee.designation}
+            onChange={handleChange}
+            className={errors.designation && 'error'}
+          />
+          {errors.designation && <p className="error-message">{errors.designation}</p>}
+        </div>
 
         <div className="form-group">
-          <label>Date of Birth:</label>
+          <label style={{ color: '#1f6e8c'}}>Department:</label>
+          <input
+            type="text"
+            name="department"
+            value={employee.department}
+            onChange={handleChange}
+            className={errors.department && 'error'}
+          />
+          {errors.department && <p className="error-message">{errors.department}</p>}
+        </div>
+
+        <div className="form-group">
+          <label style={{ color: '#1f6e8c'}}>Date of Birth:</label>
           <input
           type="date"
           name="dob"
@@ -209,7 +218,7 @@ const validateForm = () => {
       </div>
 
       <div className="form-group">
-          <label>Date of Joining:</label>
+          <label style={{ color: '#1f6e8c'}}>Date of Joining:</label>
           <input
           type="date"
           name="doj"
@@ -219,29 +228,17 @@ const validateForm = () => {
         />
         {errors.doj && <p className="error-message">{errors.doj}</p>}
       </div>
-
-      <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={employee.password}
-            onChange={handleChange}
-            className={errors.password && 'error'}
-          />
-          {errors.password && <p className="error-message">{errors.password}</p>}
       </div>
 
-       
-        <div className="form-group">
+      <div className="form-group" style={{ gridColumn: '1 / span 2' }}>
           <button type="submit" className="submit-button" onClick={handleSubmit}>
             Register
           </button>
           {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
       </form>
-    </div>   
-    </div>
+      </div>
+      </div>
   )
 }
 
