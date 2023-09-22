@@ -49,9 +49,9 @@ const handleSubmit = async (e) => {
       await AuthenticationService.registerEmployee(employee);
       setSuccessMessage('Registration successful!');
       alert("Registration Successfull");
-      setTimeout(() => {
-        history('/login'); // navigates to Login Component
-      }, 3000);
+      // setTimeout(() => {
+      //   history('/login'); // navigates to Login Component
+      // }, 3000);
     
     } 
     

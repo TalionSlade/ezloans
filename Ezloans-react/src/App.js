@@ -14,7 +14,8 @@ import { useAuth} from './components/AuthContext';
 
 function App() {
   const [toggle, setToggle] = useState(false);
-  const Toggle = () => { if(!isLoggedIn) {
+  const Toggle = () => { 
+    if(!isLoggedIn) {
     setToggle(false);
   }
   setToggle(!toggle) };
@@ -42,7 +43,7 @@ function App() {
                 <Route path="/addemp" element={<Registeration/>}/>
                 <Route path="/login" element={<Login />}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
-                <Route path="/loan" element={<Loan/>}/>
+                <Route path="/addloan" element={<Loan/>}/>
               </Routes>
             </div>
           
