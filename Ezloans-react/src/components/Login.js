@@ -73,7 +73,7 @@ const Login = () => {
 								<div class="card-front">
 									<div class="center-wrap">
 										<div class="section text-center">
-											<h4 class="mb-4 pb-3">Log In as Admin</h4>
+											<h4 style ={{color: "#1f6e8c"}} class="mb-4 pb-3">Log In as Admin</h4>
 											<div class="form-group">
 												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off"/>
 												<i class="input-icon uil uil-at"></i>
@@ -92,7 +92,7 @@ const Login = () => {
 								<div class="card-back">
 									<div class="center-wrap">
 										<div class="section text-center">
-											<h4 class="mb-4 pb-3">Log In as User</h4>
+											<h4  style ={{color: "#1f6e8c"}} class="mb-4 pb-3">Log In as User</h4>
 											<div class="form-group mt-2">
 												<input type="email" name="logemail" value={email} onChange={(e)=>setEmail(e.target.value)} class="form-style" placeholder="Your Email" id="logemail" autocomplete="off"/>
 												<i class="input-icon uil uil-at"></i>
