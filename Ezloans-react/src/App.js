@@ -9,6 +9,7 @@ import Sidebar from './components/Sidebar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { AuthProvider } from './components/AuthContext';
 import Loan from './components/Loan';
+import Item from './components/Item';
 import LandingPage from './components/LandingPage';
 import { useAuth} from './components/AuthContext';
 
@@ -43,6 +44,7 @@ function App() {
                 <Route path="/login" element={<Login />}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/loan" element={<Loan/>}/>
+                <Route path="/additem" element={<Item/>}/>
               </Routes>
             </div>
           
