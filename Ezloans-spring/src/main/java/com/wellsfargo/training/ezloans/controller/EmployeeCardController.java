@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wellsfargo.training.ezloans.model.Employee;
 import com.wellsfargo.training.ezloans.model.EmployeeCard;
-import com.wellsfargo.training.ezloans.model.EmployeeCardAndLoanCardProjection;
+
 import com.wellsfargo.training.ezloans.model.EmployeeIssue;
 import com.wellsfargo.training.ezloans.model.LoanCard;
 import com.wellsfargo.training.ezloans.service.EmployeeCardService;
