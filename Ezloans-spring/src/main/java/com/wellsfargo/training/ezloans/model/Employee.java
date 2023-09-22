@@ -28,7 +28,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "employee_master")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
 public class Employee {
 
@@ -76,6 +75,108 @@ public class Employee {
 	@JsonBackReference
 	@JsonIgnore
 	private List<EmployeeCard> employeeCard;
+
+	public Long getEid() {
+		return eid;
+	}
+
+	public void setEid(Long eid) {
+		this.eid = eid;
+	}
+
+	public String getFname() {
+		return fname;
+	}
+
+	public void setFname(String fname) {
+		this.fname = fname;
+	}
+
+	public String getLname() {
+		return lname;
+	}
+
+	public void setLname(String lname) {
+		this.lname = lname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		Base64.Encoder encoder = Base64.getEncoder();  
+        String normalString = password;
+        String encodedString = encoder.encodeToString(   // encrypt password in database field
+        normalString.getBytes(StandardCharsets.UTF_8) );
+        this.password = encodedString;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public Date getDoj() {
+		return doj;
+	}
+
+	public void setDoj(Date doj) {
+		this.doj = doj;
+	}
+
+	public List<EmployeeIssue> getEmployeeIssue() {
+		return employeeIssue;
+	}
+
+	public void setEmployeeIssue(List<EmployeeIssue> employeeIssue) {
+		this.employeeIssue = employeeIssue;
+	}
+
+	public List<EmployeeCard> getEmployeeCard() {
+		return employeeCard;
+	}
+
+	public void setEmployeeCard(List<EmployeeCard> employeeCard) {
+		this.employeeCard = employeeCard;
+	}
+	
+	
 	
 
 		
