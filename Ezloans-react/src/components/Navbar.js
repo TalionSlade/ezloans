@@ -12,9 +12,9 @@ const NavBar = ({Toggle}) => {
     const history = useNavigate ();
     const { isLoggedIn, setIsLoggedIn} = useAuth();
     const handleLogout = () => {
-        isLoggedIn(false);
+        setIsLoggedIn(false);
         setTimeout(() => {
-            history('/');  
+            history('/',);  
         }, 200)
     }
     return(
@@ -34,9 +34,7 @@ const NavBar = ({Toggle}) => {
                     {isLoggedIn &&
                     <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                        <NavLink to = "/" className="nav-link" activeclassname="active" onClick={handleLogout}>Logout</NavLink>
-
-                            {/* <a class="nav-link" href="/">Logout</a> */}
+                        <NavLink to = "/" className="nav-link" activeclassname="active" onClick={() => { handleLogout(); Toggle();}}>Logout</NavLink>
                         </li>
                     </ul>}
                     {!isLoggedIn &&
