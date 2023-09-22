@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
-import com.wellsfargo.training.ezloans.model.EmployeeCardAndLoanCardProjection;
 import com.wellsfargo.training.ezloans.model.LoanCard;
 import com.wellsfargo.training.ezloans.repository.LoanCardRepository;
 
@@ -24,8 +23,5 @@ public class LoanCardService {
 		return lrepo.save(l);
 	}
 	
-	public List<EmployeeCardAndLoanCardProjection> getLoanCardsInfo(){
-		return lrepo.findSelectedFieldsFromEmployeeCardAndLoanCard();
-	}
 
 }
