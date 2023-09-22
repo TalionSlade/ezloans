@@ -7,3 +7,4 @@ import com.wellsfargo.training.ezloans.model.Item;
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
 }
+

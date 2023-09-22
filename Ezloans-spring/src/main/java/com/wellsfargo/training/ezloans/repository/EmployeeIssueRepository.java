@@ -14,4 +14,6 @@ public interface EmployeeIssueRepository extends JpaRepository<EmployeeIssue, Lo
 	
 	@Query(value = "SELECT * FROM EMPLOYEE_ISSUE_DETAILS WHERE EID = ?1", nativeQuery = true)
 	List<EmployeeIssue> findItemEmployeeIssueProjection(Long eid);
+
 }
+
