@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Registeration.css';
-import { Container, Col, Carousel, Row } from 'react-bootstrap';
-import AuthenticationService from '../service/AuthenticationService';
+import ItemService from '../service/ItemService';
 
 const ItemRegistration = () => {
 
@@ -41,7 +40,7 @@ const handleSubmit = async (e) => {
 //   const validationErrors = validateForm();
 //   if (Object.keys(validationErrors).length === 0) {
 //     try {
-      await AuthenticationService.addItem(item);
+      await ItemService.addItem(item);
       setSuccessMessage('Registration successful!');
       alert("Registration Successfull");
     

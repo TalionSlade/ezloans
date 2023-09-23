@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Registeration.css';
 import { Container, Col, Carousel, Row } from 'react-bootstrap';
@@ -105,9 +105,25 @@ const validateForm = () => {
   return validationErrors;
 };
 
+const myRef = useRef(null)
+
+   const executeScroll = () => myRef.current.scrollIntoView() 
+
   return (
     <div>
     <br />
+    <div className="container">
+      <h2>Customer Data Management</h2>
+      <div className='row justify-content-center'>
+        <div className='column'>
+          <button>Add Customer Data</button>
+        </div>
+        <div className='column'>
+          <button onClick={executeScroll}>View and Edit Customer Data</button>
+        </div>
+      </div>
+    </div>
+    <br></br>
     <div className="registration-container">
       <form onSubmit={handleSubmit} className="form-grid">
         <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>User Registeration</h2>
@@ -238,7 +254,53 @@ const validateForm = () => {
         </div>
       </form>
       </div>
+      <div className="registration-container" style={{maxWidth: "1000px"}}>
+      <div className='row justify-content-center' ref={myRef}>
+      <table className="table table-success w-auto">
+         <thead>
+            <tr className="">
+                <th> Employee Id </th>
+                <th> Employee Name </th>
+                <th> Designation </th>
+                <th> Department </th>
+                <th> Gender </th>
+                <th> DOB </th>
+                <th> DOJ </th>
+                <th> Action </th>
+            </tr>
+        </thead>
+        {/* <tbody>
+                {employee.map(
+                        emp => 
+                        <tr key={emp.id}>
+                            <td> {emp.pid} </td>
+                            <td> {emp.fname} </td>
+                            <td> {emp.designation} </td>
+                            <td> {emp.department} </td>
+                            <td> {emp.gender} </td>
+                            <td> {emp.dob} </td>
+                            <td> {emp.doj} </td>
+                            <td>
+                              <button className='btn btn-success' onClick={()=>editProduct(emp.pid)}>
+                                <span><FontAwesomeIcon icon="edit"></FontAwesomeIcon></span>
+                              </button>
+                              &nbsp;
+                              <button className='btn btn-danger' onClick={()=>deleteProduct(emp.pid)}>
+                                <span><FontAwesomeIcon icon="trash"></FontAwesomeIcon></span>
+                              </button>
+                              &nbsp;
+                              <button className='btn btn-primary' onClick={()=>viewProduct(emp.pid)}>
+                                <span><FontAwesomeIcon icon="list"></FontAwesomeIcon></span>
+                              </button>
+                            </td>
+                          
+                        </tr>
+                    )
+                }
+        </tbody> */}
+        </table>
       </div>
+      </div></div> 
   )
 }
 
