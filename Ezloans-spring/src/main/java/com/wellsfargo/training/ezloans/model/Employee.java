@@ -1,6 +1,8 @@
 package com.wellsfargo.training.ezloans.model;
 
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Base64;
 import java.util.List;
@@ -63,6 +65,7 @@ public class Employee {
 	private Date dob;
 	
 	@Column(nullable = false, name="date_of_joining")
+//	@JsonFormat(pattern = "dd-MM-YYYY"
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date doj;
 
@@ -148,16 +151,32 @@ public class Employee {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
-		this.dob = dob;
+	public void setDob(String dob) {
+		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+		Date date = null;
+		try {
+			date = sdf.parse(dob);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.dob = date;
 	}
 
 	public Date getDoj() {
 		return doj;
 	}
 
-	public void setDoj(Date doj) {
-		this.doj = doj;
+	public void setDoj(String doj) {
+		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+		Date date = null;
+		try {
+			date = sdf.parse(doj);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.doj = date;
 	}
 
 	public List<EmployeeIssue> getEmployeeIssue() {

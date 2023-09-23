@@ -21,6 +21,10 @@ public class EmployeeService {
 		return erepo.save(employee);
 	}
 	
+	public Optional<Employee> getEmployee(Long eid) {
+		return erepo.findById(eid);
+	}
+	
 	public Optional<Employee> loginEmployee(String email){
 		return erepo.findByEmail(email);
 		
@@ -28,5 +32,6 @@ public class EmployeeService {
 	public Optional<Employee> getEmployee(long id){
 		return erepo.findById(id);
 	}
+
 
 }

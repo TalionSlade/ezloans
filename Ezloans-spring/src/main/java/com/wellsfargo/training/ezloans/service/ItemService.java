@@ -25,6 +25,10 @@ public class ItemService {
 	public Optional<Item> getItem(Long id){
 		return irepo.findById(id);
 	}
+	
+	public Optional<Item> getItemByDesc(String desc){
+		return irepo.findByDesc(desc);
+	}
 
 }
 

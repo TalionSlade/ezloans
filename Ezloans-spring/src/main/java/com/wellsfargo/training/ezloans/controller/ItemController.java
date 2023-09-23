@@ -20,7 +20,7 @@ public class ItemController {
 	@Autowired
 	public ItemService iservice;
 	
-	@PostMapping("/itemregister")
+	@PostMapping("/additem")
 	public ResponseEntity<String> insertItem(@Validated @RequestBody Item item){
 		try {
 			
