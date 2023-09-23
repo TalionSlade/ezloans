@@ -47,7 +47,7 @@ public class EmployeeController {
 	
 	// http://localhost:8085/ezloans/api/login
 	@PostMapping("/login")
-	public boolean loginDealer(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
+	public Boolean loginDealer(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
 		
 		Boolean isloggedin=false;
 		
@@ -58,8 +58,9 @@ public class EmployeeController {
 		
 		if(email.equals(employee.getEmail())&&password.equals(emp.getPassword())){
 			isloggedin=true;
+			
 		}
-		
+
 		return isloggedin;
 		
 	}
@@ -118,6 +119,12 @@ public class EmployeeController {
 		return ResponseEntity.ok(response);		
 	}
 	
+	@GetMapping("/employee/count")
+	public Long getEmployeeCount() 
+			throws ResourceNotFoundException{
+		Long empcount = eservice.getEmployeeCount();
+		return empcount;
+	}
 
 }
 

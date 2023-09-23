@@ -43,6 +43,10 @@ public class EmployeeService {
 		return erepo.save(e); 
 	}
 	
+	public Long getEmployeeCount() {
+		return erepo.count();
+	}
+	
 	public Optional<Employee> getSingleEmployee(long id) {
 		return erepo.findById(id);
 	}
