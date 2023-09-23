@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import EmployeeService from '../service/EmployeeService';
+import EmployeeService from '../../service/EmployeeService';
 import { IoTrash as DeleteIcon, IoPencil as EditIcon, IoEye as ViewIcon} from 'react-icons/io5';
 
 function Employee() {
