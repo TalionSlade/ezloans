@@ -1,6 +1,6 @@
 import axios from 'axios'; 
 
-class AuthenticationService{
+class AuthenticationService {
     static async login(employee){
         try{
             const response=await axios.post('http://localhost:8085/ezloans/api/login', employee);
@@ -8,7 +8,7 @@ class AuthenticationService{
             if(response.data === true){
                 return true;
             }
-            else{return false;}
+            else {return false;}
 
         }
         catch(error){
@@ -25,14 +25,7 @@ class AuthenticationService{
         }
     }
 
-    static async addItem(item) {
-        try{
-            const response = await axios.post('http://localhost:8085/ezloans/api/itemregister',item);
-            return response.data;
-        } catch(error) {
-            console.error("Add Item Error: ",error);
-        };
-    }
+    
 }
 
 export default AuthenticationService;
