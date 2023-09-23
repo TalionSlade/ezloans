@@ -8,13 +8,15 @@ import Sidebar from './components/Sidebar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { AuthProvider } from './components/AuthContext';
 import Loan from './components/Loan';
-import Item from './components/Item';
 import LandingPage from './components/LandingPage';
 import { useAuth} from './components/AuthContext';
 import Employee from './components/Employee';
 import ViewEmployee from './components/ViewEmployee';
 import CreateEmployee from './components/CreateEmployee';
 import EditEmployee from './components/EditEmployee';
+import Item from './components/item/Item';
+import CreateItem from './components/item/CreateItem';
+import ViewItem from './components/item/ViewItem';
 
 function App() {
   const [toggle, setToggle] = useState(false);
@@ -51,6 +53,9 @@ function App() {
                 <Route path="/employee/:id" element={<ViewEmployee/>}/>
                 <Route path="/addEmployee" element={<CreateEmployee/>}/>
                 <Route path="/editEmployee/:id" element={<EditEmployee/>}/>
+                <Route path="/item" element={<Item/>}/>
+                <Route path='/addItem/:id' element={<CreateItem/>}></Route>
+                <Route path='/viewItem/:id' element={<ViewItem/>}></Route>
               </Routes>
             </div>
           

@@ -39,7 +39,7 @@ const Sidebar=() => {
                     <NavLink to="/addloan" activeclassname="active">
                         Loan Card Management
                     </NavLink>
-                    <NavLink to="/additem" activeclassname="active">
+                    <NavLink to="/item" activeclassname="active">
                         Items Master Management
                     </NavLink>
             </div>
