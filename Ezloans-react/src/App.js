@@ -1,7 +1,6 @@
 import './App.css';
 import React, {Component, useState} from "react";
 import NavBar from './components/Navbar';
-import Registeration from './components/Registeration';
 import Login from './components/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
@@ -12,6 +11,10 @@ import Loan from './components/Loan';
 import Item from './components/Item';
 import LandingPage from './components/LandingPage';
 import { useAuth} from './components/AuthContext';
+import Employee from './components/Employee';
+import ViewEmployee from './components/ViewEmployee';
+import CreateEmployee from './components/CreateEmployee';
+import EditEmployee from './components/EditEmployee';
 
 function App() {
   const [toggle, setToggle] = useState(false);
@@ -40,11 +43,14 @@ function App() {
               <NavBar Toggle={Toggle}/>
               <Routes>
                 <Route path="" element={<LandingPage/>}/>
-                <Route path="/addemp" element={<Registeration/>}/>
                 <Route path="/login" element={<Login />}/>
+                <Route path="/employee" element={<Employee/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/loan" element={<Loan/>}/>
                 <Route path="/additem" element={<Item/>}/>
+                <Route path="/employee/:id" element={<ViewEmployee/>}/>
+                <Route path="/addEmployee" element={<CreateEmployee/>}/>
+                <Route path="/editEmployee/:id" element={<EditEmployee/>}/>
               </Routes>
             </div>
           

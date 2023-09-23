@@ -33,7 +33,7 @@ const Sidebar=() => {
                     <NavLink to="/dashboard" activeclassname="active">
                         Dashboard
                     </NavLink>
-                    <NavLink to="/addemp" activeclassname="active" >
+                    <NavLink to="/employee" activeclassname="active" >
                         Customer Data Management
                     </NavLink>
                     <NavLink to="/addloan" activeclassname="active">
