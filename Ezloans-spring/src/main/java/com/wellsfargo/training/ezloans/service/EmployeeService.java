@@ -31,8 +31,20 @@ public class EmployeeService {
 	}
 	
 	public List<Employee> listAll() {
-		return erepo.findAll();  //Invoke findAll() predefined in JPA
+		return erepo.findAll();  
 		
+	}
+	
+	public void deleteEmployee(long id) {
+		erepo.deleteById(id);
+	}
+	
+	public Employee saveEmployee(Employee e) {
+		return erepo.save(e); 
+	}
+	
+	public Optional<Employee> getSingleEmployee(long id) {
+		return erepo.findById(id);
 	}
 
 }
