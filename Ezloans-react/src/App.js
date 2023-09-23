@@ -9,13 +9,17 @@ import Sidebar from './components/Sidebar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { AuthProvider } from './components/AuthContext';
 import Loan from './components/Loan';
+import Item from './components/Item';
 import LandingPage from './components/LandingPage';
 import { useAuth} from './components/AuthContext';
 
 function App() {
   const [toggle, setToggle] = useState(false);
-  const Toggle = () => { setToggle(!toggle) };
-  // const {isLoggedIn, setIsUser} = useAuth();
+  const Toggle = () => { if(!isLoggedIn) {
+    setToggle(false);
+  }
+  setToggle(!toggle) };
+  const {isLoggedIn, setIsUser} = useAuth();
 
   return (
     <AuthProvider>
@@ -30,7 +34,7 @@ function App() {
        
           <Router>
           { toggle && <div className='col-2 vh-100' style={{padding:0}}>
-            <Sidebar Toggle={Toggle}/>
+            <Sidebar/>
             </div>}
             <div className='col' style={{padding:0}}>
               <NavBar Toggle={Toggle}/>
@@ -40,6 +44,7 @@ function App() {
                 <Route path="/login" element={<Login />}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/loan" element={<Loan/>}/>
+                <Route path="/additem" element={<Item/>}/>
               </Routes>
             </div>
           

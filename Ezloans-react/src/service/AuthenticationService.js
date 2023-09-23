@@ -23,7 +23,16 @@ class AuthenticationService{
         catch(error){
             console.error('Registeration Error: ', error);
         }
-}
+    }
+
+    static async addItem(item) {
+        try{
+            const response = await axios.post('http://localhost:8085/ezloans/api/itemregister',item);
+            return response.data;
+        } catch(error) {
+            console.error("Add Item Error: ",error);
+        };
+    }
 }
 
 export default AuthenticationService;
