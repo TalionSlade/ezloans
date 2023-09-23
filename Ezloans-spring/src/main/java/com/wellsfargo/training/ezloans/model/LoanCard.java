@@ -1,11 +1,23 @@
 package com.wellsfargo.training.ezloans.model;
 
+import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "loan_card_master")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class LoanCard {
 	
 	@Id
@@ -22,41 +34,11 @@ public class LoanCard {
 	private int duration;
 
 	@OneToMany(mappedBy = "loanId" , cascade = CascadeType.ALL)
-	private Set<EmployeeCard> employeeCard;
+	@JsonBackReference
+	@JsonIgnore
+	private List<EmployeeCard> employeeCard;
 
-	public LoanCard() {
-		super();
-	}
 
-	public LoanCard(Long loanId, String type, int duration) {
-		super();
-		this.loanId = loanId;
-		this.type = type;
-		this.duration = duration;
-	}
-
-	public Long getLoanId() {
-		return loanId;
-	}
-
-	public void setLoanId(Long loanId) {
-		this.loanId = loanId;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public int getDuration() {
-		return duration;
-	}
-
-	public void setDuration(int duration) {
-		this.duration = duration;
-	}
+	
 
 }

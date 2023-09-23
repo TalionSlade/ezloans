@@ -13,5 +13,7 @@ public interface EmployeeIssueRepository extends JpaRepository<EmployeeIssue, Lo
 //	public Optional<EmployeeIssue> findByEmployee(String eid);
 	
 	@Query(value = "SELECT * FROM EMPLOYEE_ISSUE_DETAILS WHERE EID = ?1", nativeQuery = true)
-	List<EmployeeIssue> findSelectedFieldFromDealerAndAddress(Long eid);
+	List<EmployeeIssue> findItemEmployeeIssueProjection(Long eid);
+
 }
+

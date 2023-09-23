@@ -37,6 +37,21 @@ public class EmployeeController {
 		}
 	}
 	
+	/*
+	 * Sample json
+	 * {
+    "dob": "1980-10-02",
+    "doj": "2023-11-02",
+    "department": "DTI",
+    "designation": "Program Associate",
+    "gender": "Male",
+    "fname": "Admin",
+    "lname":"Sharma",
+    "password":"admin",
+    "email":"admin@ezloans.com"
+}
+	 */
+	
 	@PostMapping("/login")
 	public boolean loginDealer(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
 		
@@ -54,6 +69,14 @@ public class EmployeeController {
 		return isloggedin;
 		
 	}
+	
+	/*
+	 * {
+  
+    "password":"admin",
+    "email":"admin@ezloans.com"
+}
+	 */
 
 }
 
