@@ -1,10 +1,12 @@
 import axios from 'axios'; 
 
 class AuthenticationService {
+    
     static async login(employee){
         try{
             const response=await axios.post('http://localhost:8085/ezloans/api/login', employee);
                 console.log('REST API Response: ', response.data);
+            
             if(response.data === true){
                 return true;
             }
@@ -27,5 +29,6 @@ class AuthenticationService {
 
     
 }
+
 
 export default AuthenticationService;

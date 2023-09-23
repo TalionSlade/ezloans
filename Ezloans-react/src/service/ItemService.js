@@ -9,37 +9,39 @@ class ItemService {
 			return axios.get(ITEM_REST_API_URL);
 		} catch (error) {
 			console.error("Get Error: ", error);
-
 		}
-
 	}
 
 	static createItem(item) {
-		return axios.post(ITEM_REST_API_URL, item);
+        try {
+            return axios.post(ITEM_REST_API_URL, item);
+        } catch (error) {
+            console.error("Error: ", error);
+        }
 	}
 
 	static getItemById(itemId) {
-		return axios.get(ITEM_REST_API_URL + '/' + itemId);
+        try {
+            return axios.get(ITEM_REST_API_URL + '/' + itemId);
+        } catch (error) {
+            console.error("Error: ", error);
+        }
 	}
 
 	static updateItem(item, itemId) {
-        console.log("Item obj: ", item)
-		return axios.put(ITEM_REST_API_URL + '/' + itemId, item);
+        try {
+            return axios.put(ITEM_REST_API_URL + '/' + itemId, item);
+        } catch (error) {
+            console.error("Error: ", error);
+        }
 	}
 
 	static deleteItem(itemId) {
+        try {} catch (error) {
+            console.error("Error: ", error);
+        }
 		return axios.delete(ITEM_REST_API_URL + '/' + itemId);
 	}
-
-	// static async searchItemByName(name) {
-	// 	try {
-	// 		const response = await axios.get(`${ITEM_REST_API_URL}/search?name=${name}`);
-	// 		return response.data;
-	// 	} catch (error) {
-	// 		console.error("Error searching for Items: ", error);
-	// 	}
-
-	// }
 
 }
 
