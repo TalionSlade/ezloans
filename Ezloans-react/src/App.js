@@ -33,7 +33,7 @@ function App() {
         margin: 0 }}>
        
           <Router>
-          { toggle && <div className='col-2 vh-100' style={{padding:0}}>
+          { toggle && <div className='col-2 vh-100' style={{padding:0,minHeight: "94vh"}}>
             <Sidebar/>
             </div>}
             <div className='col' style={{padding:0}}>

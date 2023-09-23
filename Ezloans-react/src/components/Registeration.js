@@ -1,8 +1,9 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Registeration.css';
 import { Container, Col, Carousel, Row } from 'react-bootstrap';
 import AuthenticationService from '../service/AuthenticationService';
+import EmployeeService from '../service/EmployeeService';
 
 const Registration = () => {
 
@@ -19,6 +20,16 @@ const Registration = () => {
     doj: '',
     gender: '',
   });
+  const [allEmployees, setAllEmployees] = useState([]);
+  useEffect(() => {
+		fetchAllEmployees();
+	}, []);
+
+	const fetchAllEmployees = () => {
+		EmployeeService.getEmployees().then((response) => {
+			setAllEmployees(response.data); // setting response to state - products
+		});
+	}
   const [errors,setErrors] = useState('');
   const [successMessage,setSuccessMessage] = useState('');
 
@@ -107,7 +118,7 @@ const validateForm = () => {
 
 const myRef = useRef(null)
 
-   const executeScroll = () => myRef.current.scrollIntoView() 
+const executeScroll = () => myRef.current.scrollIntoView() 
 
   return (
     <div>
@@ -126,7 +137,7 @@ const myRef = useRef(null)
     <br></br>
     <div className="registration-container">
       <form onSubmit={handleSubmit} className="form-grid">
-        <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>User Registeration</h2>
+        <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>Customer Registeration</h2>
         <div className="column">
       <div className="form-group">
           <label style={{ color: '#1f6e8c'}}>Email:</label>
@@ -254,9 +265,12 @@ const myRef = useRef(null)
         </div>
       </form>
       </div>
-      <div className="registration-container" style={{maxWidth: "1000px"}}>
+
+    <br></br>
+      <div className="registration-container" >
+      <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>View All Customers</h2>
       <div className='row justify-content-center' ref={myRef}>
-      <table className="table table-success w-auto">
+      <table className="table w-auto" style={{color: "rgb(31, 110, 140)"}}>
          <thead>
             <tr className="">
                 <th> Employee Id </th>
@@ -269,18 +283,18 @@ const myRef = useRef(null)
                 <th> Action </th>
             </tr>
         </thead>
-        {/* <tbody>
-                {employee.map(
+        <tbody style={{color: "black"}}>
+                {allEmployees.map(
                         emp => 
-                        <tr key={emp.id}>
-                            <td> {emp.pid} </td>
+                        <tr key={emp.eid}>
+                            <td> {emp.eid} </td>
                             <td> {emp.fname} </td>
                             <td> {emp.designation} </td>
                             <td> {emp.department} </td>
                             <td> {emp.gender} </td>
                             <td> {emp.dob} </td>
                             <td> {emp.doj} </td>
-                            <td>
+                            {/* <td>
                               <button className='btn btn-success' onClick={()=>editProduct(emp.pid)}>
                                 <span><FontAwesomeIcon icon="edit"></FontAwesomeIcon></span>
                               </button>
@@ -292,12 +306,12 @@ const myRef = useRef(null)
                               <button className='btn btn-primary' onClick={()=>viewProduct(emp.pid)}>
                                 <span><FontAwesomeIcon icon="list"></FontAwesomeIcon></span>
                               </button>
-                            </td>
+                            </td> */}
                           
                         </tr>
                     )
                 }
-        </tbody> */}
+        </tbody>
         </table>
       </div>
       </div></div> 

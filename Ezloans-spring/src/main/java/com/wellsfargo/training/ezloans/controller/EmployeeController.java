@@ -1,10 +1,13 @@
 package com.wellsfargo.training.ezloans.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +80,19 @@ public class EmployeeController {
     "email":"admin@ezloans.com"
 }
 	 */
+	
+	@GetMapping("/employees")
+	public ResponseEntity< List<Employee>> getAllEmployees() {
+		
+		try {
+			List<Employee> employees =  eservice.listAll();
+			return ResponseEntity.ok(employees);
+			} catch(Exception e) {
+				e.printStackTrace();
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+				}
+	}
+	
 
 }
 
