@@ -108,5 +108,16 @@ public class ItemController {
 		return ResponseEntity.ok().body(updatedItem);
 		
 	}
+	
+	
+	/*
+	 * {
+    "desc":"Spoon",
+    "make":"wooden",
+    "category":"Crockery",
+    "valuation":100,
+    "status":"Yes"
+}
+	 */
 }
 
