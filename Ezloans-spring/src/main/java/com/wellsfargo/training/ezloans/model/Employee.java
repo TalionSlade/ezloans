@@ -1,6 +1,8 @@
 package com.wellsfargo.training.ezloans.model;
 
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Base64;
 import java.util.List;
@@ -149,6 +151,7 @@ public class Employee {
 	}
 
 	public void setDob(Date dob) {
+		
 		this.dob = dob;
 	}
 
@@ -157,6 +160,7 @@ public class Employee {
 	}
 
 	public void setDoj(Date doj) {
+	
 		this.doj = doj;
 	}
 

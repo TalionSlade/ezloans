@@ -31,7 +31,7 @@ public class ItemController {
 	@Autowired
 	public ItemService iservice;
 	
-	@PostMapping("/itemregister")
+	@PostMapping("/additem")
 	public ResponseEntity<String> insertItem(@Validated @RequestBody Item item){
 		try {
 			
@@ -108,5 +108,16 @@ public class ItemController {
 		return ResponseEntity.ok().body(updatedItem);
 		
 	}
+	
+	
+	/*
+	 * {
+    "desc":"Spoon",
+    "make":"wooden",
+    "category":"Crockery",
+    "valuation":100,
+    "status":"Yes"
+}
+	 */
 }
 

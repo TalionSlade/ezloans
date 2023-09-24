@@ -35,7 +35,7 @@ public class Item {
 	@Column(nullable = false, name="item_desc")
 	private String desc;
 	
-	@Column(nullable = false, name="item_status")
+	@Column( nullable = false, name="item_status")
 	private String status;
 	
 	@Column(nullable = false, name="item_make")
@@ -44,7 +44,7 @@ public class Item {
 	@Column(nullable = false, name="item_category")
 	private String category;
 	
-	@Column(nullable = false, name="item_valuation")
+	@Column( nullable = false, name="item_valuation")
 	private long valuation;
 	
 	@OneToMany(mappedBy = "item" , cascade = CascadeType.ALL)
