@@ -18,7 +18,7 @@ const Sidebar=() => {
                     <NavLink to={`/viewLoan/emp/${userId}`} activeclassname="active">
                         View Loan
                     </NavLink>
-                    <NavLink to="/dashboard" activeclassname="active">
+                    <NavLink to="/applyLoan" activeclassname="active">
                         Apply for Loan
                     </NavLink>
                     <NavLink to={`/viewItem/emp/${userId}`} activeclassname="active">

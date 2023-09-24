@@ -43,6 +43,24 @@ class EmployeeService {
 		}
 	}
 
+	// static async applyLoan(loanObj) {
+	// 	try {
+	// 		const response = await axios.put('http://localhost:8085/ezloans/api/applyloan', loanObj);
+	// 		return response;
+	// 	} catch (error) {
+	// 		console.error("Error: ", error);
+	// 	}
+	// }
+	static async applyLoan(loanObj){
+        try{
+            const response=await axios.post('http://localhost:8085/ezloans/api/applyloan', loanObj);
+            return response.data;
+        }
+        catch(error){
+            console.error('Apply Loan Error: ', error);
+        }
+    }
+
 }
 
 export default EmployeeService

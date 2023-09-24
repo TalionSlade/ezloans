@@ -29,6 +29,7 @@ import com.wellsfargo.training.ezloans.service.EmployeeIssueService;
 import com.wellsfargo.training.ezloans.service.EmployeeService;
 import com.wellsfargo.training.ezloans.service.ItemService;
 import com.wellsfargo.training.ezloans.service.LoanCardService;
+
 @CrossOrigin(origins="http://localhost:3000")
 @RestController
 @RequestMapping(value="/api")
