@@ -50,5 +50,9 @@ public class ItemService {
 	public Item saveItem(Item i) {
 		return irepo.save(i); 
 	}
+	
+	public List<Object[]>getDescriptionByType(String type){
+		return irepo.getDescriptionByType(type);
+	}
 }
 
