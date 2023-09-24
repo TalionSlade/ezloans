@@ -6,12 +6,12 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 export function AuthProvider(props) {
-    const [authUser, setAuthUser] = useState(null);
+    const [userId, setUserId] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isUser, setIsUser] = useState(true);
     const value = {
-        authUser,
-        setAuthUser,
+        userId,
+        setUserId,
         isLoggedIn,
         setIsLoggedIn,
         isUser,

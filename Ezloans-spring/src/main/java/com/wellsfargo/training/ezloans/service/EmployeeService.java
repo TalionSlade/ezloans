@@ -1,5 +1,6 @@
 package com.wellsfargo.training.ezloans.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,27 @@ public class EmployeeService {
 		
 	}
 	public Optional<Employee> getEmployee(long id){
+		return erepo.findById(id);
+	}
+	
+	public List<Employee> listAll() {
+		return erepo.findAll();  
+		
+	}
+	
+	public void deleteEmployee(long id) {
+		erepo.deleteById(id);
+	}
+	
+	public Employee saveEmployee(Employee e) {
+		return erepo.save(e); 
+	}
+	
+	public Long getEmployeeCount() {
+		return erepo.count();
+	}
+	
+	public Optional<Employee> getSingleEmployee(long id) {
 		return erepo.findById(id);
 	}
 
