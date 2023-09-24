@@ -35,7 +35,7 @@ public class EmployeeCard {
 	
 	
 	@Column(nullable=false,name="card_issue_date")
-	@JsonFormat(pattern = "dd-mm-yyyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date issueDate;
 
 	

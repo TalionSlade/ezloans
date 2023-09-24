@@ -65,7 +65,6 @@ public class Employee {
 	private Date dob;
 	
 	@Column(nullable = false, name="date_of_joining")
-//	@JsonFormat(pattern = "dd-MM-YYYY"
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date doj;
 
@@ -151,32 +150,18 @@ public class Employee {
 		return dob;
 	}
 
-	public void setDob(String dob) {
-		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-		Date date = null;
-		try {
-			date = sdf.parse(dob);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.dob = date;
+	public void setDob(Date dob) {
+		
+		this.dob = dob;
 	}
 
 	public Date getDoj() {
 		return doj;
 	}
 
-	public void setDoj(String doj) {
-		SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-		Date date = null;
-		try {
-			date = sdf.parse(doj);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		this.doj = date;
+	public void setDoj(Date doj) {
+	
+		this.doj = doj;
 	}
 
 	public List<EmployeeIssue> getEmployeeIssue() {
