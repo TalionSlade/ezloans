@@ -1,5 +1,7 @@
 package com.wellsfargo.training.ezloans.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,9 @@ public class EmployeeIssueService {
 	public EmployeeIssue registerEmployeeIssue(EmployeeIssue ei) {
 		return eisrepo.save(ei);
 	}
-
+	
+    public List<EmployeeIssue> listProductByEid(Long eid){
+    	return eisrepo.findItemEmployeeIssueProjection(eid);
+    }
 }
 
