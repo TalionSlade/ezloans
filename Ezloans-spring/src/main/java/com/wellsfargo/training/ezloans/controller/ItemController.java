@@ -2,7 +2,8 @@ package com.wellsfargo.training.ezloans.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map;import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -107,6 +108,20 @@ public class ItemController {
 		final Item updatedItem = iservice.saveItem(item);
 		return ResponseEntity.ok().body(updatedItem);
 		
+	}
+	
+	@GetMapping("/getdescription/{type}")
+	public ResponseEntity<List<Map<String,Object>>> getDescriptionByType(@PathVariable(value="type") String type) 
+			throws ResourceNotFoundException{
+		List<Object[]>resultlist=iservice.getDescriptionByType(type);
+		
+		List<Map<String,Object>> items= resultlist.stream().map(item->{
+			Map<String,Object>itemMap=new HashMap<>();
+			itemMap.put("description", item[0]);
+			itemMap.put("Valuation", item[1]);
+			return itemMap;
+		}).collect(Collectors.toList());
+		return ResponseEntity.ok().body(items);
 	}
 	
 	
