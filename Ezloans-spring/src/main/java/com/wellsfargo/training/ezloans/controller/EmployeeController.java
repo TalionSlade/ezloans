@@ -77,10 +77,8 @@ public class EmployeeController {
 }
 	 */
 	@PostMapping("/login")
-	public boolean loginEmployee(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
-
-
-	
+	public ResponseEntity<Map<String, Object>> loginDealer(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
+		
 		Boolean isloggedin=false;
 		
 		String email=employee.getEmail();
@@ -93,7 +91,10 @@ public class EmployeeController {
 			
 		}
 
-		return isloggedin;
+		Map<String,Object> response = new HashMap<String, Object>();
+		response.put("isloggedin",isloggedin);
+		response.put("eid",emp.getEid());
+		return ResponseEntity.ok(response);
 		
 	}
 	

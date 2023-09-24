@@ -6,7 +6,7 @@ import {Link, NavLink} from 'react-router-dom';
 
 
 const Sidebar=() => {
-    const { isUser, isLoggedIn} = useAuth();
+    const { isUser, isLoggedIn, userId} = useAuth();
 
     const changeNavLinks = () => {
         if(isUser) {
@@ -21,7 +21,7 @@ const Sidebar=() => {
                     <NavLink to="/applyloan" activeclassname="active">
                         Apply for Loan
                     </NavLink>
-                    <NavLink to="/viewItem" activeclassname="active">
+                    <NavLink to={`/viewItem/emp/${userId}`} activeclassname="active">
                     {/* history(`/viewItem/${id}`); */}
                         View Items Purchased
                     </NavLink>

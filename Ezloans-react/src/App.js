@@ -17,10 +17,12 @@ import EditEmployee from './components/employee/EditEmployee';
 import Item from './components/item/Item';
 import CreateItem from './components/item/CreateItem';
 import ViewItem from './components/item/ViewItem';
+import EmployeeIssue from './components/employeeissue/EmployeeIssue';
 
 function App() {
   const [toggle, setToggle] = useState(false);
-  const Toggle = () => { if(!isLoggedIn) {
+  const Toggle = () => { 
+    if(!isLoggedIn) {
     setToggle(false);
   }
   setToggle(!toggle) };
@@ -56,6 +58,7 @@ function App() {
                 <Route path="/item" element={<Item/>}/>
                 <Route path='/addItem/:id' element={<CreateItem/>}></Route>
                 <Route path='/viewItem/:id' element={<ViewItem/>}></Route>
+                <Route path='/viewItem/emp/:id' element={<EmployeeIssue/>}></Route>
               </Routes>
             </div>
           

@@ -11,7 +11,7 @@ const Login = () => {
     const [password,setPassword] =  useState('');
     const [errorMessage,seterrorMessage] =  useState('');
     const [successMessage,setsuccessMessage] =  useState('');
-	const {setIsLoggedIn, setIsUser} = useAuth();
+	const {setIsLoggedIn, setIsUser, setUserId} = useAuth();
 
 	
     const handleLogin = async() => {
@@ -24,10 +24,11 @@ const Login = () => {
         try{
             const loginSuccess = await AuthenticationService.login(employee);
             console.log("API response: ", loginSuccess.data);
-            if (loginSuccess){
+            if (loginSuccess.isloggedin){
 
                 setsuccessMessage("Login Successful. Redirecting...");
-				setIsLoggedIn(true)
+				setIsLoggedIn(true);
+				setUserId(loginSuccess.eid);
 				if(email==='admin@ezloans.com') {
 					setIsUser(false);
 					setTimeout(() => {
