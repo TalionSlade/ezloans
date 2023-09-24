@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../styles/Registeration.css';
 import { useAuth } from './AuthContext';
 import EmployeeService from '../service/EmployeeService';
+import ItemService from '../service/ItemService';
 
 const ApplyLoan = () => {
 
@@ -17,6 +18,15 @@ const ApplyLoan = () => {
     make:''
   });
   const [successMessage,setSuccessMessage] = useState('');
+  const [descriptions, setDescriptions] = useState([]);
+  const [valuation, setValuation] = useState();
+
+//   useEffect(() => {
+//     ItemService.getDescriptions(type).then((response) => {
+//         setTypes(response.data);
+//     })
+    
+// }, [type]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +37,28 @@ const ApplyLoan = () => {
       }));
     
   };
+
+  const handleCategoryChange = async (e) => {
+    e.preventDefault();
+    employeeCard.category = e.target.value;
+    const response = await ItemService.getDescriptions(e.target.value);
+    setDescriptions(response.data);
+    console.log("getdescriptions res: ",response.data);
+  }
+
+  const handleDescriptionChange = async (e) => {
+    e.preventDefault();
+    employeeCard.description = e.target.value;
+    const idx = descriptions.findIndex((desc) => desc.description == e.target.value);
+    const value = descriptions[idx].valuation;
+    setValuation(value);
+    // const response = await ItemService.getDescriptions(e.target.value);
+    // const d = e.target.value;
+    // for(d:desc)
+    // setValuation(desc)
+    // setDescriptions(response.data);
+    console.log("idx: ",descriptions[idx]);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,7 +90,8 @@ const ApplyLoan = () => {
         <div className='column'>
             <div className="form-group">
                 <label style={{ color: '#1f6e8c'}}>Category:</label>
-                <select className="form-control" placeholder= "Item Category" desc="category" value={employeeCard.category} name="category" onChange={handleChange}>
+                <select className="form-control" placeholder= "Item Category" desc="category" value={employeeCard.category} name="category" onChange={handleCategoryChange}>
+                        <option hidden="hidden">Default</option>
                         <option value="Furniture">Furniture</option>
                         <option value="Stationary">Stationary</option>
                         <option value="Crockery">Crockery</option>
@@ -78,20 +111,22 @@ const ApplyLoan = () => {
         <div className='column'>
             <div className="form-group">
                 <label style={{ color: '#1f6e8c'}}>Description:</label>
-                <input
-                type="text"
-                name="description"
-                value={employeeCard.description}
-                onChange={handleChange}
-                />
-            </div>
+                <select className="form-control" placeholder= "Item Description" desc="description" value={employeeCard.description} onChange={handleDescriptionChange}>
+                <option hidden="hidden">Default</option>
+                   { descriptions.map(
+                    desc => 
+                    <option key = {desc.id} value={desc.description}>{desc.description}</option>
+                   )
+                   }
+                </select>
+
+            </div> 
             <div className="form-group">
                 <label style={{ color: '#1f6e8c'}}>Value:   </label>
                 <input
-                    type="text"
+                    type="number"
                     name="value"
-                    value={employeeCard.value}
-                    onChange={handleChange}
+                    value={valuation}
                     />
             </div>
         </div>
