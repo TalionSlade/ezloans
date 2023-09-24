@@ -60,7 +60,7 @@ public class EmployeeIssueController {
 		}
 	}
 	
-	@GetMapping("/employeeissuesofemployee/{id}")
+	@GetMapping("/employeeissue/{id}")
 	public ResponseEntity<List<EmployeeIssue>> getEmployeeCardsOfEmployee(@PathVariable(value="id") Long id){
 	
 		try {
