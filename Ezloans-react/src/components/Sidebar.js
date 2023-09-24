@@ -15,10 +15,10 @@ const Sidebar=() => {
                     <NavLink to="/dashboard" activeclassname="active">
                         Dashboard
                     </NavLink>
-                    <NavLink to="/loan" activeclassname="active">
+                    <NavLink to={`/viewLoan/emp/${userId}`} activeclassname="active">
                         View Loan
                     </NavLink>
-                    <NavLink to="/applyloan" activeclassname="active">
+                    <NavLink to="/dashboard" activeclassname="active">
                         Apply for Loan
                     </NavLink>
                     <NavLink to={`/viewItem/emp/${userId}`} activeclassname="active">

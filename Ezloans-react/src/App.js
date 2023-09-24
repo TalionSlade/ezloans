@@ -18,6 +18,7 @@ import Item from './components/item/Item';
 import CreateItem from './components/item/CreateItem';
 import ViewItem from './components/item/ViewItem';
 import EmployeeIssue from './components/employeeissue/EmployeeIssue';
+import EmployeeCard from './components/employeecard/EmployeeCard';
 
 function App() {
   const [toggle, setToggle] = useState(false);
@@ -59,6 +60,7 @@ function App() {
                 <Route path='/addItem/:id' element={<CreateItem/>}></Route>
                 <Route path='/viewItem/:id' element={<ViewItem/>}></Route>
                 <Route path='/viewItem/emp/:id' element={<EmployeeIssue/>}></Route>
+                <Route path='/viewLoan/emp/:id' element={<EmployeeCard/>}></Route>
               </Routes>
             </div>
           
