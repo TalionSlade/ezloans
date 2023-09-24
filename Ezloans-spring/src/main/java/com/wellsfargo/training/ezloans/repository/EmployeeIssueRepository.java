@@ -10,10 +10,10 @@ import com.wellsfargo.training.ezloans.model.EmployeeIssue;
 
 public interface EmployeeIssueRepository extends JpaRepository<EmployeeIssue, Long>{
 	
-//	public Optional<EmployeeIssue> findByEmployee(String eid);
+
 	
 	@Query(value = "SELECT * FROM EMPLOYEE_ISSUE_DETAILS WHERE EID = ?1", nativeQuery = true)
-	List<EmployeeIssue> findItemEmployeeIssueProjection(Long eid);
+	List<EmployeeIssue> getEmployeeIssuesOfEmployee(Long eid);
 
 }
 

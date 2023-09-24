@@ -21,8 +21,9 @@ public class EmployeeIssueService {
 		return eisrepo.save(ei);
 	}
 	
-    public List<EmployeeIssue> listProductByEid(Long eid){
-    	return eisrepo.findItemEmployeeIssueProjection(eid);
-    }
+	public List<EmployeeIssue> getEmployeeIssuesOfEmployee(Long id){
+		return eisrepo.getEmployeeIssuesOfEmployee(id);
+	}
+
 }
 

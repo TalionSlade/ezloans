@@ -35,6 +35,12 @@ public class LoanCardService {
 		 lrepo.deleteById(lid);
 	}
 	
+	
+	public Optional<LoanCard> getLoanCardByType(String type){
+		return lrepo.findByType(type);
+	}
+	
+	
 
 	
 

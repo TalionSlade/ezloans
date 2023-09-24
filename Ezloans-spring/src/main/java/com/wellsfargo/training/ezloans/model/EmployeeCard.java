@@ -2,6 +2,7 @@ package com.wellsfargo.training.ezloans.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
@@ -34,6 +35,7 @@ public class EmployeeCard {
 	
 	
 	@Column(nullable=false,name="card_issue_date")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date issueDate;
 
 	
