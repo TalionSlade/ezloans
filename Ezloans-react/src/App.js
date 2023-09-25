@@ -7,7 +7,6 @@ import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { AuthProvider } from './components/AuthContext';
-import Loan from './components/Loan';
 import LandingPage from './components/LandingPage';
 import { useAuth} from './components/AuthContext';
 import Employee from './components/employee/Employee';
@@ -20,18 +19,19 @@ import ViewItem from './components/item/ViewItem';
 import EmployeeIssue from './components/employeeissue/EmployeeIssue';
 import EmployeeCard from './components/employeecard/EmployeeCard';
 import ApplyLoan from './components/ApplyLoan';
-
+import Loan from './components/loan/Loan';
+import ViewLoan from './components/loan/ViewLoan';
+import CreateLoan from './components/loan/CreateLoan';
 function App() {
+  const [toggle, setToggle] = useState(false);
+  const Toggle = () => { 
+    if(!isLoggedIn) {
+    setToggle(false);
+  }
+  setToggle(!toggle) }
   const {isLoggedIn, setIsUser} = useAuth();
   const [toggle, setToggle] = useState(false);
 
-  const Toggle = () => { 
-    if(!isLoggedIn) {
-      setToggle(false);
-    }
-    setToggle(!toggle); 
-  };
-  
 
   return (
     <AuthProvider>
@@ -59,6 +59,8 @@ function App() {
                 <Route path="/employee" element={<Employee/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/loan" element={<Loan/>}/>
+                <Route path='/addLoan/:id' element={<CreateLoan/>}></Route>
+                <Route path='/viewLoan/:id' element={<ViewLoan/>}></Route>
                 <Route path="/additem" element={<Item/>}/>
                 <Route path="/employee/:id" element={<ViewEmployee/>}/>
                 <Route path="/addEmployee" element={<CreateEmployee/>}/>

@@ -37,7 +37,7 @@ const Sidebar=() => {
                     <NavLink to="/employee" activeclassname="active" >
                         Customer Data Management
                     </NavLink>
-                    <NavLink to="/addloan" activeclassname="active">
+                    <NavLink to="/loan" activeclassname="active">
                         Loan Card Management
                     </NavLink>
                     <NavLink to="/item" activeclassname="active">
