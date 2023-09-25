@@ -16,6 +16,7 @@ function CreateLoan() {
 	useEffect(() => {
 		if (id !== '_add') {
 			LoanService.getLoanCardById(id).then((response) => {
+                console.log(response);
 				const loanCard = response.data;
 				setType(loanCard.type);
 				setDuration(loanCard.duration);

@@ -11,7 +11,7 @@ const ViewLoan = () => {
     const [loan, setLoan] = useState({});
 
     useEffect(() => {
-        LoanService.getLoanById(id).then((response) => {
+        LoanService.getLoanCardById(id).then((response) => {
             setLoan(response.data);
             console.log(response.data);
         })
