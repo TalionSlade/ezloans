@@ -39,10 +39,6 @@ public class ItemService {
 		
 	}
 	
-	public Optional<Item> getSingleItem(long id) {
-		return irepo.findById(id);
-	}
-	
 	public void deleteItem(long id) {
 		irepo.deleteById(id);
 	}
