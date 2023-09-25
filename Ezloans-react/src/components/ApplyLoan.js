@@ -21,13 +21,6 @@ const ApplyLoan = () => {
   const [descriptions, setDescriptions] = useState([]);
   const [valuation, setValuation] = useState();
 
-//   useEffect(() => {
-//     ItemService.getDescriptions(type).then((response) => {
-//         setTypes(response.data);
-//     })
-    
-// }, [type]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     
@@ -52,11 +45,6 @@ const ApplyLoan = () => {
     const idx = descriptions.findIndex((desc) => desc.description == e.target.value);
     const value = descriptions[idx].valuation;
     setValuation(value);
-    // const response = await ItemService.getDescriptions(e.target.value);
-    // const d = e.target.value;
-    // for(d:desc)
-    // setValuation(desc)
-    // setDescriptions(response.data);
     console.log("idx: ",descriptions[idx]);
   }
 
