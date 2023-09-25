@@ -16,6 +16,9 @@ import EditEmployee from './components/employee/EditEmployee';
 import Item from './components/item/Item';
 import CreateItem from './components/item/CreateItem';
 import ViewItem from './components/item/ViewItem';
+import EmployeeIssue from './components/employeeissue/EmployeeIssue';
+import EmployeeCard from './components/employeecard/EmployeeCard';
+import ApplyLoan from './components/ApplyLoan';
 import Loan from './components/loan/Loan';
 import ViewLoan from './components/loan/ViewLoan';
 import CreateLoan from './components/loan/CreateLoan';
@@ -25,8 +28,10 @@ function App() {
     if(!isLoggedIn) {
     setToggle(false);
   }
-  setToggle(!toggle) };
+  setToggle(!toggle) }
   const {isLoggedIn, setIsUser} = useAuth();
+  const [toggle, setToggle] = useState(false);
+
 
   return (
     <AuthProvider>
@@ -41,6 +46,9 @@ function App() {
        
           <Router>
           { toggle && <div className='col-2 vh-100' style={{padding:0,minHeight: "94vh"}}>
+            {/* {isLoggedIn &&
+            <Sidebar/>
+            } */}
             <Sidebar/>
             </div>}
             <div className='col' style={{padding:0}}>
@@ -60,6 +68,9 @@ function App() {
                 <Route path="/item" element={<Item/>}/>
                 <Route path='/addItem/:id' element={<CreateItem/>}></Route>
                 <Route path='/viewItem/:id' element={<ViewItem/>}></Route>
+                <Route path='/viewItem/emp/:id' element={<EmployeeIssue/>}></Route>
+                <Route path='/viewLoan/emp/:id' element={<EmployeeCard/>}></Route>
+                <Route path='/applyLoan' element={<ApplyLoan/>}/>
               </Routes>
             </div>
           

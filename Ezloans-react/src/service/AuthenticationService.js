@@ -5,8 +5,12 @@ class AuthenticationService{
         try{
             const response=await axios.post('http://localhost:8085/ezloans/api/login', employee);
                 console.log('REST API Response: ', response.data);
-            if(response.data === true){
-                return true;
+                const isLoggedIn = response.data.isloggedin;
+                const eid = response.data.eid;
+            
+            if(isLoggedIn === true){
+                return response.data;
+
             }
             else{return false;}
 

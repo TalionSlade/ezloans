@@ -37,11 +37,23 @@ class ItemService {
 	}
 
 	static deleteItem(itemId) {
-        try {} catch (error) {
+        try {
+            return axios.delete(ITEM_REST_API_URL + '/' + itemId);
+        } catch (error) {
             console.error("Error: ", error);
         }
-		return axios.delete(ITEM_REST_API_URL + '/' + itemId);
+		
 	}
+
+    static async getDescriptions(type) {
+        try {
+            const res = await axios.get('http://localhost:8085/ezloans/api/getdescription/' + type)
+            return res
+        } catch(error) {
+            console.error("Error: ", error);
+        }
+
+    }
 
 }
 

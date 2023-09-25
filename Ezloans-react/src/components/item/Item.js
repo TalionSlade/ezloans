@@ -45,7 +45,7 @@ function Item() {
 		<div>
 			<br />
       <div className='container'>
-			  <h2>Items List</h2>
+			  <h2>Item Master Data Details</h2>
 			  <br />
         <div className="row justify-content-center">
           <div className='column'>
