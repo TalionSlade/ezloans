@@ -28,9 +28,6 @@ const Login = () => {
 
                 setsuccessMessage("Login Successful. Redirecting...");
 				setIsLoggedIn(true)
-				// setAuthUser({
-				// 	Name: 'Sashrika'
-				// })
 				if(email==='admin@ezloans.com') {
 					setIsUser(false);
 					setTimeout(() => {

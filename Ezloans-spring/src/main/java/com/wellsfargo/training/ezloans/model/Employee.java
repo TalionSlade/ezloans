@@ -1,11 +1,14 @@
 package com.wellsfargo.training.ezloans.model;
 
 import java.nio.charset.StandardCharsets;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Base64;
+import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -16,9 +19,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "employee_master")
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Employee {
 
 	@Id
@@ -57,26 +67,14 @@ public class Employee {
 	private Date doj;
 
 	@OneToMany(mappedBy = "employee" , cascade = CascadeType.ALL)
-	private Set<EmployeeIssue> employeeIssue;
-		
-	public Employee() {
-		super();
-	}
-
-	public Employee(Long eid, String fname, String lname, String email, String password, String designation,
-			String department, String gender, Date dob, Date doj) {
-		super();
-		this.eid = eid;
-		this.fname = fname;
-		this.lname = lname;
-		this.email = email;
-		this.password = password;
-		this.designation = designation;
-		this.department = department;
-		this.gender = gender;
-		this.dob = dob;
-		this.doj = doj;
-	}
+	@JsonBackReference
+	@JsonIgnore
+	private List<EmployeeIssue> employeeIssue;
+	
+	@OneToMany(mappedBy = "employee" , cascade = CascadeType.ALL)
+	@JsonBackReference
+	@JsonIgnore
+	private List<EmployeeCard> employeeCard;
 
 	public Long getEid() {
 		return eid;
@@ -117,7 +115,8 @@ public class Employee {
 	public void setPassword(String password) {
 		Base64.Encoder encoder = Base64.getEncoder();  
         String normalString = password;
-        String encodedString = encoder.encodeToString(normalString.getBytes(StandardCharsets.UTF_8) );
+        String encodedString = encoder.encodeToString(   // encrypt password in database field
+        normalString.getBytes(StandardCharsets.UTF_8) );
         this.password = encodedString;
 	}
 
@@ -160,5 +159,26 @@ public class Employee {
 	public void setDoj(Date doj) {
 		this.doj = doj;
 	}
+
+	public List<EmployeeIssue> getEmployeeIssue() {
+		return employeeIssue;
+	}
+
+	public void setEmployeeIssue(List<EmployeeIssue> employeeIssue) {
+		this.employeeIssue = employeeIssue;
+	}
+
+	public List<EmployeeCard> getEmployeeCard() {
+		return employeeCard;
+	}
+
+	public void setEmployeeCard(List<EmployeeCard> employeeCard) {
+		this.employeeCard = employeeCard;
+	}
+	
+	
+	
+
+		
 
 }

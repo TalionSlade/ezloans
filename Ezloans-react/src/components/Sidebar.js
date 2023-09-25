@@ -21,7 +21,8 @@ const Sidebar=() => {
                     <NavLink to="/applyloan" activeclassname="active">
                         Apply for Loan
                     </NavLink>
-                    <NavLink to="/viewitem" activeclassname="active">
+                    <NavLink to="/viewItem" activeclassname="active">
+                    {/* history(`/viewItem/${id}`); */}
                         View Items Purchased
                     </NavLink>
             </div>
@@ -33,13 +34,13 @@ const Sidebar=() => {
                     <NavLink to="/dashboard" activeclassname="active">
                         Dashboard
                     </NavLink>
-                    <NavLink to="/addemp" activeclassname="active" >
+                    <NavLink to="/employee" activeclassname="active" >
                         Customer Data Management
                     </NavLink>
-                    <NavLink to="/addloan" activeclassname="active">
+                    <NavLink to="/loan" activeclassname="active">
                         Loan Card Management
                     </NavLink>
-                    <NavLink to="/additem" activeclassname="active">
+                    <NavLink to="/item" activeclassname="active">
                         Items Master Management
                     </NavLink>
             </div>

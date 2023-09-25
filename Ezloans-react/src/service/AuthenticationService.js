@@ -25,15 +25,15 @@ class AuthenticationService{
         }
 }
 
-static async addLoan(loanCard){
-    try{
-        const response=await axios.post('http://localhost:8085/ezloans/api/addloancard', loanCard);
-        return response.data;
-    }
-    catch(error){
-        console.error('Error: ', error);
-    }
-}
+// static async registerEmployee(employee){
+//         try{
+//             const response=await axios.post('http://localhost:8085/ezloans/api/empreg', employee);
+//             return response.data;
+//         }
+//         catch(error){
+//             console.error('Registeration Error: ', error);
+//         }
+// }
 }
 
 export default AuthenticationService;
