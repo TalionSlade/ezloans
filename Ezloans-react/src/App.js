@@ -23,15 +23,14 @@ import Loan from './components/loan/Loan';
 import ViewLoan from './components/loan/ViewLoan';
 import CreateLoan from './components/loan/CreateLoan';
 function App() {
+  
+  const {isLoggedIn, setIsUser} = useAuth();
   const [toggle, setToggle] = useState(false);
   const Toggle = () => { 
     if(!isLoggedIn) {
     setToggle(false);
   }
   setToggle(!toggle) }
-  const {isLoggedIn, setIsUser} = useAuth();
-  const [toggle, setToggle] = useState(false);
-
 
   return (
     <AuthProvider>
