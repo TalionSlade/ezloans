@@ -121,7 +121,7 @@ function CreateItem() {
 										value={valuation} onChange={changeValuationHandler} />
 								</div>
 
-								<button className="btn btn-success" onClick={saveOrUpdateItem}>Save</button>
+								<button className="btn btn-success" onClick={saveOrUpdateItem}>Add Data</button>
 								<button className="btn btn-danger" onClick={cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
 							</form>
 						</div>

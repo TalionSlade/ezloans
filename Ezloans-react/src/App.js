@@ -22,13 +22,16 @@ import EmployeeCard from './components/employeecard/EmployeeCard';
 import ApplyLoan from './components/ApplyLoan';
 
 function App() {
+  const {isLoggedIn, setIsUser} = useAuth();
   const [toggle, setToggle] = useState(false);
+
   const Toggle = () => { 
     if(!isLoggedIn) {
-    setToggle(false);
-  }
-  setToggle(!toggle) };
-  const {isLoggedIn, setIsUser} = useAuth();
+      setToggle(false);
+    }
+    setToggle(!toggle); 
+  };
+  
 
   return (
     <AuthProvider>
@@ -43,6 +46,9 @@ function App() {
        
           <Router>
           { toggle && <div className='col-2 vh-100' style={{padding:0,minHeight: "94vh"}}>
+            {/* {isLoggedIn &&
+            <Sidebar/>
+            } */}
             <Sidebar/>
             </div>}
             <div className='col' style={{padding:0}}>
