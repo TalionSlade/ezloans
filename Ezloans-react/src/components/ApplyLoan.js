@@ -10,17 +10,17 @@ const ApplyLoan = () => {
     const { isLoggedIn, userId } = useAuth();
 
   const history = useNavigate();
-   const [employeeCard, setEmployeeCard] = useState({
+ 
+  const [successMessage,setSuccessMessage] = useState('');
+  const [descriptions, setDescriptions] = useState([]);
+  const [valuation, setValuation] = useState(0);
+  const [employeeCard, setEmployeeCard] = useState({
     eid: userId,
     category: '',
     description: '',
-    value: 0,
+    value: valuation,
     make:''
   });
-  const [successMessage,setSuccessMessage] = useState('');
-  const [descriptions, setDescriptions] = useState([]);
-  const [valuation, setValuation] = useState();
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     
@@ -89,6 +89,7 @@ const ApplyLoan = () => {
             <div className="form-group">
                 <label style={{ color: '#1f6e8c'}}>Make:</label>
                 <select className="form-control" placeholder= "Item Make" desc="make" value={employeeCard.make} onChange={handleChange}>
+                <option hidden="hidden">Default</option>
                     <option value="Wooden">Wooden</option>
                     <option value="Glass">Glass</option>
                     <option value="Plastic">Plastic</option>
