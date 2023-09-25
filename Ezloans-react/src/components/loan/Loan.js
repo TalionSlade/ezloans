@@ -24,7 +24,7 @@ function Loan() {
 	}
 
 	const editLoan = (id) => {
-		history(`/editLoan/${id}`) 
+		history(`/addLoan/${id}`) 
 	}
 
 	const deleteLoan = (id) => {

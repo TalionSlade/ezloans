@@ -21,9 +21,9 @@ class LoanService {
         }
 	}
 
-	static getLoanById(loanId) {
+	static getLoanCardById(loanId) {
         try {
-            return axios.post(CRUDLOAN_REST_API_URL + '/' + loanId);
+            return axios.get(CRUDLOAN_REST_API_URL + '/' + loanId);
         } catch (error) {
             console.error("Error: ", error);
         }
@@ -31,14 +31,14 @@ class LoanService {
 
 	static updateLoanCard(loanCard, loanId) {
         try {
-            return axios.get(CRUDLOAN_REST_API_URL + '/' + loanCard, loanId);
+            return axios.put(CRUDLOAN_REST_API_URL + '/' + loanId, loanCard);
         } catch (error) {
             console.error("Error: ", error);
         }
 	}
 
 
-	static deleteLoanCard(loanId) {
+	static deleteLoan(loanId) {
         try {
 			return axios.delete(CRUDLOAN_REST_API_URL + '/' + loanId);
 		} 
