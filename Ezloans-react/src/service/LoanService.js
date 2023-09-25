@@ -39,10 +39,13 @@ class LoanService {
 
 
 	static deleteLoanCard(loanId) {
-        try {} catch (error) {
+        try {
+			return axios.delete(CRUDLOAN_REST_API_URL + '/' + loanId);
+		} 
+		catch (error) {
             console.error("Error: ", error);
         }
-		return axios.delete(CRUDLOAN_REST_API_URL + '/' + loanId);
+		
 	}
 
 }
