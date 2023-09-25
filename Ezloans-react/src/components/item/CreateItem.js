@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
-
+import '../../styles/Registeration.css';
 
 function CreateItem() {
 
@@ -70,35 +70,37 @@ function CreateItem() {
 
 	const getTitle = () => {
 		if (id === '_add') {
-			return <h1 className="text-center">Add Item</h1>;
+			return <h1 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}  className="text-center">Add Item</h1>;
 		} else {
-			return <h1 className="text-center">Update Item</h1>;
+			return <h1 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}  className="text-center">Update Item</h1>;
 		}
 	};
 
 	return (
 		<div>
 			<br></br>
+			<div className="registration-container">
 			<div className="container">
 				<div className="row justify-content-center">
 					<div className="form-outline col-12 mb-4">
 						{getTitle()}
 						<div className="card-body">
-							<form>
+							<form className="form-grid">
+							<div className="column">
 								<div className="form-group">
-									<label> Description: </label>
+									<label style={{ color: '#1f6e8c'}}> Description: </label>
 									<input placeholder="Item Description" desc="desc" className="form-control"
 										value={desc} onChange={changeDescHandler} />
 								</div>
 								<div className="form-group">
-									<label> Status: </label>
+									<label style={{ color: '#1f6e8c'}}> Status: </label>
                                     <select className="form-control" placeholder= "Item Status" desc="status" value={status} onChange={changeStatusHandler}>
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
                                     </select>
 								</div>
 								<div className="form-group">
-									<label> Make: </label>
+									<label style={{ color: '#1f6e8c'}}> Make: </label>
 									<select className="form-control" placeholder= "Item Make" desc="make" value={make} onChange={changeMakeHandler}>
                                         <option value="Wooden">Wooden</option>
                                         <option value="Glass">Glass</option>
@@ -106,8 +108,10 @@ function CreateItem() {
                                         <option value="Other">Other</option>
                                     </select>
 								</div>
+								</div> 
+								<div className="column">
 								<div className="form-group">
-									<label> Category: </label>
+									<label style={{ color: '#1f6e8c'}}> Category: </label>
 									<select className="form-control" placeholder= "Item Category" desc="category" value={category} onChange={changeCategoryHandler}>
                                         <option value="Furniture">Furniture</option>
                                         <option value="Stationary">Stationary</option>
@@ -116,13 +120,16 @@ function CreateItem() {
                                     </select>
 								</div>
                                 <div className="form-group">
-									<label> Valuation: </label>
+									<label style={{ color: '#1f6e8c'}}> Valuation: </label>
 									<input type="number" placeholder="Valuation" desc="valutaion" className="form-control"
 										value={valuation} onChange={changeValuationHandler} />
 								</div>
-
+								</div>
+								<br></br>
+								<div className="form-group" style={{ gridColumn: '1 / span 2' }}>
 								<button className="btn btn-success" onClick={saveOrUpdateItem}>Save</button>
 								<button className="btn btn-danger" onClick={cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
+							</div>
 							</form>
 						</div>
 					</div>
@@ -130,7 +137,7 @@ function CreateItem() {
 
 			</div>
 		</div>
-
+		</div>
 	)
 }
 

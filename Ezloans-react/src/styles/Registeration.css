@@ -83,3 +83,8 @@ input[type="number"] {
     width: 100%;
     color: rgb(31, 110, 140);
   }
+
+  .buttons{
+    align-items: center;
+    
+  }
