@@ -7,7 +7,6 @@ import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { AuthProvider } from './components/AuthContext';
-import Loan from './components/Loan';
 import LandingPage from './components/LandingPage';
 import { useAuth} from './components/AuthContext';
 import Employee from './components/employee/Employee';
@@ -17,14 +16,21 @@ import EditEmployee from './components/employee/EditEmployee';
 import Item from './components/item/Item';
 import CreateItem from './components/item/CreateItem';
 import ViewItem from './components/item/ViewItem';
-
+import EmployeeIssue from './components/employeeissue/EmployeeIssue';
+import EmployeeCard from './components/employeecard/EmployeeCard';
+import ApplyLoan from './components/ApplyLoan';
+import Loan from './components/loan/Loan';
+import ViewLoan from './components/loan/ViewLoan';
+import CreateLoan from './components/loan/CreateLoan';
 function App() {
+  
+  const {isLoggedIn, setIsUser} = useAuth();
   const [toggle, setToggle] = useState(false);
-  const Toggle = () => { if(!isLoggedIn) {
+  const Toggle = () => { 
+    if(!isLoggedIn) {
     setToggle(false);
   }
-  setToggle(!toggle) };
-  const {isLoggedIn, setIsUser} = useAuth();
+  setToggle(!toggle) }
 
   return (
     <AuthProvider>
@@ -39,6 +45,9 @@ function App() {
        
           <Router>
           { toggle && <div className='col-2 vh-100' style={{padding:0,minHeight: "94vh"}}>
+            {/* {isLoggedIn &&
+            <Sidebar/>
+            } */}
             <Sidebar/>
             </div>}
             <div className='col' style={{padding:0}}>
@@ -49,6 +58,8 @@ function App() {
                 <Route path="/employee" element={<Employee/>}/>
                 <Route path="/dashboard" element={<Dashboard/>}/>
                 <Route path="/loan" element={<Loan/>}/>
+                <Route path='/addLoan/:id' element={<CreateLoan/>}></Route>
+                <Route path='/viewLoan/:id' element={<ViewLoan/>}></Route>
                 <Route path="/additem" element={<Item/>}/>
                 <Route path="/employee/:id" element={<ViewEmployee/>}/>
                 <Route path="/addEmployee" element={<CreateEmployee/>}/>
@@ -56,6 +67,9 @@ function App() {
                 <Route path="/item" element={<Item/>}/>
                 <Route path='/addItem/:id' element={<CreateItem/>}></Route>
                 <Route path='/viewItem/:id' element={<ViewItem/>}></Route>
+                <Route path='/viewItem/emp/:id' element={<EmployeeIssue/>}></Route>
+                <Route path='/viewLoan/emp/:id' element={<EmployeeCard/>}></Route>
+                <Route path='/applyLoan' element={<ApplyLoan/>}/>
               </Routes>
             </div>
           

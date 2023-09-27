@@ -6,7 +6,7 @@ import {Link, NavLink} from 'react-router-dom';
 
 
 const Sidebar=() => {
-    const { isUser, isLoggedIn} = useAuth();
+    const { isUser, isLoggedIn, userId} = useAuth();
 
     const changeNavLinks = () => {
         if(isUser) {
@@ -15,13 +15,13 @@ const Sidebar=() => {
                     <NavLink to="/dashboard" activeclassname="active">
                         Dashboard
                     </NavLink>
-                    <NavLink to="/loan" activeclassname="active">
+                    <NavLink to={`/viewLoan/emp/${userId}`} activeclassname="active">
                         View Loan
                     </NavLink>
-                    <NavLink to="/applyloan" activeclassname="active">
+                    <NavLink to="/applyLoan" activeclassname="active">
                         Apply for Loan
                     </NavLink>
-                    <NavLink to="/viewItem" activeclassname="active">
+                    <NavLink to={`/viewItem/emp/${userId}`} activeclassname="active">
                     {/* history(`/viewItem/${id}`); */}
                         View Items Purchased
                     </NavLink>
@@ -37,7 +37,7 @@ const Sidebar=() => {
                     <NavLink to="/employee" activeclassname="active" >
                         Customer Data Management
                     </NavLink>
-                    <NavLink to="/addloan" activeclassname="active">
+                    <NavLink to="/loan" activeclassname="active">
                         Loan Card Management
                     </NavLink>
                     <NavLink to="/item" activeclassname="active">

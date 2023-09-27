@@ -109,7 +109,7 @@ const CreateEmployee = () => {
     <br></br>
     <div className="registration-container">
       <form onSubmit={handleSubmit} className="form-grid">
-        <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>Customer Registeration</h2>
+        <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>Customer Master Data Details</h2>
         <div className="column">
         {/*First Name*/}
         <div className="form-group">
@@ -227,7 +227,7 @@ const CreateEmployee = () => {
         </div>
         <div className="form-group" style={{ gridColumn: '1 / span 2' }}>
           <button type="submit" className="submit-button" onClick={handleSubmit}>
-            Register
+            Add Data
           </button>
           {successMessage && <p className="success-message">{successMessage}</p>}
         </div>

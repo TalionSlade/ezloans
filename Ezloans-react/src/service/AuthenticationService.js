@@ -1,16 +1,18 @@
 import axios from 'axios'; 
 
-class AuthenticationService {
-    
+class AuthenticationService{
     static async login(employee){
         try{
             const response=await axios.post('http://localhost:8085/ezloans/api/login', employee);
                 console.log('REST API Response: ', response.data);
+                const isLoggedIn = response.data.isloggedin;
+                const eid = response.data.eid;
             
-            if(response.data === true){
-                return true;
+            if(isLoggedIn === true){
+                return response.data;
+
             }
-            else {return false;}
+            else{return false;}
 
         }
         catch(error){
@@ -25,10 +27,8 @@ class AuthenticationService {
         catch(error){
             console.error('Registeration Error: ', error);
         }
-    }
-
-    
 }
 
+}
 
 export default AuthenticationService;

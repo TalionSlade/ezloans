@@ -4,7 +4,7 @@ import { useAuth } from './AuthContext';
 import EmployeeService from '../service/EmployeeService';
 
 const Dashboard = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, userId } = useAuth();
   const [employeeCount, setEmployeeCount] = useState();
   useEffect(() => {
 		EmployeeService.getEmployeeCount().then((response) => {
@@ -22,6 +22,7 @@ const Dashboard = () => {
             <h2 style={{padding: "10px", color:"white", marginTop: "10px"}}>
               Dashboard 
               </h2>
+              {/* <div>{userId} </div> */}
               <br/>
           </div>
         </div>

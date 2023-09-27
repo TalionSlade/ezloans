@@ -76,7 +76,7 @@ public class ItemController {
 	@GetMapping("/item/{id}")
 	public ResponseEntity<Item> getItemsById(@PathVariable(value="id") long id) 
 			throws ResourceNotFoundException{
-		Item i=iservice.getSingleItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id "+id));
+		Item i=iservice.getItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id "+id));
 		return ResponseEntity.ok().body(i);
 	}
 
@@ -85,7 +85,7 @@ public class ItemController {
 	public ResponseEntity<Map<String, Boolean>> deleteItem(@PathVariable(value="id") long id)
 	throws ResourceNotFoundException {
 		
-		iservice.getSingleItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id "+id));
+		iservice.getItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id "+id));
 		iservice.deleteItem(id);
 		
 		Map<String,Boolean> response = new HashMap<String, Boolean>();
@@ -97,7 +97,7 @@ public class ItemController {
 	@PutMapping("/item/{id}")
 	public ResponseEntity<Item> updateItem(@PathVariable(value="id") long id, @Validated @RequestBody Item i) 
 			throws ResourceNotFoundException{
-		Item item=iservice.getSingleItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id "+id));
+		Item item=iservice.getItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id "+id));
 		
 		item.setDesc(i.getDesc());
 		item.setStatus(i.getStatus());
@@ -120,6 +120,7 @@ public class ItemController {
 			itemMap.put("description", item[0]);
 			itemMap.put("Valuation", item[1]);
 			itemMap.put("Make", item[2]);
+
 			return itemMap;
 		}).collect(Collectors.toList());
 		return ResponseEntity.ok().body(items);

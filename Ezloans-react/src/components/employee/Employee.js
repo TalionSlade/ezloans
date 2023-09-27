@@ -54,14 +54,14 @@ function Employee() {
         <div>
             <br/>
             <div className='container' >
-                <h2>Customer Data Management</h2>
+                <h2>Customer Master Data Details</h2>
                 <div className='row justify-content-center'>
                     <div className='column'>
-                        <button className="btn" onClick={navigateToEmployee}>Add Custmer</button>
+                        <button className="btn" onClick={navigateToEmployee}>Add Employee</button>
                     </div>
                     <div className='column'>
                         <div className='registration-container' style={{maxWidth: "80%"}}>
-                        <h2>View All Customers</h2>
+                        {/* <h2>View All Customers</h2> */}
                         <div className='row justify-content-center'>
                         <table className="table w-auto" >
                             <thead>

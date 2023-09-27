@@ -1,10 +1,10 @@
 package com.wellsfargo.training.ezloans.service;
 
-import java.util.List;
-
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.wellsfargo.training.ezloans.model.Employee;
+import com.wellsfargo.training.ezloans.model.EmployeeCard;
 import com.wellsfargo.training.ezloans.model.EmployeeIssue;
 import com.wellsfargo.training.ezloans.repository.EmployeeIssueRepository;
 
@@ -26,4 +26,3 @@ public class EmployeeIssueService {
 	}
 
 }
-
