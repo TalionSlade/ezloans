@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
+import { useAuth } from '../AuthContext';
 import { IoTrash as DeleteIcon, IoPencil as EditIcon, IoEye as ViewIcon} from 'react-icons/io5';
 
 function Item() {
@@ -9,8 +10,16 @@ function Item() {
 
 	const [items, setItems] = useState([]);
 	const [message, setMessage] = useState([]);
+  const { isLoggedIn } = useAuth();
 	useEffect(() => {
-		fetchItems();
+    if(isLoggedIn) {
+		  fetchItems();
+    }
+    else {
+			alert("Please login first");
+      history('/login');
+		}
+
 	}, []);
 
 	const fetchItems = () => {
@@ -43,7 +52,7 @@ function Item() {
 
 	return (
 		<div>
-			<br />
+			<br /> {isLoggedIn && 
       <div className='container'>
 			  <h2>Item Master Data Details</h2>
 			  <br />
@@ -97,13 +106,11 @@ function Item() {
                   }
                 </tbody>
               </table>
-
               </div>
               {message && <div className="alert alert-success">{message}</div>}
             </div>
           </div>
-          
-		  </div>
+		  </div>}
     </div>
 	)
 }

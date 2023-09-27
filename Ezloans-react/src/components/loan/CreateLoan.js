@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoanService from '../../service/LoanService';
-import Loan from './Loan';
+import { useAuth } from '../AuthContext';
 import '../../styles/Registeration.css';
 
 function CreateLoan() {
@@ -9,11 +9,13 @@ function CreateLoan() {
 	const navigate = useNavigate();
 
 	const { id } = useParams(); 
+	const { isLoggedIn } = useAuth();
 
 	const [type, setType] = useState('NA');
 	const [duration, setDuration] = useState(0);
 
 	useEffect(() => {
+		if(isLoggedIn) {
 		if (id !== '_add') {
 			LoanService.getLoanCardById(id).then((response) => {
                 console.log(response);
@@ -21,6 +23,10 @@ function CreateLoan() {
 				setType(loanCard.type);
 				setDuration(loanCard.duration);
 			})
+		}}
+		else {
+			alert("Please login first");
+            navigate('/login');
 		}
 	}, [id]);
 
@@ -63,7 +69,7 @@ function CreateLoan() {
 
 	return (
 		<div>
-			<br></br>
+			<br></br> {isLoggedIn && 
             <div className="registration-container">
 			<div className="container">
 				<div className="row justify-content-center">
@@ -85,9 +91,6 @@ function CreateLoan() {
                                     <input type ="number" placeholder="Loan Duration" desc="duration" className="form-control"
 										value={duration} onChange={changeDurationHandler} />
 								</div>
-								
-								
-                                
 								<button className="btn btn-success" onClick={saveOrUpdateLoan}>Save</button>
 								<button className="btn btn-danger" onClick={cancel.bind(this)} style={{ marginLeft: "10px" }}>Cancel</button>
 							</form>
@@ -96,7 +99,7 @@ function CreateLoan() {
 				</div>
 
 			</div>
-		</div>
+		</div>}
         </div>
 
 	)

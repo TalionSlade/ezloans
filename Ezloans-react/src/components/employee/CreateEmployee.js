@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Registeration.css';
 import AuthenticationService from '../../service/AuthenticationService';
+import { useAuth } from '../AuthContext';
 
 const CreateEmployee = () => {
 
@@ -19,6 +20,7 @@ const CreateEmployee = () => {
   });
   const [errors,setErrors] = useState('');
   const [successMessage,setSuccessMessage] = useState('');
+  const { isLoggedIn } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -105,8 +107,7 @@ const CreateEmployee = () => {
 
   return (
     <div>
-    <br/>
-    <br></br>
+    <br/><br/> {isLoggedIn && 
     <div className="registration-container">
       <form onSubmit={handleSubmit} className="form-grid">
         <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>Customer Master Data Details</h2>
@@ -165,13 +166,6 @@ const CreateEmployee = () => {
             <option value="Male">Male</option>
             <option value="Other">Other</option>
           </select>
-          {/* <input
-            type="text"
-            name="gender"
-            value={employee.gender}
-            onChange={handleChange}
-            className={errors.gender && 'error'}
-          /> */}
           {errors.gender && <p className="error-message">{errors.gender}</p>}
         </div>
         </div>
@@ -232,7 +226,7 @@ const CreateEmployee = () => {
           {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
       </form>
-    </div>
+    </div>}
     <br></br>
     </div> 
   )

@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import EmployeeService from '../../service/EmployeeService';
+import { useAuth } from '../AuthContext';
 
 const EditEmployee = () => {
 
     const history = useNavigate();
 
     const {id} = useParams();
+    const { isLoggedIn } = useAuth();
 
     const [fname, setFname] = useState();
 	const [lname, setLname] = useState();
@@ -19,6 +21,7 @@ const EditEmployee = () => {
     
 
     useEffect(() => {
+        if(isLoggedIn) {
         EmployeeService.getEmployeeById(id).then((response) => {
             const emp = response.data;
             setFname(emp.fname);
@@ -29,7 +32,11 @@ const EditEmployee = () => {
             setDesignation(emp.designation);
             setDob(emp.dob);
             setDoj(emp.doj);
-        })
+        })}
+        else {
+			alert("Please login first");
+      history('/login');
+		}
     }, [id]);
 
     const editEmployee = (event) => {

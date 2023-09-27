@@ -16,26 +16,23 @@ const EmployeeCard = () => {
     const [designation, setDesignation] = useState();
 
     useEffect(() => {
+      if(isLoggedIn) {
         EmployeeCardService.getEmployeeCardById(id).then((response) => {
             setEmployeeCards(response.data);
         EmployeeService.getEmployeeById(id).then((response) => {
             setDepartment(response.data.department);
             setDesignation(response.data.designation);
         })
-        });
-
-        // if(items.length === 0) {
-        //     alert("No Items");
-        //     setTimeout(() => {
-        //         history('/dashboard');  
-        //     }, 100)
-        // }
-        
+        });}
+        else {
+          alert("Please login first");
+                history('/login');
+        }
     }, [id]);
 
   return (
     <div>
-        <br />
+        <br /> {isLoggedIn && 
         <div className="registration-container">
             <h2 className="text-center">Loan Cards Availed</h2><hr/>
             <div className='row justify-content-center' style={{color: "black"}}>
@@ -75,7 +72,7 @@ const EmployeeCard = () => {
               </table>
                 </div>
             </div>
-        </div>
+        </div>}
     </div>
   )
 }

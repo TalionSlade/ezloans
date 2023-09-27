@@ -22,6 +22,7 @@ const ApplyLoan = () => {
     make:''
   });
   const handleChange = (e) => {
+    e.preventDefault();
     const { name, value } = e.target;
     
       setEmployeeCard((prevEmployeeCard) => ({
@@ -67,6 +68,7 @@ const ApplyLoan = () => {
   return (
     <div>
     <br/><br/>
+    {isLoggedIn && 
     <div className="registration-container">
       <form onSubmit={handleSubmit} className="form-grid">
         <div style={{ gridColumn: '1 / span 2' }}>
@@ -88,7 +90,7 @@ const ApplyLoan = () => {
             </div>
             <div className="form-group">
                 <label style={{ color: '#1f6e8c'}}>Make:</label>
-                <select className="form-control" placeholder= "Item Make" desc="make" value={employeeCard.make} onChange={handleChange}>
+                <select className="form-control" placeholder= "Item Make" desc="make" value={employeeCard.make} name="make" onChange={handleChange}>
                 <option hidden="hidden">Default</option>
                     <option value="Wooden">Wooden</option>
                     <option value="Glass">Glass</option>
@@ -126,7 +128,7 @@ const ApplyLoan = () => {
           {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
       </form>
-    </div>
+    </div>}
     <br/>
     </div> 
   )

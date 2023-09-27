@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import LoanService from '../../service/LoanService';
-import Loan from './Loan';
+import { useAuth } from '../AuthContext';
 
 const ViewLoan = () => {
     const history = useNavigate();
@@ -9,12 +9,19 @@ const ViewLoan = () => {
     const {id} = useParams();
 
     const [loan, setLoan] = useState({});
+    const { isLoggedIn, userId } = useAuth();
 
     useEffect(() => {
+        if(isLoggedIn) {
         LoanService.getLoanCardById(id).then((response) => {
             setLoan(response.data);
             console.log(response.data);
-        })
+        })}
+        else {
+            alert("Please login first");
+            history('/login');
+          }
+
         
     }, [id]);
 
@@ -25,7 +32,7 @@ const ViewLoan = () => {
     return (
         <div>
         <br />
-      
+        {isLoggedIn && 
         <div className="card col-md-6 offset-md-3">
             <h3 className="text-center">View Loan Details</h3><hr/>
             <div className="card-body">
@@ -45,7 +52,7 @@ const ViewLoan = () => {
           <div className = "row justify-content-center">
                     <button className="btn btn-info w-auto" onClick={backLoan}>Back To Loans</button>
                 </div>
-        </div>
+        </div>}
     </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
-import Item from './Item';
+import { useAuth } from '../AuthContext';
 
 const ViewItem = () => {
     const history = useNavigate();
@@ -9,11 +9,17 @@ const ViewItem = () => {
     const {id} = useParams();
 
     const [item, setItem] = useState({});
+    const { isLoggedIn } = useAuth();
 
     useEffect(() => {
-        ItemService.getItemById(id).then((response) => {
+        if(isLoggedIn) {
+            ItemService.getItemById(id).then((response) => {
             setItem(response.data);
-        })
+        })}
+        else {
+			alert("Please login first");
+            history('/login');
+		}
         
     }, [id]);
 
@@ -23,7 +29,7 @@ const ViewItem = () => {
 
     return (
         <div>
-        <br />
+        <br /> {isLoggedIn && 
         <div className="card col-md-6 offset-md-3">
             <h3 className="text-center">View Item Details</h3><hr/>
             <div className="card-body">
@@ -55,7 +61,7 @@ const ViewItem = () => {
             <div className = "row justify-content-center">
                     <button className="btn btn-info w-auto" onClick={backItem}>Back To Items</button>
                 </div>
-        </div>
+        </div>}
     </div>
     )
 }

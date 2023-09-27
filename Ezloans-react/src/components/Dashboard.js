@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import '../styles/Dashboard.css'
 import { useAuth } from './AuthContext';
 import EmployeeService from '../service/EmployeeService';
 
 const Dashboard = () => {
+  const history = useNavigate();
   const { isLoggedIn, userId } = useAuth();
   const [employeeCount, setEmployeeCount] = useState();
   useEffect(() => {
+    if(isLoggedIn) {
 		EmployeeService.getEmployeeCount().then((response) => {
       console.log("emp response ",response);
 			setEmployeeCount(response.data); 
-		});
+		});}
+    else history('/login');
 	}, []);
 
   return (

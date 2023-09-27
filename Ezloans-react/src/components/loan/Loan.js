@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoanService from '../../service/LoanService';
+import { useAuth } from '../AuthContext';
 import { IoTrash as DeleteIcon, IoPencil as EditIcon, IoEye as ViewIcon} from 'react-icons/io5';
 
 function Loan() {
@@ -9,8 +10,14 @@ function Loan() {
 
 	const [loan, setLoan] = useState([]);
 	const [message, setMessage] = useState([]);
+  const { isLoggedIn, userId } = useAuth();
 	useEffect(() => {
+    if(isLoggedIn)
 		fetchLoan();
+  else {
+    alert("Not logged in");
+    history('/login');
+  }
 	}, []);
 
 	const fetchLoan = () => {
@@ -41,9 +48,9 @@ function Loan() {
 		history(`/viewLoan/${id}`);
 	}
   return (
-
+     
     <div>
-    <br />
+    <br />{isLoggedIn &&
     <div className='container'>
       <h2>Loan Card Master Data Details</h2>
       <br />
@@ -97,9 +104,9 @@ function Loan() {
           </div>
         </div>
         
-    </div>
+    </div>}
   </div>
-
+              
         
   )
 }
