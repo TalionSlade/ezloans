@@ -1,5 +1,6 @@
 package com.wellsfargo.training.ezloans.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,22 @@ public class LoanCardController {
 		try {
 			List<LoanCard>loancards=lservice.listAll();
 			return ResponseEntity.ok(loancards);
+		}
+		catch(Exception e){
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+			
+		}
+	}
+	
+	@GetMapping("/loancardtypes")
+	public ResponseEntity<List<String>> getLoanCardTypes(){
+		try {
+			List<LoanCard>loancards=lservice.listAll();
+			List<String>loancardtypes=new ArrayList<>();
+			for(LoanCard l:loancards) {
+				loancardtypes.add(l.getType());
+			}
+			return ResponseEntity.ok(loancardtypes);
 		}
 		catch(Exception e){
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
