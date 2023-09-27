@@ -34,7 +34,8 @@ const ViewLoan = () => {
         <br />
         {isLoggedIn && 
         <div className="card col-md-6 offset-md-3">
-            <h3 className="text-center">View Loan Details</h3><hr/>
+            <br/>
+            <h3 className="text-center" style={{color: "#1f6e8c"}}>View Loan Details</h3><hr/>
             <div className="card-body">
                 <div className="row">
                     <label>Loan Id:</label>

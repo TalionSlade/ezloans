@@ -31,22 +31,23 @@ const ViewItem = () => {
         <div>
         <br /> {isLoggedIn && 
         <div className="card col-md-6 offset-md-3">
-            <h3 className="text-center">View Item Details</h3><hr/>
+            <br/>
+            <h3 className="text-center" style={{color: "#1f6e8c"}}>View Item Details</h3><hr/>
             <div className="card-body">
                 <div className="row">
-                    <label>Item Id:</label>
+                    <label>Item Id: </label>
                     <div class="text-success fw-bolder">{item.itemId}</div><hr/>
                 </div>
                 <div className="row">
-                    <label>Item Description:</label>
+                    <label>Item Description: </label>
                     <div class="text-success fw-bolder">{item.desc}</div><hr/>
                 </div>
                 <div className="row">
-                    <label>Item Status:</label>
+                    <label>Item Status: </label>
                     <div class="text-success fw-bolder">{item.status}</div><hr/>
                 </div>
                 <div className="row">
-                    <label>Item Make:</label>
+                    <label>Item Make: </label>
                     <div class="text-success fw-bolder">{item.make}</div><hr/>
                 </div>
                 <div className="row">
@@ -54,7 +55,7 @@ const ViewItem = () => {
                     <div class="text-success fw-bolder">{item.category}</div><hr/>
                 </div>
                 <div className="row">
-                    <label>Item Valuation:</label>
+                    <label>Item Valuation: </label>
                     <div class="text-success fw-bolder">{item.valuation}</div><hr/>
                 </div>
             </div>
