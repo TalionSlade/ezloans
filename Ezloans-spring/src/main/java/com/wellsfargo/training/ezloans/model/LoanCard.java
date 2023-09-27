@@ -26,7 +26,7 @@ public class LoanCard {
 	@Column(nullable = false, name="loan_id")
 	private Long loanId;
 	
-	@Column(name="loan_type",nullable=false)
+	@Column(name="loan_type",nullable=false,unique = true)
 	private String type;
 	
 	

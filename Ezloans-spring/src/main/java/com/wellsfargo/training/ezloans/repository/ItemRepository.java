@@ -12,7 +12,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 		
 	public Optional<Item> findByDesc(String desc);
 	
-	@Query(value = "SELECT ITEM_DESC,ITEM_VALUATION FROM ITEM_MASTER WHERE ITEM_CATEGORY=?1", nativeQuery=true)
+	@Query(value = "SELECT ITEM_DESC,ITEM_VALUATION,ITEM_MAKE FROM ITEM_MASTER WHERE ITEM_CATEGORY=?1", nativeQuery=true)
 	public List<Object[]> getDescriptionByType(String type);
 }
 
