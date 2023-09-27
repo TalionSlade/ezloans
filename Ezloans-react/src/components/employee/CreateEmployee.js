@@ -45,6 +45,7 @@ const CreateEmployee = () => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
+      setErrors('');
       try {
         await AuthenticationService.registerEmployee(employee);
         setSuccessMessage('User Added successful!y');
