@@ -119,6 +119,7 @@ public class ItemController {
 			Map<String,Object>itemMap=new HashMap<>();
 			itemMap.put("description", item[0]);
 			itemMap.put("Valuation", item[1]);
+			itemMap.put("Make", item[2]);
 			return itemMap;
 		}).collect(Collectors.toList());
 		return ResponseEntity.ok().body(items);
