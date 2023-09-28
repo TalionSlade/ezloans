@@ -12,18 +12,23 @@ function CreateLoan() {
 
 	const [errors,setErrors] = useState('');
   	const [successMessage,setSuccessMessage] = useState('');
-	const [type, setType] = useState('NA');
+	const [type, setType] = useState('');
+	const [existingTypes, setExistingTypes] = useState([]);
 	const [duration, setDuration] = useState(0);
 
 	useEffect(() => {
 		if(isLoggedIn) {
-		if (id !== '_add') {
-			LoanService.getLoanCardById(id).then((response) => {
-                console.log(response);
-				const loanCard = response.data;
-				setType(loanCard.type);
-				setDuration(loanCard.duration);
-			})
+			LoanService.getLoanCardTypes().then((res) => {
+				setExistingTypes(res.data);
+				console.log("Esisting type: ", res.data);
+			  })
+			if (id !== '_add') {
+				LoanService.getLoanCardById(id).then((response) => {
+					console.log(response);
+					const loanCard = response.data;
+					setType(loanCard.type);
+					setDuration(loanCard.duration);
+				})
 		}}
 		else {
 			alert("Please login first");
@@ -33,9 +38,10 @@ function CreateLoan() {
 
 	const saveOrUpdateLoan = (event) => {
 		event.preventDefault();
-		const loanCard = { type, duration};
+		const loanCard = { type, duration };
 		const validationErrors = validateForm();
 		if (Object.keys(validationErrors).length === 0) {
+			setErrors('');
 			
 			if (id === '_add') {
 				
@@ -43,7 +49,7 @@ function CreateLoan() {
 					setSuccessMessage('Loan Added successfully');
 					setTimeout(() => {
 						navigate('/loan'); 
-					  }, 3000);
+					  }, 2000);
 				});
 			}
 			else {
@@ -51,17 +57,14 @@ function CreateLoan() {
 					setSuccessMessage('Loan Updated successfully');
 					setTimeout(() => {
 						navigate('/loan'); 
-					  }, 3000);
+					  }, 2000);
 				});
 			}
 		} 
 		else {
 		  setErrors(validationErrors);
 		}
-		
-		};
-	
-	
+	};
 
 	const changeTypeHandler = (event) => {
 		setType(event.target.value);
@@ -89,6 +92,9 @@ const validateForm = () => {
     if (!type) {
       validationErrors.type = 'Type is required.';
     }
+	if (id === '_add' && existingTypes.includes(type)) {
+	  validationErrors.type = 'Type already exists';
+	}
     if (!duration) {
       validationErrors.duration = 'Duration is required.';
     }
@@ -108,18 +114,12 @@ const validateForm = () => {
 							<form className="form-grid">
 								<div className="form-group">
 									<label style={{ color: '#1f6e8c'}}> Type: </label>
-                                    <select  class={errors.type && 'error'} className="form-control" placeholder= "Loan Type" desc="type" value={type} onChange={changeTypeHandler}>
-                                    <option value="Default">Default</option>
-                                    <option value="Furniture">Furniture</option>
-                                    <option value="Crockery">Crockery</option>
-                                    <option value="Stationary">Stationary</option>
-                                    </select>
+									<input type ="text" placeholder="Loan Type" className="form-control" desc="type" class={errors.type && 'error'} value={type} onChange={changeTypeHandler} />
 									{errors.type && <p className="error-message">{errors.type}</p>}
 								</div>
 								<div className="form-group">
 									<label style={{ color: '#1f6e8c'}}>Duration: </label>
-                                    <input type ="number" placeholder="Loan Duration" className="form-control" desc="duration" class={errors.duration && 'error'}
-										value={duration} onChange={changeDurationHandler} />
+                                    <input type ="number" placeholder="Loan Duration" className="form-control" desc="duration" class={errors.duration && 'error'} value={duration} onChange={changeDurationHandler} />
 									{errors.duration && <p className="error-message">{errors.duration}</p>}	
 									
 								</div>

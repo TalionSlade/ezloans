@@ -18,6 +18,7 @@ const EditEmployee = () => {
 	const [designation, setDesignation] = useState();
     const [dob, setDob] = useState();
     const [doj, setDoj] = useState();
+    const [message, setMessage] = useState('');
     
 
     useEffect(() => {
@@ -35,7 +36,7 @@ const EditEmployee = () => {
         })}
         else {
 			alert("Please login first");
-      history('/login');
+            history('/login');
 		}
     }, [id]);
 
@@ -44,8 +45,14 @@ const EditEmployee = () => {
     	const employee = { fname, lname, email, gender, designation, department, dob, doj };
 
         EmployeeService.updateEmployee(employee, id).then(() => {
-            history('/employee');
+            setMessage("Employee updated successfully");
+            setTimeout(() => {
+				history('/employee');
+			}, 2000);
+
+            
         });
+        
         
     };
 
@@ -110,8 +117,10 @@ const EditEmployee = () => {
                 </div>
 
                 <button className="btn btn-success" onClick={editEmployee}>Save</button>
+                
                 <button className="btn btn-danger" onClick={navigateToEmployee} style={{ marginLeft: "10px" }}>Cancel</button>
-							</form>
+				{message && <p className="success-message">{message}</p>}			
+                </form>
 
         </div>
     </div>

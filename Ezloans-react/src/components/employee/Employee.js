@@ -113,6 +113,7 @@ function Employee() {
                             </tbody>
                             </table>
                         </div>
+                        {message && <p className="success-message">{message}</p>}
                         </div>
                     </div>
                 </div>

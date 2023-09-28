@@ -9,7 +9,7 @@ function Loan() {
 	const history = useNavigate();
 
 	const [loan, setLoan] = useState([]);
-	const [message, setMessage] = useState([]);
+	const [message, setMessage] = useState('');
   const { isLoggedIn, userId } = useAuth();
 	useEffect(() => {
     if(isLoggedIn)
