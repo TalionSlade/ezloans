@@ -37,7 +37,7 @@ const EmployeeCard = () => {
             <h2 className="text-center">Loan Cards Availed</h2><hr/>
             <div className='row justify-content-center' style={{color: "black"}}>
                 <div className='col-md-4'>
-                    Employee Id: {userId}
+                    Employee ID: {userId}
                 </div>
                 <div className='col-md-4'>
                     Department: {department}
@@ -51,7 +51,7 @@ const EmployeeCard = () => {
                 <table className="table w-auto">
                 <thead>
                   <tr>
-                    <th> Loan ID</th>
+                    <th> Loan Card ID</th>
                     <th> Loan Type</th>
                     <th> Duration</th>
                     <th> Card Issue Date</th>
@@ -61,7 +61,7 @@ const EmployeeCard = () => {
                   {employeeCards.map(
                     ec =>
                       <tr key={ec.cardId}>
-                        <td> {ec.loanId.loanId} </td>
+                        <td> {ec.cardId} </td>
                         <td> {ec.loanId.type} </td>
                         <td> {ec.loanId.duration} </td>
                         <td> {ec.issueDate} </td>
