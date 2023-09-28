@@ -47,6 +47,16 @@ input[type="number"] {
     text-align: center;
     margin: 0 auto;
   }
+
+  .form-control {
+    width: 100%;
+    max-width: 350px;
+    display: block;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin: 0 auto;
+  }
   
   .error {
     border-color: red;

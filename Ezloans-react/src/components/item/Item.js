@@ -88,17 +88,11 @@ function Item() {
                         <td> {item.category} </td>
                         <td> {item.valuation} </td>
                         <td>
-                          {/* <button className='btn btn-success tblBtn' onClick={() => editItem(item.itemId)}> */}
-                            <span className='tableIcon' onClick={() => editItem(item.itemId)}><EditIcon/></span>
-                          {/* </button> */}
+                          <span className='tableIcon' onClick={() => editItem(item.itemId)}><EditIcon/></span>
                           &nbsp;
-                          {/* <button className='btn btn-danger tblBtn' onClick={() => deleteItem(item.itemId)}> */}
-                            <span className='tableIcon' onClick={() => deleteItem(item.itemId)}><DeleteIcon/></span>
-                          {/* </button> */}
+                          <span className='tableIcon' onClick={() => deleteItem(item.itemId)}><DeleteIcon/></span>
                           &nbsp;
-                          {/* <button className='btn btn-primary tblBtn' onClick={() => viewItem(item.itemId)}> */}
-                            <span className='tableIcon' onClick={() => viewItem(item.itemId)}><ViewIcon/></span>
-                          {/* </button> */}
+                          <span className='tableIcon' onClick={() => viewItem(item.itemId)}><ViewIcon/></span>
                         </td>
 
                       </tr>

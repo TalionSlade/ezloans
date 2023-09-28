@@ -121,6 +121,9 @@ const CreateEmployee = () => {
     if (!employee.doj) {
       validationErrors.doj = 'Date of Joining is required.';
     } 
+    if (employee.doj < employee.dob) {
+      validationErrors.doj = "Date of Joining cannot be less than Date of Birth";
+    }
     
     return validationErrors;
   };
@@ -180,7 +183,7 @@ const CreateEmployee = () => {
         <div className="form-group">
           <label style={{ color: '#1f6e8c'}}>Gender:   </label>
           <select value={employee.gender} name="gender" onChange={handleChange}
-            className={errors.gender && 'error'}>
+            className={errors.gender && 'error' && 'form-control'}>
             <option value="Default">Default</option>
             <option value="Female">Female</option>
             <option value="Male">Male</option>

@@ -9,7 +9,7 @@ import LoanService from '../service/LoanService';
 
 const Dashboard = () => {
   const history = useNavigate();
-  const { isLoggedIn, userId } = useAuth();
+  const { isLoggedIn, isUser } = useAuth();
   const [employeeCount, setEmployeeCount] = useState(0);
   const [itemCount, setItemCount] = useState(0);
   const [loanCardCount, setLoanCardCount] = useState(0);
@@ -39,11 +39,12 @@ const Dashboard = () => {
         <div className="row">
           <div className="col-md-12">
             <h2 style={{padding: "10px", color:"white", marginTop: "10px"}}>
-              Dashboard 
+              Admin Dashboard 
               </h2>
               <br/>
           </div>
         </div>
+        {!isUser && 
         <div className="row">
           <div className="col-md-4">
             <div className="registration-container" style={{maxWidth: "300px", color: "black"}}>
@@ -64,7 +65,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-        </div>
+        </div>}
         <br></br>
       </div>}
     </div>
