@@ -9,9 +9,10 @@ import { useAuth } from './AuthContext';
 const NavBar = ({Toggle}) => {
 
     const history = useNavigate ();
-    const { isLoggedIn, setIsLoggedIn, userName} = useAuth();
+    const { isLoggedIn, setIsLoggedIn, userName, setToggle} = useAuth();
     const handleLogout = () => {
         setIsLoggedIn(false);
+        setToggle(false);
         setTimeout(() => {
             history('/',);  
         }, 200)
@@ -36,7 +37,7 @@ const NavBar = ({Toggle}) => {
                             Hi, {userName} 
                         </li>
                         <li className="nav-item">
-                        <NavLink to = "/" className="nav-link" activeclassname="active" onClick={() => { handleLogout(); Toggle();}}>Logout</NavLink>
+                        <NavLink to = "/" className="nav-link" activeclassname="active" onClick={() => { handleLogout(); }}>Logout</NavLink>
                         </li>
                     </ul>}
                     {!isLoggedIn &&

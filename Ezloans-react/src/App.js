@@ -1,5 +1,5 @@
 import './App.css';
-import React, {Component, useState} from "react";
+import React, {useEffect, useState} from "react";
 import NavBar from './components/Navbar';
 import Login from './components/Login';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -24,16 +24,18 @@ import ViewLoan from './components/loan/ViewLoan';
 import CreateLoan from './components/loan/CreateLoan';
 function App() {
   
-  const {isLoggedIn, setIsUser} = useAuth();
-  const [toggle, setToggle] = useState(false);
+  const {isLoggedIn, toggle, setToggle} = useAuth();
+  // const [toggle, setToggle] = useState(false);
   const Toggle = () => { 
-    if(!isLoggedIn) {
-    setToggle(false);
-  }
-  setToggle(!toggle) }
+    
+  setToggle(!toggle);
+  console.log("Inside Toggle(): ", toggle, "logged in: ", isLoggedIn);
+  // if(!isLoggedIn) {
+  //   setToggle(false);
+  // } 
+}
 
   return (
-    <AuthProvider>
     <div className="App">
       <div className='row' style = {{
         backgroundImage: "url(/images/landing.jpg)",
@@ -51,7 +53,7 @@ function App() {
             <Sidebar/>
             </div>}
             <div className='col' style={{padding:0}}>
-              <NavBar Toggle={Toggle}/>
+              <NavBar Toggle={Toggle} />
               <Routes>
                 <Route path="" element={<LandingPage/>}/>
                 <Route path="/login" element={<Login />}/>
@@ -84,7 +86,6 @@ function App() {
       </footer>
     </div>
     
-    </AuthProvider>
   );
 }
 

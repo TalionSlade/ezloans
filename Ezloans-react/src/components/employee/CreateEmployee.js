@@ -183,7 +183,7 @@ const CreateEmployee = () => {
         <div className="form-group">
           <label style={{ color: '#1f6e8c'}}>Gender:   </label>
           <select value={employee.gender} name="gender" onChange={handleChange}
-            className={errors.gender && 'error' && 'form-control'}>
+            className= 'form-control'>
             <option value="Default">Default</option>
             <option value="Female">Female</option>
             <option value="Male">Male</option>

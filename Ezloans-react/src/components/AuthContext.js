@@ -10,6 +10,7 @@ export function AuthProvider(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isUser, setIsUser] = useState(true);
     const [userName, setUserName] = useState(null);
+    const [toggle, setToggle] = useState();
     const value = {
         userId,
         setUserId,
@@ -18,7 +19,9 @@ export function AuthProvider(props) {
         isUser,
         setIsUser,
         userName,
-        setUserName
+        setUserName,
+        toggle,
+        setToggle
     }
   return (
     <AuthContext.Provider value={value}> {props.children} </AuthContext.Provider>
