@@ -1,12 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import EmployeeService from '../../service/EmployeeService';
+import { useAuth } from '../AuthContext';
 
 const EditEmployee = () => {
 
     const history = useNavigate();
 
     const {id} = useParams();
+    const { isLoggedIn } = useAuth();
 
     const [fname, setFname] = useState();
 	const [lname, setLname] = useState();
@@ -16,9 +18,11 @@ const EditEmployee = () => {
 	const [designation, setDesignation] = useState();
     const [dob, setDob] = useState();
     const [doj, setDoj] = useState();
+    const [message, setMessage] = useState('');
     
 
     useEffect(() => {
+        if(isLoggedIn) {
         EmployeeService.getEmployeeById(id).then((response) => {
             const emp = response.data;
             setFname(emp.fname);
@@ -29,7 +33,11 @@ const EditEmployee = () => {
             setDesignation(emp.designation);
             setDob(emp.dob);
             setDoj(emp.doj);
-        })
+        })}
+        else {
+			alert("Please login first");
+            history('/login');
+		}
     }, [id]);
 
     const editEmployee = (event) => {
@@ -37,8 +45,14 @@ const EditEmployee = () => {
     	const employee = { fname, lname, email, gender, designation, department, dob, doj };
 
         EmployeeService.updateEmployee(employee, id).then(() => {
-            history('/employee');
+            setMessage("Employee updated successfully");
+            setTimeout(() => {
+				history('/employee');
+			}, 2000);
+
+            
         });
+        
         
     };
 
@@ -103,8 +117,10 @@ const EditEmployee = () => {
                 </div>
 
                 <button className="btn btn-success" onClick={editEmployee}>Save</button>
+                
                 <button className="btn btn-danger" onClick={navigateToEmployee} style={{ marginLeft: "10px" }}>Cancel</button>
-							</form>
+				{message && <p className="success-message">{message}</p>}			
+                </form>
 
         </div>
     </div>

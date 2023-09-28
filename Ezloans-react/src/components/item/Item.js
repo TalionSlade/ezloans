@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ItemService from '../../service/ItemService';
+import { useAuth } from '../AuthContext';
 import { IoTrash as DeleteIcon, IoPencil as EditIcon, IoEye as ViewIcon} from 'react-icons/io5';
 
 function Item() {
@@ -8,9 +9,17 @@ function Item() {
 	const history = useNavigate();
 
 	const [items, setItems] = useState([]);
-	const [message, setMessage] = useState([]);
+	const [message, setMessage] = useState('');
+  const { isLoggedIn } = useAuth();
 	useEffect(() => {
-		fetchItems();
+    if(isLoggedIn) {
+		  fetchItems();
+    }
+    else {
+			alert("Please login first");
+      history('/login');
+		}
+
 	}, []);
 
 	const fetchItems = () => {
@@ -43,7 +52,7 @@ function Item() {
 
 	return (
 		<div>
-			<br />
+			<br /> {isLoggedIn && 
       <div className='container'>
 			  <h2>Item Master Data Details</h2>
 			  <br />
@@ -79,17 +88,11 @@ function Item() {
                         <td> {item.category} </td>
                         <td> {item.valuation} </td>
                         <td>
-                          <button className='btn btn-success tblBtn' onClick={() => editItem(item.itemId)}>
-                            <span><EditIcon/></span>
-                          </button>
+                          <span className='tableIcon' onClick={() => editItem(item.itemId)}><EditIcon/></span>
                           &nbsp;
-                          <button className='btn btn-danger tblBtn' onClick={() => deleteItem(item.itemId)}>
-                            <span><DeleteIcon/></span>
-                          </button>
+                          <span className='tableIcon' onClick={() => deleteItem(item.itemId)}><DeleteIcon/></span>
                           &nbsp;
-                          <button className='btn btn-primary tblBtn' onClick={() => viewItem(item.itemId)}>
-                            <span><ViewIcon/></span>
-                          </button>
+                          <span className='tableIcon' onClick={() => viewItem(item.itemId)}><ViewIcon/></span>
                         </td>
 
                       </tr>
@@ -97,13 +100,11 @@ function Item() {
                   }
                 </tbody>
               </table>
-
               </div>
               {message && <div className="alert alert-success">{message}</div>}
             </div>
           </div>
-          
-		  </div>
+		  </div>}
     </div>
 	)
 }

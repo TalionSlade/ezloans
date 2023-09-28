@@ -4,32 +4,40 @@ import '../styles/Registeration.css';
 import { useAuth } from './AuthContext';
 import EmployeeService from '../service/EmployeeService';
 import ItemService from '../service/ItemService';
+import LoanService from '../service/LoanService';
 
 const ApplyLoan = () => {
 
-    const { isLoggedIn, userId } = useAuth();
+  const { isLoggedIn, userId } = useAuth();
 
   const history = useNavigate();
   const [errors,setErrors] = useState('');
   const [successMessage,setSuccessMessage] = useState('');
   const [descriptions, setDescriptions] = useState([]);
   const [valuation, setValuation] = useState(0);
+  const [make, setMake] = useState('');
+  const [loanCardCategories, setLoanCardCategories] = useState([]);
   const [employeeCard, setEmployeeCard] = useState({
     eid: userId,
     category: '',
     description: '',
     value: valuation,
-    make:''
+    make: make
   });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+
+  useEffect(() => {
+    if(isLoggedIn) {
+    LoanService.getLoanCardTypes().then((res) => {
+      const loanCategories = res.data;
+      console.log("Loancard res: ",res.data);
+      setLoanCardCategories(loanCategories);
+    });}
+    else {
+      alert("Please login first");
+      history('/login');
+    }
     
-      setEmployeeCard((prevEmployeeCard) => ({
-        ...prevEmployeeCard,
-        [name]: value
-      }));
-    
-  };
+  }, []);
 
   const handleCategoryChange = async (e) => {
     e.preventDefault();
@@ -38,6 +46,18 @@ const ApplyLoan = () => {
     setDescriptions(response.data);
     console.log("getdescriptions res: ",response.data);
   }
+
+  const handleDescriptionChange = async (e) => {
+    e.preventDefault();
+    employeeCard.description = e.target.value;
+    const idx = descriptions.findIndex((desc) => desc.description == e.target.value);
+    const value = descriptions[idx].Valuation;
+    const makee = descriptions[idx].Make;
+    setValuation(value);
+    setMake(makee);
+    console.log("idx: ",descriptions[idx]);
+  }
+  
 
   const validateForm = () => {
     let validationErrors = {};
@@ -54,29 +74,21 @@ const ApplyLoan = () => {
     if (!employeeCard.description) {
       validationErrors.description = 'Description is required.';
     }
-    if (!employeeCard.make) {
+    if (!make) {
       validationErrors.make = 'Make is required.';
     }
     
     return validationErrors;
   };
 
-  const handleDescriptionChange = async (e) => {
-    e.preventDefault();
-    employeeCard.description = e.target.value;
-    const idx = descriptions.findIndex((desc) => desc.description == e.target.value);
-    const value = descriptions[idx].valuation;
-    setValuation(value);
-    console.log("idx: ",descriptions[idx]);
-  }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validateForm();
 		if (Object.keys(validationErrors).length === 0) {
-    // console.log("Employee Card obj: ", employeeCard);
+    console.log("Employee Card obj: ", employeeCard);
       try {
         await EmployeeService.applyLoan(employeeCard);
+        setErrors('');
         setSuccessMessage('Loan added successful!y');
         setTimeout(() => {
           history(`/viewItem/emp/${userId}`); 
@@ -94,6 +106,7 @@ const ApplyLoan = () => {
   return (
     <div>
     <br/><br/>
+    {isLoggedIn && 
     <div className="registration-container">
       <form onSubmit={handleSubmit} className="form-grid">
         <div style={{ gridColumn: '1 / span 2' }}>
@@ -106,23 +119,23 @@ const ApplyLoan = () => {
             <div className="form-group">
                 <label style={{ color: '#1f6e8c'}}>Category:</label>
                 <select class={errors.category && 'error'} className="form-control" placeholder= "Item Category" desc="category" value={employeeCard.category} name="category" onChange={handleCategoryChange}>
-                        <option hidden="hidden">Default</option>
-                        <option value="Furniture">Furniture</option>
-                        <option value="Stationary">Stationary</option>
-                        <option value="Crockery">Crockery</option>
-                        <option value="Other">Other</option>
+                <option hidden="hidden">Default</option>
+                   { loanCardCategories.map(
+                    loanCard => 
+                    <option value={loanCard}>{loanCard}</option>
+                   )
+                   }
                 </select>
                 {errors.category && <p className="error-message">{errors.category}</p>}
             </div>
             <div className="form-group">
                 <label style={{ color: '#1f6e8c'}}>Make:</label>
-                <select class={errors.make && 'error'} className="form-control" placeholder= "Item Make" desc="make" value={employeeCard.make} onChange={handleChange}>
-                <option hidden="hidden">Default</option>
-                    <option value="Wooden">Wooden</option>
-                    <option value="Glass">Glass</option>
-                    <option value="Plastic">Plastic</option>
-                    <option value="Other">Other</option>
-                </select>
+                <input
+                    class={errors.make && 'error'}
+                    type="text"
+                    name="make"
+                    value={make}
+                    />
                 {errors.make && <p className="error-message">{errors.make}</p>}
             </div>
         </div>
@@ -157,7 +170,7 @@ const ApplyLoan = () => {
           {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
       </form>
-    </div>
+    </div>}
     <br/>
     </div> 
   )

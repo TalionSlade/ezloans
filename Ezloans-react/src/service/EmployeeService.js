@@ -35,22 +35,6 @@ class EmployeeService {
 		}
 	}
 
-	static getEmployeeCount() {
-		try {
-			return axios.get(EMPLOYEE_REST_API_URL + '/count');
-		} catch (error) {
-			console.error("Error: ", error);
-		}
-	}
-
-	// static async applyLoan(loanObj) {
-	// 	try {
-	// 		const response = await axios.put('http://localhost:8085/ezloans/api/applyloan', loanObj);
-	// 		return response;
-	// 	} catch (error) {
-	// 		console.error("Error: ", error);
-	// 	}
-	// }
 	static async applyLoan(loanObj){
         try{
             const response=await axios.post('http://localhost:8085/ezloans/api/applyloan', loanObj);

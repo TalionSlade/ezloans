@@ -72,7 +72,7 @@ public class LoanCardController {
 		}
 	}
 	
-	@GetMapping("/loancardtypes")
+	@GetMapping("/loancards/types")
 	public ResponseEntity<List<String>> getLoanCardTypes(){
 		try {
 			List<LoanCard>loancards=lservice.listAll();
