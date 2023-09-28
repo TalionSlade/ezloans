@@ -15,16 +15,15 @@ const Dashboard = () => {
   const [loanCardCount, setLoanCardCount] = useState(0);
   useEffect(() => {
     if(isLoggedIn) {
-		EmployeeService.getEmployeeCount().then((response) => {
-      console.log("emp response ",response);
-			setEmployeeCount(response.data); 
+		EmployeeService.getEmployees().then((res) => {
+			setEmployeeCount(res.data.length); 
 		});
     ItemService.getItems().then((res) => {
       setItemCount(res.data.length);
-    })
+    });
     LoanService.getLoans().then((res)=> {
       setLoanCardCount(res.data.length);
-    })
+    });
   }
     else {
       alert("Please login first");
@@ -39,7 +38,7 @@ const Dashboard = () => {
         <div className="row">
           <div className="col-md-12">
             <h2 style={{padding: "10px", color:"white", marginTop: "10px"}}>
-              Admin Dashboard 
+              Dashboard 
               </h2>
               <br/>
           </div>
