@@ -8,7 +8,7 @@ import LoanService from '../service/LoanService';
 
 const ApplyLoan = () => {
 
-    const { isLoggedIn, userId } = useAuth();
+  const { isLoggedIn, userId } = useAuth();
 
   const history = useNavigate();
   const [errors,setErrors] = useState('');
@@ -125,11 +125,6 @@ const ApplyLoan = () => {
                     <option value={loanCard}>{loanCard}</option>
                    )
                    }
-                        {/* <option hidden="hidden">Default</option>
-                        <option value="Furniture">Furniture</option>
-                        <option value="Stationary">Stationary</option>
-                        <option value="Crockery">Crockery</option>
-                        <option value="Other">Other</option> */}
                 </select>
                 {errors.category && <p className="error-message">{errors.category}</p>}
             </div>

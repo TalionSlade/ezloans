@@ -1,10 +1,8 @@
-import React, {Component, useState} from "react";
-import {Link, NavLink, useNavigate} from 'react-router-dom';
+import React from "react";
+import { NavLink, useNavigate } from 'react-router-dom';
 import '../styles/NavBar.css';
 import {IoMenuOutline as MenuIcon} from 'react-icons/io5';
 import { useAuth } from './AuthContext';
-import Sidebar from "./Sidebar";
-import { NavDropdown } from "react-bootstrap";
 
 
 
@@ -34,15 +32,6 @@ const NavBar = ({Toggle}) => {
                 <div className="collapse navbar-collapse links" id="navbarContent">
                     {isLoggedIn &&
                     <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
-                        
-                        {/* <NavDropdown title={
-                            <span className="ml-auto">Hi, {userName} </span>
-                        } id="nav-dropdown">
-                            <NavDropdown.Item>
-                            <NavLink to = "/" className="ml-auto" style={{color: "black"}} onClick={() => { handleLogout(); Toggle();}}>Logout</NavLink>
-                            </NavDropdown.Item>
-                        </NavDropdown> */}
-
                         <li className="nav-item nav-link welcome-user">
                             Hi, {userName} 
                         </li>
