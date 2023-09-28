@@ -80,19 +80,12 @@ function Loan() {
                       <td> {loan.type} </td>
                       <td> {loan.duration} </td>
                       <td>
-                        <button className='btn btn-success tblBtn' onClick={() => editLoan(loan.loanId)}>
-                          <span><EditIcon/></span>
-                        </button>
+                        <span className='tableIcon' onClick={() => editLoan(loan.loanId)}><EditIcon/></span>
                         &nbsp;
-                        <button className='btn btn-danger tblBtn' onClick={() => deleteLoan(loan.loanId)}>
-                          <span><DeleteIcon/></span>
-                        </button>
+                        <span className='tableIcon' onClick={() => deleteLoan(loan.loanId)}><DeleteIcon/></span>
                         &nbsp;
-                        <button className='btn btn-primary tblBtn' onClick={() => viewLoan(loan.loanId)}>
-                          <span><ViewIcon/></span>
-                        </button>
+                        <span className='tableIcon' onClick={() => viewLoan(loan.loanId)}><ViewIcon/></span>
                       </td>
-
                     </tr>
                 )
                 }

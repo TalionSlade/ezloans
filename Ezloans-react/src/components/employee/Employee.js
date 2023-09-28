@@ -93,18 +93,11 @@ function Employee() {
                                                 <td> {emp.dob} </td>
                                                 <td> {emp.doj} </td>
                                                 <td>
-                                                <button className='btn btn-success tblBtn' onClick={()=>editEmployee(emp.eid)}>
-                                                    <span><EditIcon></EditIcon></span>
-                                                </button>
+                                                <span className='tableIcon' onClick={()=>editEmployee(emp.eid)}><EditIcon></EditIcon></span>
                                                 &nbsp;
-                                                <button className='btn btn-danger tblBtn' onClick={()=>deleteEmployee(emp.eid)}>
-                                                    <span><DeleteIcon></DeleteIcon></span>
-                                                </button>
+                                                <span className='tableIcon' onClick={()=>deleteEmployee(emp.eid)} ><DeleteIcon></DeleteIcon></span>
                                                 &nbsp;
-                                                
-                                                <button className='btn btn-primary tblBtn' onClick={()=>viewEmployee(emp.eid)}>
-                                                    <span><ViewIcon></ViewIcon></span>
-                                                </button>
+                                                <span className='tableIcon' onClick={()=>viewEmployee(emp.eid)}><ViewIcon></ViewIcon></span>
                                                 </td> 
                                             
                                             </tr>

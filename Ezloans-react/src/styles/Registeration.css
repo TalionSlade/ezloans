@@ -92,3 +92,11 @@ input[type="number"] {
   .form-group label {
     color: #1f6e8c;
   }
+
+  .tableIcon {
+    cursor: pointer;
+  }
+
+  .tableIcon:hover {
+    background-color: #1f6d8ca9;
+  }
