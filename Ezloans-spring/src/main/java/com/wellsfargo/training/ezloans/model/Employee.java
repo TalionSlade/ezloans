@@ -159,9 +159,9 @@ public class Employee {
 		return doj;
 	}
 
-	public void setDoj(Date string) {
+	public void setDoj(Date doj) {
 	
-		this.doj = string;
+		this.doj = doj;
 	}
 
 	public List<EmployeeIssue> getEmployeeIssue() {

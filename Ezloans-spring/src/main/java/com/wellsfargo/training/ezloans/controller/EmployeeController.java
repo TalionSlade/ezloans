@@ -78,7 +78,7 @@ public class EmployeeController {
 }
 	 */
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, Object>> loginDealer(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
+	public ResponseEntity<Map<String, Object>> loginEmployee(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
 		
 		Boolean isloggedin=false;
 		
