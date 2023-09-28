@@ -2,11 +2,13 @@ import React, {useState, useRef, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../../styles/Registeration.css';
 import AuthenticationService from '../../service/AuthenticationService';
+import { useAuth } from '../AuthContext';
+import EmployeeService from '../../service/EmployeeService';
 
 const CreateEmployee = () => {
 
   const history = useNavigate();
-   const [employee, setEmployee] = useState({
+  const [employee, setEmployee] = useState({
     email: '',
     fname: '',
     lname: '',
@@ -19,7 +21,22 @@ const CreateEmployee = () => {
   });
   const [errors,setErrors] = useState('');
   const [successMessage,setSuccessMessage] = useState('');
+  const [existingEmployees, setExistingEmployees] = useState([]);
+  const { isLoggedIn } = useAuth();
 
+  useEffect(() => {
+    
+    if(isLoggedIn) {
+      EmployeeService.getEmployees().then((res) => {
+        setExistingEmployees(res.data);
+        console.log("Esisting emp: ", res.data);
+      })
+    }
+    else {
+      alert("Please login first");
+      history('/login');
+    }
+  }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes('.')) {   
@@ -43,6 +60,7 @@ const CreateEmployee = () => {
     e.preventDefault();
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length === 0) {
+      setErrors('');
       try {
         await AuthenticationService.registerEmployee(employee);
         setSuccessMessage('User Added successful!y');
@@ -67,6 +85,9 @@ const CreateEmployee = () => {
 
     if (!employee.email) {
       validationErrors.email = 'Email is required.';
+    }
+    if (existingEmployees.some( e => e.email == employee.email)) {
+      validationErrors.email = 'Employee with given email already exists';
     }
     if (!employee.fname) {
       validationErrors.fname = 'First Name is required.';
@@ -100,13 +121,16 @@ const CreateEmployee = () => {
     if (!employee.doj) {
       validationErrors.doj = 'Date of Joining is required.';
     } 
+    if (employee.doj < employee.dob) {
+      validationErrors.doj = "Date of Joining cannot be less than Date of Birth";
+    }
+    
     return validationErrors;
   };
 
   return (
     <div>
-    <br/>
-    <br></br>
+    <br/><br/> {isLoggedIn && 
     <div className="registration-container">
       <form onSubmit={handleSubmit} className="form-grid">
         <h2 style={{ color: '#1f6e8c', gridColumn: '1 / span 2' }}>Customer Master Data Details</h2>
@@ -159,19 +183,12 @@ const CreateEmployee = () => {
         <div className="form-group">
           <label style={{ color: '#1f6e8c'}}>Gender:   </label>
           <select value={employee.gender} name="gender" onChange={handleChange}
-            className={errors.gender && 'error'}>
+            className={errors.gender && 'error' && 'form-control'}>
             <option value="Default">Default</option>
             <option value="Female">Female</option>
             <option value="Male">Male</option>
             <option value="Other">Other</option>
           </select>
-          {/* <input
-            type="text"
-            name="gender"
-            value={employee.gender}
-            onChange={handleChange}
-            className={errors.gender && 'error'}
-          /> */}
           {errors.gender && <p className="error-message">{errors.gender}</p>}
         </div>
         </div>
@@ -232,7 +249,7 @@ const CreateEmployee = () => {
           {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
       </form>
-    </div>
+    </div>}
     <br></br>
     </div> 
   )

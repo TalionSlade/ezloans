@@ -19,6 +19,11 @@ header {
   backdrop-filter: blur(10px);
 }
 
+.welcome-user {
+  color: white;
+  border: 1px solid white;
+  margin-right: 5px;
+}
 .navbar {
   width: 100%;
   height: 60px;
@@ -63,6 +68,8 @@ header {
 .sideToggleBtn:hover {
   color: aqua;
 }
+
+
 
 
 @media(max-width: 992px) {

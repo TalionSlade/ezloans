@@ -1,19 +1,23 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import EmployeeService from '../../service/EmployeeService';
-import Employee from './Employee';
+import { useAuth } from '../AuthContext';
 
 const ViewEmployee = () => {
     const history = useNavigate();
-
     const {id} = useParams();
-
     const [employee, setEmployee] = useState({});
+    const { isLoggedIn } = useAuth();
 
     useEffect(() => {
+        if(isLoggedIn) {
         EmployeeService.getEmployeeById(id).then((response) => {
             setEmployee(response.data);
-        })
+        })}
+        else {
+			alert("Please login first");
+            history('/login');
+		}
         
     }, [id]);
 

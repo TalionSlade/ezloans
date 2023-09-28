@@ -11,7 +11,7 @@ const Login = () => {
     const [password,setPassword] =  useState('');
     const [errorMessage,seterrorMessage] =  useState('');
     const [successMessage,setsuccessMessage] =  useState('');
-	const {setIsLoggedIn, setIsUser, setUserId} = useAuth();
+	const {setIsLoggedIn, setIsUser, setUserId, setUserName} = useAuth();
 
 	
     const handleLogin = async() => {
@@ -24,8 +24,10 @@ const Login = () => {
         try{
             const loginSuccess = await AuthenticationService.login(employee);
             console.log("API response: ", loginSuccess.data);
+			setUserName(email);
             if (loginSuccess.isloggedin){
-
+				
+				seterrorMessage("");
                 setsuccessMessage("Login Successful. Redirecting...");
 				setIsLoggedIn(true);
 				setUserId(loginSuccess.eid);

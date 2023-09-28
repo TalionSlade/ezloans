@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../AuthContext';
 import EmployeeService from '../../service/EmployeeService';
 import { IoTrash as DeleteIcon, IoPencil as EditIcon, IoEye as ViewIcon} from 'react-icons/io5';
 
@@ -9,9 +10,15 @@ function Employee() {
 
 	const [employees, setEmployees] = useState([]);
 	const [message, setMessage] = useState([]);
+    const { isLoggedIn } = useAuth();
 
 	useEffect(() => {
+        if(isLoggedIn)
 		fetchEmployees();
+        else {
+            alert("Please login first");
+            history('/login');
+          }
 	}, []
     );
 
@@ -23,10 +30,6 @@ function Employee() {
 		});
 
 	}
-
-	// const addEmployee = () => {
-	// 	history('/addEmployee/_add'); //Naigate to CreateEmployee component and pass '_add' as parameter
-	// }
 
 	const editEmployee = (id) => {
 		history(`/editEmployee/${id}`) 
@@ -52,7 +55,8 @@ function Employee() {
 
 	return (
         <div>
-            <br/>
+            <br/> 
+            {isLoggedIn && 
             <div className='container' >
                 <h2>Customer Master Data Details</h2>
                 <div className='row justify-content-center'>
@@ -61,7 +65,6 @@ function Employee() {
                     </div>
                     <div className='column'>
                         <div className='registration-container' style={{maxWidth: "80%"}}>
-                        {/* <h2>View All Customers</h2> */}
                         <div className='row justify-content-center'>
                         <table className="table w-auto" >
                             <thead>
@@ -84,24 +87,17 @@ function Employee() {
                                                 <td> {emp.eid} </td>
                                                 <td> {emp.fname} </td>
                                                 <td> {emp.lname} </td>
-                                                <td> {emp.designation} </td>
+                                                <td> {emp.designation} </td> 
                                                 <td> {emp.department} </td>
                                                 <td> {emp.gender} </td>
                                                 <td> {emp.dob} </td>
                                                 <td> {emp.doj} </td>
                                                 <td>
-                                                <button className='btn btn-success tblBtn' onClick={()=>editEmployee(emp.eid)}>
-                                                    <span><EditIcon></EditIcon></span>
-                                                </button>
+                                                <span className='tableIcon' onClick={()=>editEmployee(emp.eid)}><EditIcon></EditIcon></span>
                                                 &nbsp;
-                                                <button className='btn btn-danger tblBtn' onClick={()=>deleteEmployee(emp.eid)}>
-                                                    <span><DeleteIcon></DeleteIcon></span>
-                                                </button>
+                                                <span className='tableIcon' onClick={()=>deleteEmployee(emp.eid)} ><DeleteIcon></DeleteIcon></span>
                                                 &nbsp;
-                                                
-                                                <button className='btn btn-primary tblBtn' onClick={()=>viewEmployee(emp.eid)}>
-                                                    <span><ViewIcon></ViewIcon></span>
-                                                </button>
+                                                <span className='tableIcon' onClick={()=>viewEmployee(emp.eid)}><ViewIcon></ViewIcon></span>
                                                 </td> 
                                             
                                             </tr>
@@ -110,10 +106,11 @@ function Employee() {
                             </tbody>
                             </table>
                         </div>
+                        {message && <p className="success-message">{message}</p>}
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>}
         </div>
 	)
 }

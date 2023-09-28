@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoanService from '../../service/LoanService';
+import { useAuth } from '../AuthContext';
 import { IoTrash as DeleteIcon, IoPencil as EditIcon, IoEye as ViewIcon} from 'react-icons/io5';
 
 function Loan() {
@@ -8,9 +9,15 @@ function Loan() {
 	const history = useNavigate();
 
 	const [loan, setLoan] = useState([]);
-	const [message, setMessage] = useState([]);
+	const [message, setMessage] = useState('');
+  const { isLoggedIn, userId } = useAuth();
 	useEffect(() => {
+    if(isLoggedIn)
 		fetchLoan();
+  else {
+    alert("Not logged in");
+    history('/login');
+  }
 	}, []);
 
 	const fetchLoan = () => {
@@ -41,9 +48,9 @@ function Loan() {
 		history(`/viewLoan/${id}`);
 	}
   return (
-
+     
     <div>
-    <br />
+    <br />{isLoggedIn &&
     <div className='container'>
       <h2>Loan Card Master Data Details</h2>
       <br />
@@ -73,19 +80,12 @@ function Loan() {
                       <td> {loan.type} </td>
                       <td> {loan.duration} </td>
                       <td>
-                        <button className='btn btn-success tblBtn' onClick={() => editLoan(loan.loanId)}>
-                          <span><EditIcon/></span>
-                        </button>
+                        <span className='tableIcon' onClick={() => editLoan(loan.loanId)}><EditIcon/></span>
                         &nbsp;
-                        <button className='btn btn-danger tblBtn' onClick={() => deleteLoan(loan.loanId)}>
-                          <span><DeleteIcon/></span>
-                        </button>
+                        <span className='tableIcon' onClick={() => deleteLoan(loan.loanId)}><DeleteIcon/></span>
                         &nbsp;
-                        <button className='btn btn-primary tblBtn' onClick={() => viewLoan(loan.loanId)}>
-                          <span><ViewIcon/></span>
-                        </button>
+                        <span className='tableIcon' onClick={() => viewLoan(loan.loanId)}><ViewIcon/></span>
                       </td>
-
                     </tr>
                 )
                 }
@@ -97,9 +97,9 @@ function Loan() {
           </div>
         </div>
         
-    </div>
+    </div>}
   </div>
-
+              
         
   )
 }

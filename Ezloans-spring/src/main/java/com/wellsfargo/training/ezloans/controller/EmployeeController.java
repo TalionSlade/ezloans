@@ -216,14 +216,6 @@ public class EmployeeController {
 		response.put("Deleted",Boolean.TRUE);
 		return ResponseEntity.ok(response);		
 	}
-	
-	@GetMapping("/employee/count")
-	public Long getEmployeeCount() 
-			throws ResourceNotFoundException{
-		Long empcount = eservice.getEmployeeCount();
-		return empcount;
-	}
-
 
 }
 

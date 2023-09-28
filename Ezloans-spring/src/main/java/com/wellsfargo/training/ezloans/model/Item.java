@@ -32,7 +32,7 @@ public class Item {
 	@GeneratedValue(strategy = GenerationType.IDENTITY , generator = "item_seq")
 	private Long itemId;
 	
-	@Column(nullable = false, name="item_desc")
+	@Column(nullable = false, name="item_desc",unique = true)
 	private String desc;
 	
 	@Column( nullable = false, name="item_status")

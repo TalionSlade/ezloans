@@ -16,31 +16,28 @@ const EmployeeCard = () => {
     const [designation, setDesignation] = useState();
 
     useEffect(() => {
+      if(isLoggedIn) {
         EmployeeCardService.getEmployeeCardById(id).then((response) => {
             setEmployeeCards(response.data);
         EmployeeService.getEmployeeById(id).then((response) => {
             setDepartment(response.data.department);
             setDesignation(response.data.designation);
         })
-        });
-
-        // if(items.length === 0) {
-        //     alert("No Items");
-        //     setTimeout(() => {
-        //         history('/dashboard');  
-        //     }, 100)
-        // }
-        
+        });}
+        else {
+          alert("Please login first");
+                history('/login');
+        }
     }, [id]);
 
   return (
     <div>
-        <br />
+        <br /> {isLoggedIn && 
         <div className="registration-container">
             <h2 className="text-center">Loan Cards Availed</h2><hr/>
             <div className='row justify-content-center' style={{color: "black"}}>
                 <div className='col-md-4'>
-                    Employee Id: {userId}
+                    Employee ID: {userId}
                 </div>
                 <div className='col-md-4'>
                     Department: {department}
@@ -54,7 +51,7 @@ const EmployeeCard = () => {
                 <table className="table w-auto">
                 <thead>
                   <tr>
-                    <th> Loan ID</th>
+                    <th> Loan Card ID</th>
                     <th> Loan Type</th>
                     <th> Duration</th>
                     <th> Card Issue Date</th>
@@ -64,7 +61,7 @@ const EmployeeCard = () => {
                   {employeeCards.map(
                     ec =>
                       <tr key={ec.cardId}>
-                        <td> {ec.loanId.loanId} </td>
+                        <td> {ec.cardId} </td>
                         <td> {ec.loanId.type} </td>
                         <td> {ec.loanId.duration} </td>
                         <td> {ec.issueDate} </td>
@@ -75,7 +72,7 @@ const EmployeeCard = () => {
               </table>
                 </div>
             </div>
-        </div>
+        </div>}
     </div>
   )
 }

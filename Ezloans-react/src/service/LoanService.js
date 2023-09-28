@@ -48,6 +48,14 @@ class LoanService {
 		
 	}
 
+    static getLoanCardTypes() {
+        try {
+            return axios.get(CRUDLOAN_REST_API_URL + '/types')
+        } catch(error) {
+            console.error("Error: ", error);
+        }
+    }
+
 }
 
 export default LoanService;
