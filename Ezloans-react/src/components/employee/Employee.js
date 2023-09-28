@@ -87,7 +87,7 @@ function Employee() {
                                                 <td> {emp.eid} </td>
                                                 <td> {emp.fname} </td>
                                                 <td> {emp.lname} </td>
-                                                <td> {emp.designation} </td>
+                                                <td> {emp.designation} </td> 
                                                 <td> {emp.department} </td>
                                                 <td> {emp.gender} </td>
                                                 <td> {emp.dob} </td>

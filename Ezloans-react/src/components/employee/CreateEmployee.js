@@ -3,11 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/Registeration.css';
 import AuthenticationService from '../../service/AuthenticationService';
 import { useAuth } from '../AuthContext';
+import EmployeeService from '../../service/EmployeeService';
 
 const CreateEmployee = () => {
 
   const history = useNavigate();
-   const [employee, setEmployee] = useState({
+  const [employee, setEmployee] = useState({
     email: '',
     fname: '',
     lname: '',
@@ -20,8 +21,22 @@ const CreateEmployee = () => {
   });
   const [errors,setErrors] = useState('');
   const [successMessage,setSuccessMessage] = useState('');
+  const [existingEmployees, setExistingEmployees] = useState([]);
   const { isLoggedIn } = useAuth();
 
+  useEffect(() => {
+    
+    if(isLoggedIn) {
+      EmployeeService.getEmployees().then((res) => {
+        setExistingEmployees(res.data);
+        console.log("Esisting emp: ", res.data);
+      })
+    }
+    else {
+      alert("Please login first");
+      history('/login');
+    }
+  }, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name.includes('.')) {   
@@ -71,6 +86,9 @@ const CreateEmployee = () => {
     if (!employee.email) {
       validationErrors.email = 'Email is required.';
     }
+    if (existingEmployees.some( e => e.email == employee.email)) {
+      validationErrors.email = 'Employee with given email already exists';
+    }
     if (!employee.fname) {
       validationErrors.fname = 'First Name is required.';
     }
@@ -103,6 +121,7 @@ const CreateEmployee = () => {
     if (!employee.doj) {
       validationErrors.doj = 'Date of Joining is required.';
     } 
+    
     return validationErrors;
   };
 
