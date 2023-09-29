@@ -77,10 +77,7 @@ public class EmployeeControllerTests {
 		
 		assertEquals(HttpStatus.OK, re.getStatusCode());
 		assertEquals("Registration Successfull", re.getBody());
-//		assertEquals("ghosh", re.getBody().getBrand());
-//		assertEquals(5000.0f, re.getBody().getPrice());
-//		
-		//verify method is used to check whether some specified methods are called or not
+		
 		verify(eservice, times(1)).registerEmployee(any(Employee.class));
 		
 	}
