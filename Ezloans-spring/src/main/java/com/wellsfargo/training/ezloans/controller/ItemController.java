@@ -38,9 +38,9 @@ public class ItemController {
 			
 			Item registeredItem = iservice.registerItems(item);
 			if(registeredItem != null) {
-				return ResponseEntity.ok("GG!! Successfull");
+				return ResponseEntity.ok("Item successfully registered");
 			}else {
-				return ResponseEntity.badRequest().body("NT!  Registration failed!!");
+				return ResponseEntity.badRequest().body("Failed to add Item");
 			}
 			
 		}catch(Exception e) {
@@ -76,7 +76,7 @@ public class ItemController {
 	@GetMapping("/item/{id}")
 	public ResponseEntity<Item> getItemsById(@PathVariable(value="id") long id) 
 			throws ResourceNotFoundException{
-		Item i=iservice.getItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id "+id));
+		Item i=iservice.getItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id"+id));
 		return ResponseEntity.ok().body(i);
 	}
 
@@ -107,7 +107,6 @@ public class ItemController {
 		
 		final Item updatedItem = iservice.saveItem(item);
 		return ResponseEntity.ok().body(updatedItem);
-		
 	}
 	
 	@GetMapping("/getdescription/{type}")
