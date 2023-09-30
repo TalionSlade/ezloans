@@ -57,17 +57,7 @@ public class EmployeeCardController {
 	
 	
 	
-	@GetMapping("/employeecards")
-	public ResponseEntity<List<EmployeeCard>> getEmployeeCardsInfo(){
-		try {
-			List<EmployeeCard> employeecards=ecardservice.getEmployeeCards();
-			return ResponseEntity.ok(employeecards);
-					}
-		catch(Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-		}
-	}
+	
 	
 	@GetMapping("/employeecard/{id}")
 	public ResponseEntity<List<EmployeeCard>> getEmployeeCardsOfEmployee(@PathVariable(value="id") Long id){
