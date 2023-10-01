@@ -56,6 +56,11 @@ public class ItemControllerTest {
 	void tearDown() throws Exception {
 		i=null;
 	}
+	
+	
+	/*
+	 *  We test our testSaveItem functionality in this method.
+	 *  We create a mock Item object and test the registerItem service and insertItem controller function*/
 	@Test
 	void testSaveItem() throws ParseException {
 		
@@ -103,6 +108,10 @@ public class ItemControllerTest {
 		verify(iservice, times(1)).registerItems(any(Item.class));
 		
 	}
+
+	/*
+	 *  We test our testSaveItem with Item Response Entity functionality in this method.
+	 *  We create a mock Item object and test the saveItem service and saveProduct controller function*/
 	@Test
 	void testSaveItem_ReturnItem() throws ParseException {
 		
@@ -150,6 +159,10 @@ public class ItemControllerTest {
 		verify(iservice, times(1)).saveItem(any(Item.class));
 		
 	}
+
+	/*
+	 *  We test our testSaveItem's fail functionality in this method.
+	 *  We create a mock Item object and test the saveItem service and saveProduct controller function*/
 	@Test
 	void testSaveItem_ReturnItem_fail() throws ParseException {
 		
@@ -184,19 +197,19 @@ public class ItemControllerTest {
 	    List<EmployeeIssue> eis = new ArrayList<EmployeeIssue>();
 	    eis.add(ei);
 
-	    i.setEmployeeIssue(eis);
-	    
+	    i.setEmployeeIssue(eis);	    
 	    Exception ex = new IllegalStateException();
 	    when(iservice.saveItem(any(Item.class))).thenThrow(ex);
-
 		ResponseEntity<Item> re=ItemController.saveProduct(i);
-
 		assertNull(re.getBody());
 		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());
 		verify(iservice, times(1)).saveItem(any(Item.class));
 		
 	}
-	
+
+	/*
+	 *  We test our testSaveItem's failure test case in this method.
+	 *  We create a mock Item object and test the registerItem service and insertItem controller function*/
 	@Test
 	void testSaveItem_fail() throws ParseException {
 		
