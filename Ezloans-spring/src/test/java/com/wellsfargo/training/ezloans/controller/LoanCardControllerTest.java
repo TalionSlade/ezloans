@@ -39,20 +39,30 @@ class LoanCardControllerTest {
 	private LoanCardController loanCardController;
 	
 	LoanCard lc;
-	
+	/*
+	 * We can use the @MockBean to add mock objects to the Spring application context.
+	 *  The mock will replace any existing bean of the same type in the application context.
+	 */
 	@MockBean
 	private LoanCardService lservice;
 	
+	/*
+	 * @BeforeEach - Use to run a common code before ( eg setUp) each test method execution.
+	 */
 	@BeforeEach
 	void setUp() throws Exception {
 		lc = new LoanCard();
 	}
 
+	/*
+	 * @AfterEach - Use to run a common code after ( eg tearDown) each test method execution. 
+	 */
 	@AfterEach
 	void tearDown() throws Exception {
 		lc = null;
 	}
 
+	//This function is used to test add loan card function.
 	@Test
 	void testAddLoanCard() throws ParseException {
 		lc.setType("Crockery");
@@ -95,6 +105,7 @@ class LoanCardControllerTest {
 		
 	}
 	
+	//This function is used to test add loan card function else method when object not created.
 	@Test
 	void testAddLoanCard_Else() throws ParseException {
 		lc.setType("Crockery");
@@ -136,6 +147,7 @@ class LoanCardControllerTest {
 
 	}
 	
+	//This function is used to test add loan card function when method throws an exception.
 	@Test
 	void testAddLoanCard_fail() throws ParseException {
 		lc.setType("Crockery");
@@ -177,6 +189,7 @@ class LoanCardControllerTest {
 	    verify(lservice, times(1)).addLoanCard(any(LoanCard.class));
 	}
 
+	//This function is used to get all loan cards function.
 	@Test
 	void testGetAllloancards() throws ParseException {
 		LoanCard lc1 = new LoanCard();
@@ -257,6 +270,7 @@ class LoanCardControllerTest {
 	    
 	}
 	
+	//This function is used to get all loan cards function in case of an exception.
 	@Test
 	void testGetAllloancards_fail() throws ParseException{
 		LoanCard lc1 = new LoanCard();
@@ -335,6 +349,7 @@ class LoanCardControllerTest {
 	    verify(lservice, times(1)).listAll();
 	}
 
+	//This function is used to get loan card by an id function.
 	@Test
 	void testGetLoanCardById() throws ParseException, ResourceNotFoundException {
 		lc.setLoanId(1L);
@@ -380,6 +395,7 @@ class LoanCardControllerTest {
 	    
 	}
 	
+	//This function is used to get loan card by an id function in case of an exception.
 	@Test
 	void testGetLoanCardById_fail() throws ParseException, ResourceNotFoundException {
 		lc.setLoanId(1L);
@@ -423,6 +439,7 @@ class LoanCardControllerTest {
 	    
 	}
 
+	//This function is used to update loan card function.
 	@Test
 	void testUpdateLoanCard() throws ParseException, ResourceNotFoundException {
 		LoanCard lc1 = new LoanCard();
@@ -478,6 +495,7 @@ class LoanCardControllerTest {
 	    
 	}
 	
+	//This function is used to update loan card in case of an exception.
 	@Test
 	void testUpdateLoanCard_fail() throws ParseException, ResourceNotFoundException {
 		LoanCard lc1 = new LoanCard();
@@ -530,6 +548,7 @@ class LoanCardControllerTest {
 		verify(lservice, times(1)).getSingleLoanCard(1L);
 	}
 
+	//This function is used to delete loan card.
 	@Test
 	void testDeleteLoanCard() throws ParseException, ResourceNotFoundException {
 		lc.setLoanId(1L);
@@ -575,6 +594,7 @@ class LoanCardControllerTest {
 	    
 	}
 	
+	//This function is used to delete loan card n case of an exception.
 	@Test
 	void testDeleteLoanCard_fail() throws ParseException, ResourceNotFoundException {
 		lc.setLoanId(1L);
@@ -620,6 +640,7 @@ class LoanCardControllerTest {
 	    
 	}
 	
+	//This function is used to get loan card types function.
 	@Test
 	void getLoanCardTypesTest() throws ParseException {
 		LoanCard lc1 = new LoanCard();
@@ -703,6 +724,7 @@ class LoanCardControllerTest {
 		
 	}
 	
+	//This function is used to get loan card types in case of an exception.
 	@Test
 	void getLoanCardTypesTest_Fail() throws ParseException {
 		LoanCard lc1 = new LoanCard();

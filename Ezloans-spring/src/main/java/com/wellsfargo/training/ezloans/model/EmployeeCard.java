@@ -23,11 +23,13 @@ public class EmployeeCard {
 	@Column(nullable=false,name = "employee_card_id")
 	private long cardId;
 	
+	//Many To One Mapping
 	@ManyToOne
 	@JoinColumn(nullable=false,name = "eid")
 	@JsonManagedReference
 	private Employee employee;
 	
+	//Many To One Mapping
 	@ManyToOne
 	@JoinColumn(nullable=false,name = "loanId")
 	@JsonManagedReference
