@@ -33,14 +33,16 @@ import com.wellsfargo.training.ezloans.service.EmployeeService;
 @DisplayName("Testing EmployeeCrontroller methods")
 @SpringBootTest
 public class EmployeeControllerTests {
-	
+	/*@SpringBootTest annotation loads whole application, but it is better 
+	 * to limit Application Context only to a set of spring components that 
+	 * participate in test scenario.*/
 
 	@Autowired
 	private EmployeeController employeeController;
 	
 	private Employee e;
 	
-	@MockBean // create a mock object
+	@MockBean // allows us to mock a class or an interface and record & verify its behaviors.
 	private EmployeeService eservice;
 	
 	@BeforeEach
@@ -52,6 +54,11 @@ public class EmployeeControllerTests {
 	void tearDown() throws Exception {
 		e=null;
 	}
+	
+	
+	/*
+	 *  We test our createUser functionality in this method.
+	 *  We create a mock employee object and test the registerEmployee service and createUser controller function*/
 	
 	@Test
 	void testCreateUser() throws ParseException {
