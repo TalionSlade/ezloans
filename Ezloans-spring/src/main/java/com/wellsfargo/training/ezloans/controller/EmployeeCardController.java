@@ -63,26 +63,26 @@ public class EmployeeCardController {
 	}
 	
 	
-<<<<<<< HEAD
-	
-	
-=======
-	/* This function is used to retrieve the all the employee cards in the database through a get request*/
-	@GetMapping("/employeecards")
-	public ResponseEntity<List<EmployeeCard>> getEmployeeCardsInfo(){
-		try {
-			//we call the .getEmployeeCards function of employee card service and store the  employee cards in  an list
-			List<EmployeeCard> employeecards=ecardservice.getEmployeeCards();
-			//and return the ResponseEntity as status OK
-			return ResponseEntity.ok(employeecards);
-					}
-		catch(Exception e) {
-			e.printStackTrace();
-			// Raise exception and  return Response entity with Internal Server Error 
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-		}
-	}
->>>>>>> 146ccb69634a9dff687f172d1fe17e7e3d295b7a
+//<<<<<<< HEAD
+//	
+//	
+//=======
+//	/* This function is used to retrieve the all the employee cards in the database through a get request*/
+//	@GetMapping("/employeecards")
+//	public ResponseEntity<List<EmployeeCard>> getEmployeeCardsInfo(){
+//		try {
+//			//we call the .getEmployeeCards function of employee card service and store the  employee cards in  an list
+//			List<EmployeeCard> employeecards=ecardservice.getEmployeeCards();
+//			//and return the ResponseEntity as status OK
+//			return ResponseEntity.ok(employeecards);
+//					}
+//		catch(Exception e) {
+//			e.printStackTrace();
+//			// Raise exception and  return Response entity with Internal Server Error 
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//		}
+//	}
+//>>>>>>> 146ccb69634a9dff687f172d1fe17e7e3d295b7a
 	
 	
 	/* This function is used to retrieve Employee Cards by a particular ID*/
