@@ -35,7 +35,7 @@ public class LoanCardController {
 	private LoanCardService lservice;
 	
 	//This function is used to add loan card to a table.
-	@PostMapping("/addloancard")
+	@PostMapping("/loancards")
 	public ResponseEntity<String> addLoanCard(@Validated @RequestBody LoanCard loanCard) {
 		try {
 			
