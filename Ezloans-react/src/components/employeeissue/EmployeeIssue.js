@@ -58,6 +58,7 @@ const EmployeeIssue = () => {
                   <th> Category</th>
                   <th> Make</th>
                   <th> Valuation</th>
+                  <th> Return Date</th>
                 </tr>
               </thead>
               {/* Displaying existing employee issues for logged in user */}
@@ -70,6 +71,7 @@ const EmployeeIssue = () => {
                       <td> {ei.item.category} </td>
                       <td> {ei.item.make} </td>
                       <td> {ei.item.valuation} </td>
+                      <td> {ei.returnDate} </td>
                     </tr>
                 )
                 }

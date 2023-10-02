@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 // SideBar() used to display Sidebar with links to all Admin and User functionalities
 const Sidebar=() => {
   // AuthContext states for admin vs user login status
-  const { isUser, userId} = useAuth();
+  const { isUser, userId } = useAuth();
 
   // Function to change Nav links based on User vs Admin login
   const changeNavLinks = () => {

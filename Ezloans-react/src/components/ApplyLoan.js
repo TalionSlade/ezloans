@@ -127,7 +127,7 @@ const ApplyLoan = () => {
           <div className="form-group">
             {/* Displaying item categories present in DB */}
             <label style={{ color: '#1f6e8c'}}>Category:</label>
-            <select class={errors.category && 'error'} className="form-control" placeholder= "Item Category" desc="category" value={employeeCard.category} name="category" onChange={handleCategoryChange}>
+            <select className="form-control" placeholder= "Item Category" desc="category" value={employeeCard.category} name="category" onChange={handleCategoryChange}>
               <option hidden="hidden">Default</option>
                 { loanCardCategories.map(
                   loanCard => 
@@ -152,7 +152,7 @@ const ApplyLoan = () => {
           <div className="form-group">
             {/* Item descriptions are conditionally renderred based on item category */}
             <label style={{ color: '#1f6e8c'}}>Description:</label>
-            <select class={errors.description && 'error'} className="form-control" placeholder= "Item Description" desc="description" value={employeeCard.description} onChange={handleDescriptionChange}>
+            <select className="form-control" placeholder= "Item Description" desc="description" value={employeeCard.description} onChange={handleDescriptionChange}>
               <option hidden="hidden">Default</option>
                 { descriptions.map(
                   desc => 
