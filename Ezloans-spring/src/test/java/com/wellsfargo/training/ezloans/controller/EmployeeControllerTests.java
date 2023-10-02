@@ -152,7 +152,7 @@ public class EmployeeControllerTests {
 		
 	}
 	
-	//This function is used to get loan card by an id function.
+	//This function is used to get employee by an id function.
 	@Test
 	void testEmployeeById() throws ParseException, ResourceNotFoundException {
 		
@@ -190,7 +190,7 @@ public class EmployeeControllerTests {
 	}
 	
 	
-	//This function is used to update loan card function.
+	//This function is used to update employee function.
 		@Test
 		void testUpdateEmployee() throws ParseException, ResourceNotFoundException {
 			
