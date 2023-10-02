@@ -1,14 +1,15 @@
 import './App.css';
-import React, {Component, useState} from "react";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useAuth } from './components/AuthContext';
+
+// Custom imports for Routes
 import NavBar from './components/Navbar';
 import Login from './components/Login';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Sidebar from './components/Sidebar';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import { AuthProvider } from './components/AuthContext';
 import LandingPage from './components/LandingPage';
-import { useAuth} from './components/AuthContext';
 import Employee from './components/employee/Employee';
 import ViewEmployee from './components/employee/ViewEmployee';
 import CreateEmployee from './components/employee/CreateEmployee';
@@ -22,18 +23,16 @@ import ApplyLoan from './components/ApplyLoan';
 import Loan from './components/loan/Loan';
 import ViewLoan from './components/loan/ViewLoan';
 import CreateLoan from './components/loan/CreateLoan';
+
+// App returns all routes for our application 
 function App() {
   
-  const {isLoggedIn, setIsUser} = useAuth();
-  const [toggle, setToggle] = useState(false);
-  const Toggle = () => { 
-    if(!isLoggedIn) {
-    setToggle(false);
-  }
-  setToggle(!toggle) }
+  const {toggle, setToggle} = useAuth();
+
+  // Function to toggle sidebar
+  const Toggle = () => { setToggle(!toggle); }
 
   return (
-    <AuthProvider>
     <div className="App">
       <div className='row' style = {{
         backgroundImage: "url(/images/landing.jpg)",
@@ -42,16 +41,12 @@ function App() {
         minHeight: "94vh",
         minWidth: "100vh",
         margin: 0 }}>
-       
           <Router>
           { toggle && <div className='col-2 vh-100' style={{padding:0,minHeight: "94vh"}}>
-            {/* {isLoggedIn &&
-            <Sidebar/>
-            } */}
             <Sidebar/>
             </div>}
             <div className='col' style={{padding:0}}>
-              <NavBar Toggle={Toggle}/>
+              <NavBar Toggle={Toggle} />
               <Routes>
                 <Route path="" element={<LandingPage/>}/>
                 <Route path="/login" element={<Login />}/>
@@ -72,19 +67,14 @@ function App() {
                 <Route path='/applyLoan' element={<ApplyLoan/>}/>
               </Routes>
             </div>
-          
           </Router>
-        
       </div>
       <footer className="footer">
         <p>
           &copy; All Rights Reserved to Ezloans
         </p>
-        
       </footer>
     </div>
-    
-    </AuthProvider>
   );
 }
 

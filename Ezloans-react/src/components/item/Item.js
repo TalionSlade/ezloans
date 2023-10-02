@@ -4,16 +4,19 @@ import ItemService from '../../service/ItemService';
 import { useAuth } from '../AuthContext';
 import { IoTrash as DeleteIcon, IoPencil as EditIcon, IoEye as ViewIcon} from 'react-icons/io5';
 
+// Item() displays all existing items and renders links for View/Delete/Update Items
 function Item() {
 
 	const history = useNavigate();
-
+  const { isLoggedIn } = useAuth();
 	const [items, setItems] = useState([]);
 	const [message, setMessage] = useState('');
-  const { isLoggedIn } = useAuth();
+  
+  // Used for conditional rendering of page based on login status. If not logged in, redirects to login
 	useEffect(() => {
-    if(isLoggedIn) {
-		  fetchItems();
+    if(isLoggedIn) { 
+      // Fetching existing items in DB
+      fetchItems(); 
     }
     else {
 			alert("Please login first");
@@ -22,20 +25,24 @@ function Item() {
 
 	}, []);
 
+  // Functino to get all items
 	const fetchItems = () => {
 		ItemService.getItems().then((response) => {
 			setItems(response.data); 
 		});
 	}
 
+  // Navigate to add item page
 	const addItem = () => {
 		history('/addItem/_add'); 
 	}
 
+  // Navigate to update item
 	const editItem = (id) => {
 		history(`/addItem/${id}`) 
 	}
 
+  // Delete item based on item id. Sends delete request via item service
 	const deleteItem = (id) => {
 		ItemService.deleteItem(id).then(() => {
 			fetchItems(); 
@@ -46,6 +53,7 @@ function Item() {
 		})
 	}
 
+  // Navigate to view specific item details
 	const viewItem = (id) => {
 		history(`/viewItem/${id}`);
 	}
@@ -60,15 +68,15 @@ function Item() {
           <div className='column'>
             <button className="btn w-auto" onClick={addItem}>Add Item</button>
           </div>
-          </div>
-          <div className="column" >
-            <div className='registration-container' style={{maxWidth: "80%"}}>
-              <h2>View All Items</h2>
-              <div className='row justify-content-center'>
+        </div>
+        <div className="column" >
+          <div className='registration-container' style={{maxWidth: "80%"}}>
+            <h2>View All Items</h2>
+            <div className='row justify-content-center'>
               <table className="table w-auto">
                 <thead>
                   <tr>
-                    <th> Item Id</th>
+                    <th> Item ID</th>
                     <th> Description</th>
                     <th> Status</th>
                     <th> Make</th>
@@ -78,6 +86,7 @@ function Item() {
                   </tr>
                 </thead>
                 <tbody style={{color: "black"}}>
+                  {/* Displaying items existing in DB */}
                   {items.map(
                     item =>
                       <tr key={item.itemId}>
@@ -87,6 +96,7 @@ function Item() {
                         <td> {item.make} </td>
                         <td> {item.category} </td>
                         <td> {item.valuation} </td>
+                        {/* Links to view/update/delete */}
                         <td>
                           <span className='tableIcon' onClick={() => editItem(item.itemId)}><EditIcon/></span>
                           &nbsp;
@@ -94,17 +104,16 @@ function Item() {
                           &nbsp;
                           <span className='tableIcon' onClick={() => viewItem(item.itemId)}><ViewIcon/></span>
                         </td>
-
                       </tr>
-                  )
+                    )
                   }
                 </tbody>
               </table>
-              </div>
-              {message && <div className="alert alert-success">{message}</div>}
             </div>
+            {message && <div className="alert alert-success">{message}</div>}
           </div>
-		  </div>}
+        </div>
+		  </div> }
     </div>
 	)
 }
