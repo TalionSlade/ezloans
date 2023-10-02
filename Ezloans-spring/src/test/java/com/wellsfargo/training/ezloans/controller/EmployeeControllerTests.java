@@ -25,7 +25,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.wellsfargo.training.ezloans.exception.ResourceNotFoundException;
 import com.wellsfargo.training.ezloans.model.Employee;
+import com.wellsfargo.training.ezloans.model.EmployeeCard;
+import com.wellsfargo.training.ezloans.model.LoanCard;
 import com.wellsfargo.training.ezloans.service.EmployeeService;
 
 
@@ -148,5 +151,96 @@ public class EmployeeControllerTests {
 		verify(eservice, times(1)).registerEmployee(any(Employee.class));
 		
 	}
+	
+	//This function is used to get employee by an id function.
+	@Test
+	void testEmployeeById() throws ParseException, ResourceNotFoundException {
+		
+		
+		e.setEid(1L);
+		e.setEmail("arpan@example.com");
+	    e.setFname("arpan");
+	    e.setLname("ghosh");
+	    e.setGender("male");
+	    e.setDepartment("CT");
+	    e.setDesignation("Program Associate");
+	    
+	    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	    Date dob=new Date(df.parse("1985-01-01").getTime());
+	    e.setDob(dob);
+	    Date doj=new Date(df.parse("2023-08-23").getTime());
+	    e.setDoj(doj);
+	    e.setPassword("password");
+	    
+	   
+	    
+	    when(eservice.getSingleEmployee(1L)).thenReturn(Optional.of(e));
+	    
+	    ResponseEntity<Employee> re = employeeController.getEmployeesById(1L);
+	    
+	    assertEquals(HttpStatus.OK, re.getStatusCode());
+	    assertEquals("arpan", re.getBody().getFname());
+	    assertEquals("ghosh", re.getBody().getLname());
+	    assertEquals("arpan@example.com", re.getBody().getEmail());
+	    assertEquals("Program Associate", re.getBody().getDesignation());
+	    
+	    verify(eservice, times(1)).getSingleEmployee(1L);
+	    
+	    
+	}
+	
+	
+	//This function is used to update employee function.
+		@Test
+		void testUpdateEmployee() throws ParseException, ResourceNotFoundException {
+			
+			e.setEid(1L);
+			e.setEmail("arpan@example.com");
+		    e.setFname("arpan");
+		    e.setLname("ghosh");
+		    e.setGender("male");
+		    e.setDepartment("CT");
+		    e.setDesignation("Program Associate");
+		    
+		    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		    Date dob=new Date(df.parse("1985-01-01").getTime());
+		    e.setDob(dob);
+		    Date doj=new Date(df.parse("2023-08-23").getTime());
+		    e.setDoj(doj);
+		    e.setPassword("password");
+		    
+		   
+		    Employee e2=new Employee();
+		    
+		    e2.setEmail("arpanghosh@example.com");
+		    e2.setFname("arpan");
+		    e2.setLname("ghosh");
+		    e2.setGender("male");
+		    e2.setDepartment("CT");
+		    e2.setDesignation("Program Associate");
+	
+		    e2.setDob(dob);
+
+		    e2.setDoj(doj);
+		    e2.setPassword("password");
+			when(eservice.getSingleEmployee(1L)).thenReturn(Optional.of(e));
+			when(eservice.saveEmployee(any(Employee.class))).thenReturn(e2);
+			
+			ResponseEntity<Employee> re = employeeController.updateEmployee(1L, e2);
+			
+			  
+		    assertEquals(HttpStatus.OK, re.getStatusCode());
+		    assertEquals("arpan", re.getBody().getFname());
+		    assertEquals("ghosh", re.getBody().getLname());
+		    assertEquals("arpanghosh@example.com", re.getBody().getEmail());
+		    assertEquals("Program Associate", re.getBody().getDesignation());
+			
+			verify(eservice, times(1)).getSingleEmployee(1L);
+			verify(eservice, times(1)).saveEmployee(e2);
+		    
+		    
+		    
+		}
+		
 	
 }
