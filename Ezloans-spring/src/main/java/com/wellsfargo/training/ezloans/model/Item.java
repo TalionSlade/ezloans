@@ -47,6 +47,11 @@ public class Item {
 	@Column( nullable = false, name="item_valuation")
 	private long valuation;
 	
+	/*
+	 * @JsonManagedReference is the forward part of reference – the one that gets serialized normally.
+	 * @JsonBackReference is the back part of reference – it will be omitted from serialization.
+	 * @JsonIgnore shows you don't need to provide the object of emp_issue while creating item 
+	 */
 	@OneToMany(mappedBy = "item" , cascade = CascadeType.ALL)
 	@JsonBackReference
 	@JsonIgnore

@@ -33,14 +33,16 @@ import com.wellsfargo.training.ezloans.service.EmployeeService;
 @DisplayName("Testing EmployeeCrontroller methods")
 @SpringBootTest
 public class EmployeeControllerTests {
-	
+	/*@SpringBootTest annotation loads whole application, but it is better 
+	 * to limit Application Context only to a set of spring components that 
+	 * participate in test scenario.*/
 
 	@Autowired
 	private EmployeeController employeeController;
 	
 	private Employee e;
 	
-	@MockBean // create a mock object
+	@MockBean // allows us to mock a class or an interface and record & verify its behaviors.
 	private EmployeeService eservice;
 	
 	@BeforeEach
@@ -52,6 +54,11 @@ public class EmployeeControllerTests {
 	void tearDown() throws Exception {
 		e=null;
 	}
+	
+	
+	/*
+	 *  We test our createUser functionality in this method.
+	 *  We create a mock employee object and test the registerEmployee service and createUser controller function*/
 	
 	@Test
 	void testCreateUser() throws ParseException {
@@ -77,10 +84,67 @@ public class EmployeeControllerTests {
 		
 		assertEquals(HttpStatus.OK, re.getStatusCode());
 		assertEquals("Registration Successfull", re.getBody());
-//		assertEquals("ghosh", re.getBody().getBrand());
-//		assertEquals(5000.0f, re.getBody().getPrice());
-//		
-		//verify method is used to check whether some specified methods are called or not
+		
+		verify(eservice, times(1)).registerEmployee(any(Employee.class));
+		
+	}
+	
+	@Test
+	void testCreateUser_ElseCase() throws ParseException {
+		e.setEmail("arpan@example.com");
+	    e.setFname("arpan");
+	    e.setLname("ghosh");
+	    e.setGender("male");
+	    e.setDepartment("CT");
+	    e.setDesignation("Program Associate");
+	    
+	    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	    Date dob=new Date(df.parse("1985-01-01").getTime());
+	    e.setDob(dob);
+	    Date doj=new Date(df.parse("2023-08-23").getTime());
+	    e.setDoj(doj);
+	    e.setPassword("password");
+	    
+		//mockito methods
+		//enables stubbing methods
+		when(eservice.registerEmployee(any(Employee.class))).thenReturn(null);
+		
+		ResponseEntity<String> re=employeeController.createUser(e);
+		
+		assertEquals(HttpStatus.BAD_REQUEST, re.getStatusCode());
+		assertEquals("Registration Failed", re.getBody());
+		
+		verify(eservice, times(1)).registerEmployee(any(Employee.class));
+		
+	}
+	
+	@Test
+	void testCreateUser_FailCase() throws ParseException {
+		e.setEmail("arpan@example.com");
+	    e.setFname("arpan");
+	    e.setLname("ghosh");
+	    e.setGender("male");
+	    e.setDepartment("CT");
+	    e.setDesignation("Program Associate");
+	    
+	    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	    Date dob=new Date(df.parse("1985-01-01").getTime());
+	    e.setDob(dob);
+	    Date doj=new Date(df.parse("2023-08-23").getTime());
+	    e.setDoj(doj);
+	    e.setPassword("password");
+	    
+		//mockito methods
+		//enables stubbing methods
+	    
+	    Exception ex=new IllegalStateException();
+		when(eservice.registerEmployee(any(Employee.class))).thenThrow(ex);
+		
+		ResponseEntity<String> re=employeeController.createUser(e);
+		
+		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());
+		assertEquals("An Error has Occured: "+ex.getMessage(), re.getBody());
+		
 		verify(eservice, times(1)).registerEmployee(any(Employee.class));
 		
 	}

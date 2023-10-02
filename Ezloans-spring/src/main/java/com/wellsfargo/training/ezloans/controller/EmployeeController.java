@@ -34,7 +34,7 @@ import com.wellsfargo.training.ezloans.service.LoanCardService;
 @RestController
 @RequestMapping(value="/api")
 public class EmployeeController {
-	
+	/* This class is designed to handle all request to the Employee Service */
 	@Autowired
 	public EmployeeService eservice;
 
@@ -46,11 +46,12 @@ public class EmployeeController {
 	
 	@Autowired
 	public EmployeeIssueService eissueservice;
-	
+	/* We use dependency injection to created required service class objects*/
 	
 	@Autowired
 	public LoanCardService lcardservice;
-
+	
+	/* Employee Register - this method is used to createUser and save in the database*/
 	@PostMapping("/empreg")
 	public ResponseEntity<String> createUser(@Validated @RequestBody Employee employee){
 		try {
@@ -77,16 +78,18 @@ public class EmployeeController {
     "email":"admin@ezloans.com"
 }
 	 */
+	//This function enable the login functionality
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, Object>> loginDealer(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
+	public ResponseEntity<Map<String, Object>> loginEmployee(@Validated @RequestBody Employee employee) throws ResourceNotFoundException {
 		
 		Boolean isloggedin=false;
 		
 		String email=employee.getEmail();
 		String password=employee.getPassword();
 		
+		//We fetch an existing employee up with the given email id
 		Employee emp=eservice.loginEmployee(email).orElseThrow(()->new ResourceNotFoundException("Employee not found for this email"));
-		
+		//we compare the employee email and the password
 		if(email.equals(employee.getEmail())&&password.equals(emp.getPassword())){
 			isloggedin=true;
 			
@@ -96,6 +99,8 @@ public class EmployeeController {
 		response.put("isloggedin",isloggedin);
 		response.put("eid",emp.getEid());
 		return ResponseEntity.ok(response);
+		
+		//return a custom JSON response to the frontend service for login
 		
 	}
 	
@@ -109,6 +114,8 @@ public class EmployeeController {
     "make":"yes"
 }
 	 */
+	
+	/*This is the  apply loan functionality for the employee class*/
 	@PostMapping("/applyloan")
 	public ResponseEntity<String> applyLoan(@Validated @RequestBody Map<String, String> requestMap) throws ResourceNotFoundException {
 		
@@ -119,7 +126,7 @@ public class EmployeeController {
 		String itemMake=requestMap.get("make");
 		Date issueDate=new Date();
 		
-		
+		/*In this try block , we fetch an employee id , a load card obj , set the duration , create an EmployeeCard and push it in database*/
 		try {
 			Employee employeeobj=eservice.getEmployee(eid).orElseThrow(()->new ResourceNotFoundException("employee id not present"));
 			
@@ -152,6 +159,8 @@ public class EmployeeController {
 			}
 		}
 		catch(Exception e) {
+			
+			//On failure we raise an exception and set the response entity status to Internal Server Error
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 					.body("An Error has Occured: "+ e.getMessage());
 		}
@@ -164,6 +173,7 @@ public class EmployeeController {
 
 
 	// GET: http://localhost:8085/ezloans/api/employee
+	/*This is  a simple get mapping function to pull all employee records from the database */
 	@GetMapping("/employee")
 	public ResponseEntity< List<Employee>> getAllEmployees() {
 		
@@ -171,12 +181,15 @@ public class EmployeeController {
 			List<Employee> employees =  eservice.listAll();
 			return ResponseEntity.ok(employees);
 			} catch(Exception e) {
+				//On  failure we raise exception and print the stack trace
 				e.printStackTrace();
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
 				}
 	}
 	
 	// GET: http://localhost:8085/ezloans/api/employee/1001
+	
+	// This function pulls Employee records based on matching Employee ID
 	@GetMapping("/employee/{id}")
 	public ResponseEntity<Employee> getEmployeesById(@PathVariable(value="id") long eid) 
 			throws ResourceNotFoundException{
@@ -185,6 +198,8 @@ public class EmployeeController {
 	}
 	
 	// PUT: http://localhost:8085/ezloans/api/employee/1001
+	
+	//This function is used to update records of an given employee , specified by there ID.
 	@PutMapping("/employee/{id}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable(value="id") long eid, @Validated @RequestBody Employee e) 
 			throws ResourceNotFoundException{
@@ -205,6 +220,8 @@ public class EmployeeController {
 	}
 	
 	// http://localhost:8085/ezloans/api/employee/1001
+	
+	//This function is used to delete a specific employee record , identified by the given Employee ID
 	@DeleteMapping("/employee/{id}")
 	public ResponseEntity<Map<String, Boolean>>  deleteEmployee(@PathVariable(value="id") long eid)
 	throws ResourceNotFoundException {

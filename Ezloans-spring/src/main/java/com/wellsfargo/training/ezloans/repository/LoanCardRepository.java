@@ -12,7 +12,8 @@ import com.wellsfargo.training.ezloans.model.LoanCard;
 
 
 public interface LoanCardRepository extends JpaRepository<LoanCard, Long>{
-	
+	//Optional used to deal with Null Pointer Exception
+	//Custom method to find record by email non id field
 	public Optional<LoanCard> findByType(String type);
 
 

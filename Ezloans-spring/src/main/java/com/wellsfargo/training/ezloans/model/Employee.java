@@ -68,11 +68,19 @@ public class Employee {
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date doj;
 
+	/*
+     * Modeling with foreign key relationship in JPA.
+     * Place @OneToOne on the primary class entity field Dealer.
+     * Place @JoinColumn to configure foreign key column dealer_id in the Address class 
+     * that maps to the primary key column of Dealer class. 
+     */
+	//One To Many Mapping
 	@OneToMany(mappedBy = "employee" , cascade = CascadeType.ALL)
 	@JsonBackReference
 	@JsonIgnore
 	private List<EmployeeIssue> employeeIssue;
 	
+	//One To Many Mapping
 	@OneToMany(mappedBy = "employee" , cascade = CascadeType.ALL)
 	@JsonBackReference
 	@JsonIgnore
@@ -114,6 +122,7 @@ public class Employee {
 		return password;
 	}
 
+	//This method is used to encrypt passwords.
 	public void setPassword(String password) {
 		Base64.Encoder encoder = Base64.getEncoder();  
         String normalString = password;
@@ -159,9 +168,9 @@ public class Employee {
 		return doj;
 	}
 
-	public void setDoj(Date string) {
+	public void setDoj(Date doj) {
 	
-		this.doj = string;
+		this.doj = doj;
 	}
 
 	public List<EmployeeIssue> getEmployeeIssue() {

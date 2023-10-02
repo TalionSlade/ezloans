@@ -33,6 +33,11 @@ public class LoanCard {
 	@Column(name="loan_duration",nullable=false)
 	private int duration;
 
+	/*
+	 * @JsonManagedReference is the forward part of reference – the one that gets serialized normally.
+	 * @JsonBackReference is the back part of reference – it will be omitted from serialization.
+	 * @JsonIgnore shows you don't need to provide the object of empcard while creating loancard
+	 */
 	@OneToMany(mappedBy = "loanId" , cascade = CascadeType.ALL)
 	@JsonBackReference
 	@JsonIgnore

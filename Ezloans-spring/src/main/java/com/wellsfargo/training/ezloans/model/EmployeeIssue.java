@@ -31,11 +31,22 @@ public class EmployeeIssue {
 	@Column(nullable=false,name="issue_id")
 	private Long issueId;
 
+	/*
+     * Modeling with foreign key relationship in JPA.
+     * Place @OneToOne on the primary class entity field Dealer.
+     * Place @JoinColumn to configure foreign key column dealer_id in the Address class 
+     * that maps to the primary key column of Dealer class. 
+     */
 	@ManyToOne
 	@JoinColumn(nullable=false,name = "eid")
 	@JsonManagedReference
 	private Employee employee;
 	
+	/*
+	 * @JsonManagedReference is the forward part of reference – the one that gets serialized normally.
+	 * @JsonBackReference is the back part of reference – it will be omitted from serialization.
+	 * @JsonIgnore shows you don't need to provide the object of empcard while creating loancard
+	 */
 	@ManyToOne
 	@JoinColumn(nullable=false,name = "itemId")
 	@JsonManagedReference

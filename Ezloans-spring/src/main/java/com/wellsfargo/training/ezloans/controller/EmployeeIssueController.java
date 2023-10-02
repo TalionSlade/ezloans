@@ -38,28 +38,30 @@ public class EmployeeIssueController {
 	public EmployeeService eservice;
 	@Autowired
 	public ItemService iservice;
-	@PostMapping("/employeeissue")
-	public ResponseEntity<String> issueItems(@Validated @RequestBody EmployeeIssue ei){
-		try {
-			
-			
-			Employee emp=eservice.getEmployee(ei.getEmployee().getEid()).orElseThrow(()->new ResourceNotFoundException("Employee not found for this id"));			
-			ei.setEmployee(emp);
-			Item item=iservice.getItem(ei.getItem().getItemId()).orElseThrow(()->new ResourceNotFoundException("Item not found for this id"));			
-			ei.setItem(item);
-			EmployeeIssue empIs=eiservice.registerEmployeeIssue(ei);
-			if(empIs!=null) {
-				return ResponseEntity.ok("Registration Successfull");
-			}
-			else
-				return ResponseEntity.badRequest().body("Registration Failed");
-		}
-		catch(Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.body("An Error has Occured: "+ e.getMessage());
-		}
-	}
+//	@PostMapping("/employeeissue")
+//	public ResponseEntity<String> issueItems(@Validated @RequestBody EmployeeIssue ei){
+//		try {
+//			
+//			
+//			Employee emp=eservice.getEmployee(ei.getEmployee().getEid()).orElseThrow(()->new ResourceNotFoundException("Employee not found for this id"));			
+//			ei.setEmployee(emp);
+//			Item item=iservice.getItem(ei.getItem().getItemId()).orElseThrow(()->new ResourceNotFoundException("Item not found for this id"));			
+//			ei.setItem(item);
+//			EmployeeIssue empIs=eiservice.registerEmployeeIssue(ei);
+//			if(empIs!=null) {
+//				return ResponseEntity.ok("Registration Successfull");
+//			}
+//			else
+//				return ResponseEntity.badRequest().body("Registration Failed");
+//		}
+//		catch(Exception e) {
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//					.body("An Error has Occured: "+ e.getMessage());
+//		}
+//	}
 	
+	
+	//This function is used to get Employee Issues whose employee id corresponds to particular id passed in URL
 	@GetMapping("/employeeissue/{id}")
 	public ResponseEntity<List<EmployeeIssue>> getEmployeeCardsOfEmployee(@PathVariable(value="id") Long id){
 	
