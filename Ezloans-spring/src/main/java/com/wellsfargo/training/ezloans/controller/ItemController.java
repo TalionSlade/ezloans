@@ -32,15 +32,25 @@ public class ItemController {
 	@Autowired
 	public ItemService iservice;
 	
+	//This function is used to add item in Item Master table
+	/* http://localhost:8085/ezloans/api/additem
+	 * {
+    "desc":"Spoon",
+    "make":"wooden",
+    "category":"Crockery",
+    "valuation":100,
+    "status":"Yes"
+}
+	 */
 	@PostMapping("/additem")
 	public ResponseEntity<String> insertItem(@Validated @RequestBody Item item){
 		try {
 			
 			Item registeredItem = iservice.registerItems(item);
 			if(registeredItem != null) {
-				return ResponseEntity.ok("GG!! Successfull");
+				return ResponseEntity.ok("Item successfully registered");
 			}else {
-				return ResponseEntity.badRequest().body("NT!  Registration failed!!");
+				return ResponseEntity.badRequest().body("Failed to add Item");
 			}
 			
 		}catch(Exception e) {
@@ -48,6 +58,7 @@ public class ItemController {
 		}
 	}
 	
+	//This function is used to return all items ,
 	// GET: http://localhost:8085/ezloans/api/item
 	@GetMapping("/item")
 	public ResponseEntity<List<Item>> getAllItems() {
@@ -61,6 +72,8 @@ public class ItemController {
 				}
 	}
 	
+	//This function is used to add an item ,
+		// POST: http://localhost:8085/ezloans/api/item
 	@PostMapping("/item")
 	public ResponseEntity<Item> saveProduct(@Validated @RequestBody Item item) {
 		try {
@@ -72,14 +85,16 @@ public class ItemController {
 			}
 	}
 		
+	//This function is used to get items having a particular id passed in URL.
 	// GET: http://localhost:8085/ezloans/api/item/1001
 	@GetMapping("/item/{id}")
 	public ResponseEntity<Item> getItemsById(@PathVariable(value="id") long id) 
 			throws ResourceNotFoundException{
-		Item i=iservice.getItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id "+id));
+		Item i=iservice.getItem(id).orElseThrow(()->new ResourceNotFoundException("Item not found for this id"+id));
 		return ResponseEntity.ok().body(i);
 	}
-
+	
+	//This function is used to delete item having a particular id passed in URL.
 	// http://localhost:8085/ezloans/api/item/1001
 	@DeleteMapping("/item/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteItem(@PathVariable(value="id") long id)
@@ -93,6 +108,7 @@ public class ItemController {
 		return ResponseEntity.ok(response);		
 	}
 	
+	//This function is used to update item having a particular id passed in URL with a new item object.
 	// PUT: http://localhost:8085/ezloans/api/item/1001
 	@PutMapping("/item/{id}")
 	public ResponseEntity<Item> updateItem(@PathVariable(value="id") long id, @Validated @RequestBody Item i) 
@@ -107,9 +123,10 @@ public class ItemController {
 		
 		final Item updatedItem = iservice.saveItem(item);
 		return ResponseEntity.ok().body(updatedItem);
-		
 	}
 	
+	
+	//This function is used to get item descriptions having particular type
 	@GetMapping("/getdescription/{type}")
 	public ResponseEntity<List<Map<String,Object>>> getDescriptionByType(@PathVariable(value="type") String type) 
 			throws ResourceNotFoundException{
@@ -127,14 +144,6 @@ public class ItemController {
 	}
 	
 	
-	/*
-	 * {
-    "desc":"Spoon",
-    "make":"wooden",
-    "category":"Crockery",
-    "valuation":100,
-    "status":"Yes"
-}
-	 */
+
 }
 

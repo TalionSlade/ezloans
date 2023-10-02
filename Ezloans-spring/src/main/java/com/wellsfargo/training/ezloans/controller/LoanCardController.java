@@ -34,6 +34,7 @@ public class LoanCardController {
 	@Autowired
 	private LoanCardService lservice;
 	
+	//This function is used to add loan card to a table.
 	@PostMapping("/addloancard")
 	public ResponseEntity<String> addLoanCard(@Validated @RequestBody LoanCard loanCard) {
 		try {
@@ -59,6 +60,8 @@ public class LoanCardController {
     
     */
 	
+	
+	//This function is used to get all loan cards.
 	@GetMapping("/loancards")
 	public ResponseEntity<List<LoanCard>> getAllloancards(){
 	
@@ -72,6 +75,7 @@ public class LoanCardController {
 		}
 	}
 	
+	//This function is used to get loan cards having particular types.
 	@GetMapping("/loancards/types")
 	public ResponseEntity<List<String>> getLoanCardTypes(){
 		try {
@@ -88,13 +92,14 @@ public class LoanCardController {
 		}
 	}
 	
+	//This function is used to get loancards having a particular id.
 	@GetMapping("/loancards/{id}")
 	public ResponseEntity<LoanCard> getLoanCardById(@PathVariable(value="id") long lid)throws ResourceNotFoundException{
 		LoanCard l=lservice.getSingleLoanCard(lid).orElseThrow(()->new ResourceNotFoundException("LoanCard not found for this id"+lid));
 		return ResponseEntity.ok().body(l);
 	}
 	
-	
+	//This function is used to update loan cards having a particular id with a new loan card object
 	@PutMapping("/loancards/{id}")
 	public ResponseEntity<LoanCard> updateLoanCard(@PathVariable(value="id") long lid,@Validated @RequestBody LoanCard l)throws ResourceNotFoundException{
 		LoanCard loanCard=lservice.getSingleLoanCard(lid).orElseThrow(()->new ResourceNotFoundException("LoanCard not found for this id"+lid));
@@ -106,6 +111,8 @@ public class LoanCardController {
 	return ResponseEntity.ok().body(updatedLoanCard) ;
 	}
 	
+	
+	//This function is used to delete loan cards having a particular id.
 	@DeleteMapping("/loancards/{id}")
 	public ResponseEntity<Map<String,Boolean>> deleteLoanCard(@PathVariable(value="id") Long lId)
 	throws ResourceNotFoundException
