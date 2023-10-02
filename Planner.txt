@@ -1,0 +1,24 @@
+All Services and UI to be designed
+
+Admin                                                          ------|------  User
+
+Admin Login (/adminlogin) TBD			        	User Login Donee
+Add Registered Users (/register) Done			"Apply" Loan Done
+Edit Registered Users 			Display all loan cards 
+					Display loan cards by {id}
+Add Loan Card Master Data			Display all purchased Items
+Edit Loan Card Master Data			Displaay purchased items by {id}
+Add Item Master Data
+Edit Item Master Data
+
+
+Services Breakdown :-
+
+- Post Request to register Item (admin)
+- Post Request to register Employee/Customer (admin)
+- Post Request to generate Loan Card (Admin)
+- Apply loan (User)
+	 -> Creates entry to employee_card_details -> maps Loan Card id, employee id , card issue date
+	 -> Creates entry to employee_issue_id -> generates item_issue_id, maps employee_id to item_id
+- Get Request to display all issued Loan Cards (User)
+- Get Request to display all purchased items (User)

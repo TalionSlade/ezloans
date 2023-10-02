@@ -1,0 +1,90 @@
+header a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+  transition: all .2 ease;
+  
+
+}
+
+header a:hover {
+  color: aqua;
+  cursor: pointer;
+}
+
+header {
+  position: relative;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.welcome-user {
+  color: white;
+  border: 1px solid white;
+  margin-right: 5px;
+}
+.navbar {
+  width: 100%;
+  height: 60px;
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo a {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+
+}
+
+.links {
+  display: flex;
+  gap: 2rem
+}
+
+.activeLink {
+  border-bottom: 2px solid aqua;
+  color: aqua;
+}
+
+.menuBtn {
+  color: #fff;
+  cursor: pointer;
+  display: none;
+  /* display: block; */
+  /* cursor: pointer; */
+}
+
+.sideToggleBtn {
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.sideToggleBtn:hover {
+  color: aqua;
+}
+
+
+
+
+@media(max-width: 992px) {
+  header {
+    background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  }
+
+  .links {
+    display: none;
+  }
+
+  .menuBtn {
+    display: block;
+    cursor: pointer;
+  }
+  
+}
