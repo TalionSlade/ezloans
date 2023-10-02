@@ -1,30 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import '../styles/Dashboard.css'
 import { useAuth } from './AuthContext';
 import EmployeeService from '../service/EmployeeService';
 import ItemService from '../service/ItemService';
 import LoanService from '../service/LoanService';
+import '../styles/Dashboard.css'
 
+// Dashbord() if used to render dashboard after user/admin login
 const Dashboard = () => {
+  
+  // Used for navigation between different routes
   const history = useNavigate();
+
+  // Custom useAuth returns custom states defined for checking user/admin login
+  // isLoggedIn: Boolean to check if employee is logged in
+  // isUser: Boolean to check is logged in employee is User or Admin
   const { isLoggedIn, isUser } = useAuth();
+  
+  // States defined for dashboard cards
   const [employeeCount, setEmployeeCount] = useState(0);
   const [itemCount, setItemCount] = useState(0);
   const [loanCardCount, setLoanCardCount] = useState(0);
+
+  // Route protection by checking login status. If a user is not logged in, they are redirected to the login page
+  // Fetches details to be displayed on dashboard cards
   useEffect(() => {
     if(isLoggedIn) {
-		EmployeeService.getEmployees().then((res) => {
-			setEmployeeCount(res.data.length); 
-		});
-    ItemService.getItems().then((res) => {
-      setItemCount(res.data.length);
-    });
-    LoanService.getLoans().then((res)=> {
-      setLoanCardCount(res.data.length);
-    });
-  }
+      EmployeeService.getEmployees().then((res) => {
+        setEmployeeCount(res.data.length); 
+      });
+      ItemService.getItems().then((res) => {
+        setItemCount(res.data.length);
+      });
+      LoanService.getLoans().then((res)=> {
+        setLoanCardCount(res.data.length);
+      });
+    }
     else {
       alert("Please login first");
       history('/login');
@@ -33,6 +44,7 @@ const Dashboard = () => {
 
   return (
     <div>
+      {/* Dashboard is conditionally displayed based on login status */}
         {isLoggedIn && <div className="container-fluid">
           <br/>
         <div className="row">
@@ -63,7 +75,6 @@ const Dashboard = () => {
               <div className="">{loanCardCount}</div>
             </div>
           </div>
-
         </div>}
         <br></br>
       </div>}
