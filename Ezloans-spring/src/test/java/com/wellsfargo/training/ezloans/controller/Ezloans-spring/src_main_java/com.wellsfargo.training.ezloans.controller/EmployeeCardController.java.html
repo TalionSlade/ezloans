@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeCardController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Ezloans-spring (02-Oct-2023 5:06:51 pm)</a> &gt; <a href="../../index.html" class="el_group">Ezloans-spring</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.wellsfargo.training.ezloans.controller</a> &gt; <span class="el_source">EmployeeCardController.java</span></div><h1>EmployeeCardController.java</h1><pre class="source lang-java linenums">package com.wellsfargo.training.ezloans.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wellsfargo.training.ezloans.model.Employee;
+import com.wellsfargo.training.ezloans.model.EmployeeCard;
+
+import com.wellsfargo.training.ezloans.model.EmployeeIssue;
+import com.wellsfargo.training.ezloans.model.LoanCard;
+import com.wellsfargo.training.ezloans.service.EmployeeCardService;
+import com.wellsfargo.training.ezloans.service.EmployeeService;
+import com.wellsfargo.training.ezloans.service.LoanCardService;
+
+@CrossOrigin(origins=&quot;http://localhost:3000&quot;)
+@RestController
+@RequestMapping(value=&quot;/api&quot;)
+<span class="fc" id="L30">public class EmployeeCardController {</span>
+		/* This class is used to design controller from the employee card service*/
+		
+	/*We use dependency injection to initialize the service class objects here..*/
+	@Autowired
+	private EmployeeCardService ecardservice;
+	
+	@Autowired
+	private EmployeeService  eservice;
+	
+	@Autowired
+	private LoanCardService  lservice;
+	
+	
+	/*This fucntion is called when a new employee card object is to be created and sent through POST service to the calling service*/
+	@PostMapping(&quot;/addemployeecard&quot;)
+	public ResponseEntity&lt;String&gt; addEmployeeCard(@Validated @RequestBody EmployeeCard empCard) {
+    try {
+			
+<span class="fc" id="L49">			EmployeeCard empcardcreated=ecardservice.addEmployeeCard(empCard);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">			if(empcardcreated!=null) {</span>
+				// set Response Entity to OK if the card is succesfully added
+<span class="fc" id="L52">				return ResponseEntity.ok(&quot;Employee Card added Successfully&quot;);</span>
+			}
+			else
+				//set RespenseEntity to badRequest if card cannot be added
+<span class="fc" id="L56">				return ResponseEntity.badRequest().body(&quot;Failed to add Employee Card&quot;);</span>
+		}
+<span class="fc" id="L58">		catch(Exception e) {</span>
+			// raise an Exception on failure 
+<span class="fc" id="L60">			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)</span>
+<span class="fc" id="L61">					.body(&quot;An Error has Occured: &quot;+ e.getMessage());</span>
+		}
+	}
+	
+	
+//&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+//	
+//	
+//=======
+//	/* This function is used to retrieve the all the employee cards in the database through a get request*/
+//	@GetMapping(&quot;/employeecards&quot;)
+//	public ResponseEntity&lt;List&lt;EmployeeCard&gt;&gt; getEmployeeCardsInfo(){
+//		try {
+//			//we call the .getEmployeeCards function of employee card service and store the  employee cards in  an list
+//			List&lt;EmployeeCard&gt; employeecards=ecardservice.getEmployeeCards();
+//			//and return the ResponseEntity as status OK
+//			return ResponseEntity.ok(employeecards);
+//					}
+//		catch(Exception e) {
+//			e.printStackTrace();
+//			// Raise exception and  return Response entity with Internal Server Error 
+//			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+//		}
+//	}
+//&gt;&gt;&gt;&gt;&gt;&gt;&gt; 146ccb69634a9dff687f172d1fe17e7e3d295b7a
+	
+	
+	/* This function is used to retrieve Employee Cards by a particular ID*/
+	@GetMapping(&quot;/employeecard/{id}&quot;)
+	public ResponseEntity&lt;List&lt;EmployeeCard&gt;&gt; getEmployeeCardsOfEmployee(@PathVariable(value=&quot;id&quot;) Long id){
+	
+		try {
+			/*We created a list of Employee Card that belong to the employee of the said ID*/
+<span class="fc" id="L94">			List&lt;EmployeeCard&gt;employeecards=ecardservice.getEmployeeCardsOfEmployee(id);</span>
+<span class="fc" id="L95">			return ResponseEntity.ok(employeecards);</span>
+		}
+<span class="fc" id="L97">		catch(Exception e){</span>
+			//raise an exception on failure and set Response Entity Status to INTERNAL SERVER ERROR
+<span class="fc" id="L99">			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);</span>
+			
+		}
+	}
+	
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>Ezloans-spring (02-Oct-2023 5:06:51 pm)</div></body></html>

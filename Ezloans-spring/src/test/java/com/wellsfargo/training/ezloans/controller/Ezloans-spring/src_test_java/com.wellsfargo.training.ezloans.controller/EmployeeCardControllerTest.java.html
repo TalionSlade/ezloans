@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeCardControllerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Ezloans-spring (02-Oct-2023 5:06:51 pm)</a> &gt; <a href="../../index.html" class="el_group">Ezloans-spring</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.wellsfargo.training.ezloans.controller</a> &gt; <span class="el_source">EmployeeCardControllerTest.java</span></div><h1>EmployeeCardControllerTest.java</h1><pre class="source lang-java linenums">package com.wellsfargo.training.ezloans.controller;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.wellsfargo.training.ezloans.model.Employee;
+import com.wellsfargo.training.ezloans.model.EmployeeCard;
+import com.wellsfargo.training.ezloans.model.LoanCard;
+import com.wellsfargo.training.ezloans.service.EmployeeCardService;
+
+@SpringBootTest
+<span class="fc" id="L30">class EmployeeCardControllerTest {</span>
+	
+	@Autowired
+	private EmployeeCardController employeeCardController;
+	
+	private EmployeeCard  empCard;
+	
+	@MockBean  
+	EmployeeCardService empCardService;
+
+	@BeforeEach
+	void setUp() throws Exception {
+<span class="fc" id="L42">		empCard=new EmployeeCard();</span>
+<span class="fc" id="L43">	}</span>
+
+	@AfterEach
+	void tearDown() throws Exception {
+<span class="fc" id="L47">		empCard=null;</span>
+<span class="fc" id="L48">	}</span>
+
+	@Test
+	void testaddEmployeeCard() throws ParseException {
+		
+<span class="fc" id="L53">		Employee e = new Employee();</span>
+	
+		
+<span class="fc" id="L56">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L57">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L58">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L59">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L60">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L61">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+	    
+<span class="fc" id="L63">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L64">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L65">	    e.setDob(dob);</span>
+<span class="fc" id="L66">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L67">	    e.setDoj(doj);</span>
+<span class="fc" id="L68">	    e.setPassword(&quot;password&quot;);</span>
+	    
+<span class="fc" id="L70">	    SimpleDateFormat df2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L71">	    Date issue_date=new Date(df2.parse(&quot;2023-09-20&quot;).getTime());</span>
+<span class="fc" id="L72">	    empCard.setEmployee(e);;</span>
+<span class="fc" id="L73">	    empCard.setIssueDate(issue_date);</span>
+	  
+	    
+<span class="fc" id="L76">	    LoanCard lc=new LoanCard();</span>
+	    
+	    
+	 	    
+<span class="fc" id="L80">	    lc.setType(&quot;Crockery&quot;);</span>
+<span class="fc" id="L81">	    lc.setDuration(10);</span>
+	
+	    
+<span class="fc" id="L84">	    empCard.setLoanId(lc);</span>
+<span class="fc" id="L85">	    when(empCardService.addEmployeeCard(any(EmployeeCard.class))).thenReturn(empCard);</span>
+	    
+<span class="fc" id="L87">	    ResponseEntity&lt;String&gt; re=employeeCardController.addEmployeeCard(empCard);</span>
+		
+<span class="fc" id="L89">		assertEquals(HttpStatus.OK, re.getStatusCode());</span>
+<span class="fc" id="L90">		assertEquals(&quot;Employee Card added Successfully&quot;, re.getBody());</span>
+		
+<span class="fc" id="L92">		verify(empCardService, times(1)).addEmployeeCard(any(EmployeeCard.class));</span>
+		
+
+
+<span class="fc" id="L96">	}</span>
+	
+	
+	@Test
+	void testaddEmployeeCard_Else() throws ParseException {
+		
+<span class="fc" id="L102">		Employee e = new Employee();</span>
+	
+		
+<span class="fc" id="L105">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L106">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L107">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L108">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L109">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L110">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+	    
+<span class="fc" id="L112">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L113">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L114">	    e.setDob(dob);</span>
+<span class="fc" id="L115">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L116">	    e.setDoj(doj);</span>
+<span class="fc" id="L117">	    e.setPassword(&quot;password&quot;);</span>
+	    
+<span class="fc" id="L119">	    SimpleDateFormat df2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L120">	    Date issue_date=new Date(df2.parse(&quot;2023-09-20&quot;).getTime());</span>
+<span class="fc" id="L121">	    empCard.setEmployee(e);;</span>
+<span class="fc" id="L122">	    empCard.setIssueDate(issue_date);</span>
+	  
+	    
+<span class="fc" id="L125">	    LoanCard lc=new LoanCard();</span>
+	    
+	    
+	 	    
+<span class="fc" id="L129">	    lc.setType(&quot;Crockery&quot;);</span>
+<span class="fc" id="L130">	    lc.setDuration(10);</span>
+	
+	    
+<span class="fc" id="L133">	    empCard.setLoanId(lc);</span>
+<span class="fc" id="L134">	    when(empCardService.addEmployeeCard(any(EmployeeCard.class))).thenReturn(null);</span>
+	    
+<span class="fc" id="L136">	    ResponseEntity&lt;String&gt; re=employeeCardController.addEmployeeCard(empCard);</span>
+		
+<span class="fc" id="L138">		assertEquals(HttpStatus.BAD_REQUEST, re.getStatusCode());</span>
+<span class="fc" id="L139">		assertEquals(&quot;Failed to add Employee Card&quot;, re.getBody());</span>
+		
+<span class="fc" id="L141">		verify(empCardService, times(1)).addEmployeeCard(any(EmployeeCard.class));</span>
+		
+
+
+<span class="fc" id="L145">	}</span>
+	
+	@Test
+	void testaddEmployeeCard_Fail() throws ParseException {
+		
+<span class="fc" id="L150">		Employee e = new Employee();</span>
+	
+		
+<span class="fc" id="L153">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L154">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L155">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L156">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L157">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L158">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+	    
+<span class="fc" id="L160">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L161">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L162">	    e.setDob(dob);</span>
+<span class="fc" id="L163">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L164">	    e.setDoj(doj);</span>
+<span class="fc" id="L165">	    e.setPassword(&quot;password&quot;);</span>
+	    
+<span class="fc" id="L167">	    SimpleDateFormat df2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L168">	    Date issue_date=new Date(df2.parse(&quot;2023-09-20&quot;).getTime());</span>
+<span class="fc" id="L169">	    empCard.setEmployee(e);;</span>
+<span class="fc" id="L170">	    empCard.setIssueDate(issue_date);</span>
+	  
+	    
+<span class="fc" id="L173">	    LoanCard lc=new LoanCard();</span>
+	    
+	    
+	 	    
+<span class="fc" id="L177">	    lc.setType(&quot;Crockery&quot;);</span>
+<span class="fc" id="L178">	    lc.setDuration(10);</span>
+	
+	    
+<span class="fc" id="L181">	    empCard.setLoanId(lc);</span>
+<span class="fc" id="L182">	    Exception ex=new IllegalStateException();</span>
+<span class="fc" id="L183">	    when(empCardService.addEmployeeCard(any(EmployeeCard.class))).thenThrow(ex);</span>
+	    
+<span class="fc" id="L185">	    ResponseEntity&lt;String&gt; re=employeeCardController.addEmployeeCard(empCard);</span>
+		
+<span class="fc" id="L187">		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());</span>
+<span class="fc" id="L188">		assertEquals(&quot;An Error has Occured: &quot;+ex.getMessage(), re.getBody());</span>
+		
+<span class="fc" id="L190">		verify(empCardService, times(1)).addEmployeeCard(any(EmployeeCard.class));</span>
+		
+
+
+<span class="fc" id="L194">	}</span>
+	
+	@Test
+	void testgetEmployeeCardsOfEmployee() throws ParseException {
+		
+		
+	
+<span class="fc" id="L201">		List&lt;EmployeeCard&gt;eclist=new ArrayList&lt;EmployeeCard&gt;();</span>
+<span class="fc" id="L202">		Employee e = new Employee();</span>
+<span class="fc" id="L203">		e.setEid(1L);</span>
+<span class="fc" id="L204">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L205">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L206">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L207">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L208">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L209">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+	    
+<span class="fc" id="L211">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L212">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L213">	    e.setDob(dob);</span>
+<span class="fc" id="L214">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L215">	    e.setDoj(doj);</span>
+<span class="fc" id="L216">	    e.setPassword(&quot;password&quot;);</span>
+	    
+<span class="fc" id="L218">	    SimpleDateFormat df2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L219">	    Date issue_date=new Date(df2.parse(&quot;2023-09-20&quot;).getTime());</span>
+<span class="fc" id="L220">	    empCard.setEmployee(e);;</span>
+<span class="fc" id="L221">	    empCard.setIssueDate(issue_date);</span>
+	  
+	    
+<span class="fc" id="L224">	    LoanCard lc=new LoanCard();</span>
+	    
+	    
+	 	    
+<span class="fc" id="L228">	    lc.setType(&quot;Crockery&quot;);</span>
+<span class="fc" id="L229">	    lc.setDuration(10);</span>
+	
+	    
+<span class="fc" id="L232">	    empCard.setLoanId(lc);</span>
+	 
+<span class="fc" id="L234">	    eclist.add(empCard);</span>
+	    
+	    
+	    
+	    
+<span class="fc" id="L239">	    EmployeeCard ec2=new EmployeeCard();</span>
+<span class="fc" id="L240">	    Employee e2 = new Employee();</span>
+<span class="fc" id="L241">	    e2.setEid(2L);</span>
+<span class="fc" id="L242">	    e2.setEmail(&quot;anubhav@example.com&quot;);</span>
+<span class="fc" id="L243">	    e2.setFname(&quot;anubhav&quot;);</span>
+<span class="fc" id="L244">	    e2.setLname(&quot;rajput&quot;);</span>
+<span class="fc" id="L245">	    e2.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L246">	    e2.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L247">	    e2.setDesignation(&quot;Program Associate&quot;);</span>
+	    
+	    
+<span class="fc" id="L250">	    Date dob2=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L251">	    e2.setDob(dob);</span>
+<span class="fc" id="L252">	    Date doj2=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L253">	    e2.setDoj(doj);</span>
+<span class="fc" id="L254">	    e2.setPassword(&quot;password&quot;);</span>
+	    
+	    
+<span class="fc" id="L257">	    Date issue_date2=new Date(df2.parse(&quot;2023-09-20&quot;).getTime());</span>
+<span class="fc" id="L258">	    ec2.setEmployee(e2);;</span>
+<span class="fc" id="L259">	    ec2.setIssueDate(issue_date2);</span>
+//	    ec2.setCardId(2L);
+	  
+	    
+<span class="fc" id="L263">	    LoanCard lc2=new LoanCard();</span>
+	    
+	    
+	 	    
+<span class="fc" id="L267">	    lc2.setType(&quot;Crockery&quot;);</span>
+<span class="fc" id="L268">	    lc2.setDuration(10);</span>
+<span class="fc" id="L269">	    ec2.setLoanId(lc2);</span>
+	    
+<span class="fc" id="L271">	    eclist.add(ec2);</span>
+	    
+<span class="fc" id="L273">		List&lt;EmployeeCard&gt;returnclist=new ArrayList&lt;EmployeeCard&gt;();</span>
+<span class="fc" id="L274">		eclist.add(empCard);</span>
+	    
+	    
+<span class="fc" id="L277">	    when(empCardService.getEmployeeCardsOfEmployee(1L)).thenReturn(returnclist);</span>
+	    
+<span class="fc" id="L279">	    ResponseEntity&lt;List&lt;EmployeeCard&gt;&gt; re=employeeCardController.getEmployeeCardsOfEmployee(1L);</span>
+		
+<span class="fc" id="L281">		assertEquals(HttpStatus.OK, re.getStatusCode());</span>
+<span class="fc" id="L282">		assertEquals(returnclist, re.getBody());</span>
+		
+<span class="fc" id="L284">		verify(empCardService, times(1)).getEmployeeCardsOfEmployee(1L);</span>
+		
+
+
+<span class="fc" id="L288">	}</span>
+	
+	@Test
+	void testgetEmployeeCardsOfEmployee_Else() throws ParseException {
+		
+		
+	
+<span class="fc" id="L295">		List&lt;EmployeeCard&gt;eclist=new ArrayList&lt;EmployeeCard&gt;();</span>
+<span class="fc" id="L296">		Employee e = new Employee();</span>
+<span class="fc" id="L297">		e.setEid(1L);</span>
+<span class="fc" id="L298">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L299">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L300">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L301">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L302">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L303">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+	    
+<span class="fc" id="L305">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L306">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L307">	    e.setDob(dob);</span>
+<span class="fc" id="L308">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L309">	    e.setDoj(doj);</span>
+<span class="fc" id="L310">	    e.setPassword(&quot;password&quot;);</span>
+	    
+<span class="fc" id="L312">	    SimpleDateFormat df2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L313">	    Date issue_date=new Date(df2.parse(&quot;2023-09-20&quot;).getTime());</span>
+<span class="fc" id="L314">	    empCard.setEmployee(e);;</span>
+<span class="fc" id="L315">	    empCard.setIssueDate(issue_date);</span>
+	  
+	    
+<span class="fc" id="L318">	    LoanCard lc=new LoanCard();</span>
+	    
+	    
+	 	    
+<span class="fc" id="L322">	    lc.setType(&quot;Crockery&quot;);</span>
+<span class="fc" id="L323">	    lc.setDuration(10);</span>
+	
+	    
+<span class="fc" id="L326">	    empCard.setLoanId(lc);</span>
+	 
+<span class="fc" id="L328">	    eclist.add(empCard);</span>
+	    
+	    
+	    
+	    
+<span class="fc" id="L333">	    EmployeeCard ec2=new EmployeeCard();</span>
+<span class="fc" id="L334">	    Employee e2 = new Employee();</span>
+<span class="fc" id="L335">	    e2.setEid(2L);</span>
+<span class="fc" id="L336">	    e2.setEmail(&quot;anubhav@example.com&quot;);</span>
+<span class="fc" id="L337">	    e2.setFname(&quot;anubhav&quot;);</span>
+<span class="fc" id="L338">	    e2.setLname(&quot;rajput&quot;);</span>
+<span class="fc" id="L339">	    e2.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L340">	    e2.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L341">	    e2.setDesignation(&quot;Program Associate&quot;);</span>
+	    
+	    
+<span class="fc" id="L344">	    Date dob2=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L345">	    e2.setDob(dob);</span>
+<span class="fc" id="L346">	    Date doj2=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L347">	    e2.setDoj(doj);</span>
+<span class="fc" id="L348">	    e2.setPassword(&quot;password&quot;);</span>
+	    
+	    
+<span class="fc" id="L351">	    Date issue_date2=new Date(df2.parse(&quot;2023-09-20&quot;).getTime());</span>
+<span class="fc" id="L352">	    ec2.setEmployee(e2);;</span>
+<span class="fc" id="L353">	    ec2.setIssueDate(issue_date2);</span>
+//	    ec2.setCardId(2L);
+	  
+	    
+<span class="fc" id="L357">	    LoanCard lc2=new LoanCard();</span>
+	    
+	    
+	 	    
+<span class="fc" id="L361">	    lc2.setType(&quot;Crockery&quot;);</span>
+<span class="fc" id="L362">	    lc2.setDuration(10);</span>
+<span class="fc" id="L363">	    ec2.setLoanId(lc2);</span>
+	    
+<span class="fc" id="L365">	    eclist.add(ec2);</span>
+	    
+<span class="fc" id="L367">		List&lt;EmployeeCard&gt;returnclist=new ArrayList&lt;EmployeeCard&gt;();</span>
+<span class="fc" id="L368">		eclist.add(empCard);</span>
+	    
+<span class="fc" id="L370">	    Exception ex=new IllegalStateException();</span>
+<span class="fc" id="L371">	    when(empCardService.getEmployeeCardsOfEmployee(1L)).thenThrow(ex);</span>
+	    
+<span class="fc" id="L373">	    ResponseEntity&lt;List&lt;EmployeeCard&gt;&gt; re=employeeCardController.getEmployeeCardsOfEmployee(1L);</span>
+		
+<span class="fc" id="L375">		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());</span>
+<span class="fc" id="L376">		assertNull(re.getBody());</span>
+		
+<span class="fc" id="L378">		verify(empCardService, times(1)).getEmployeeCardsOfEmployee(1L);</span>
+		
+
+
+<span class="fc" id="L382">	}</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>Ezloans-spring (02-Oct-2023 5:06:51 pm)</div></body></html>

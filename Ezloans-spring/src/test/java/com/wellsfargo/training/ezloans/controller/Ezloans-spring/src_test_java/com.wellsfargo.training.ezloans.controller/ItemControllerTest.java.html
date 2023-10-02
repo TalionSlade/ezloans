@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ItemControllerTest.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Ezloans-spring (02-Oct-2023 5:06:51 pm)</a> &gt; <a href="../../index.html" class="el_group">Ezloans-spring</a> &gt; <a href="../index.html" class="el_bundle">src/test/java</a> &gt; <a href="index.source.html" class="el_package">com.wellsfargo.training.ezloans.controller</a> &gt; <span class="el_source">ItemControllerTest.java</span></div><h1>ItemControllerTest.java</h1><pre class="source lang-java linenums">package com.wellsfargo.training.ezloans.controller;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import com.wellsfargo.training.ezloans.exception.ResourceNotFoundException;
+import com.wellsfargo.training.ezloans.model.Employee;
+import com.wellsfargo.training.ezloans.model.EmployeeIssue;
+import com.wellsfargo.training.ezloans.model.Item;
+import com.wellsfargo.training.ezloans.service.ItemService;
+
+
+@SpringBootTest
+@DisplayName(&quot;Items CRUD tests&quot;)
+<span class="fc" id="L39">public class ItemControllerTest {</span>
+
+
+	@Autowired
+	private ItemController ItemController;
+	
+	private Item i;
+	
+	@MockBean // create a mock object
+	private ItemService iservice;
+	
+	@BeforeEach
+	void setUp() throws Exception {
+<span class="fc" id="L52">		i=new Item();</span>
+<span class="fc" id="L53">	}</span>
+
+	@AfterEach
+	void tearDown() throws Exception {
+<span class="fc" id="L57">		i=null;</span>
+<span class="fc" id="L58">	}</span>
+	
+	
+	/*
+	 *  We test our testSaveItem functionality in this method.
+	 *  We create a mock Item object and test the registerItem service and insertItem controller function*/
+	@Test
+	void testSaveItem() throws ParseException {
+		
+<span class="fc" id="L67">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L68">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L69">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L70">		i.setValuation(5000);</span>
+<span class="fc" id="L71">		i.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L74">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L75">		Employee e = new Employee();</span>
+
+<span class="fc" id="L77">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L78">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L79">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L80">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L81">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L82">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L84">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L85">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L86">	    e.setDob(dob);</span>
+<span class="fc" id="L87">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L88">	    e.setDoj(doj);</span>
+<span class="fc" id="L89">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L91">	    ei.setEmployee(e);</span>
+<span class="fc" id="L92">	    ei.setItem(i);</span>
+<span class="fc" id="L93">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L95">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L96">	    eis.add(ei);</span>
+
+<span class="fc" id="L98">	    i.setEmployeeIssue(eis);</span>
+	    		
+		
+<span class="fc" id="L101">	    when(iservice.registerItems(any(Item.class))).thenReturn(i);</span>
+
+<span class="fc" id="L103">		ResponseEntity&lt;String&gt; re=ItemController.insertItem(i);</span>
+
+<span class="fc" id="L105">		assertEquals(HttpStatus.OK, re.getStatusCode());</span>
+<span class="fc" id="L106">		assertEquals(&quot;Item successfully registered&quot;, re.getBody());</span>
+
+<span class="fc" id="L108">		verify(iservice, times(1)).registerItems(any(Item.class));</span>
+		
+<span class="fc" id="L110">	}</span>
+
+	/*
+	 *  We test our testSaveItem with Item Response Entity functionality in this method.
+	 *  We create a mock Item object and test the saveItem service and saveProduct controller function*/
+	@Test
+	void testSaveItem_ReturnItem() throws ParseException {
+		
+<span class="fc" id="L118">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L119">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L120">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L121">		i.setValuation(5000);</span>
+<span class="fc" id="L122">		i.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L125">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L126">		Employee e = new Employee();</span>
+
+<span class="fc" id="L128">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L129">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L130">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L131">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L132">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L133">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L135">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L136">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L137">	    e.setDob(dob);</span>
+<span class="fc" id="L138">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L139">	    e.setDoj(doj);</span>
+<span class="fc" id="L140">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L142">	    ei.setEmployee(e);</span>
+<span class="fc" id="L143">	    ei.setItem(i);</span>
+<span class="fc" id="L144">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L146">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L147">	    eis.add(ei);</span>
+
+<span class="fc" id="L149">	    i.setEmployeeIssue(eis);</span>
+	    		
+		
+<span class="fc" id="L152">	    when(iservice.saveItem(any(Item.class))).thenReturn(i);</span>
+
+<span class="fc" id="L154">		ResponseEntity&lt;Item&gt; re=ItemController.saveProduct(i);</span>
+
+<span class="fc" id="L156">		assertEquals(HttpStatus.CREATED, re.getStatusCode());</span>
+//		assertEquals(&quot;Item successfully registered&quot;, re.getBody());
+
+<span class="fc" id="L159">		verify(iservice, times(1)).saveItem(any(Item.class));</span>
+		
+<span class="fc" id="L161">	}</span>
+
+	/*
+	 *  We test our testSaveItem's fail functionality in this method.
+	 *  We create a mock Item object and test the saveItem service and saveProduct controller function*/
+	@Test
+	void testSaveItem_ReturnItem_fail() throws ParseException {
+		
+<span class="fc" id="L169">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L170">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L171">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L172">		i.setValuation(5000);</span>
+<span class="fc" id="L173">		i.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L176">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L177">		Employee e = new Employee();</span>
+
+<span class="fc" id="L179">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L180">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L181">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L182">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L183">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L184">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L186">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L187">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L188">	    e.setDob(dob);</span>
+<span class="fc" id="L189">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L190">	    e.setDoj(doj);</span>
+<span class="fc" id="L191">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L193">	    ei.setEmployee(e);</span>
+<span class="fc" id="L194">	    ei.setItem(i);</span>
+<span class="fc" id="L195">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L197">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L198">	    eis.add(ei);</span>
+
+<span class="fc" id="L200">	    i.setEmployeeIssue(eis);	    </span>
+<span class="fc" id="L201">	    Exception ex = new IllegalStateException();</span>
+<span class="fc" id="L202">	    when(iservice.saveItem(any(Item.class))).thenThrow(ex);</span>
+<span class="fc" id="L203">		ResponseEntity&lt;Item&gt; re=ItemController.saveProduct(i);</span>
+<span class="fc" id="L204">		assertNull(re.getBody());</span>
+<span class="fc" id="L205">		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());</span>
+<span class="fc" id="L206">		verify(iservice, times(1)).saveItem(any(Item.class));</span>
+		
+<span class="fc" id="L208">	}</span>
+
+	/*
+	 *  We test our testSaveItem's failure test case in this method.
+	 *  We create a mock Item object and test the registerItem service and insertItem controller function*/
+	@Test
+	void testSaveItem_fail() throws ParseException {
+		
+<span class="fc" id="L216">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L217">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L218">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L219">		i.setValuation(5000);</span>
+<span class="fc" id="L220">		i.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L223">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L224">		Employee e = new Employee();</span>
+
+<span class="fc" id="L226">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L227">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L228">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L229">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L230">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L231">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L233">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L234">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L235">	    e.setDob(dob);</span>
+<span class="fc" id="L236">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L237">	    e.setDoj(doj);</span>
+<span class="fc" id="L238">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L240">	    ei.setEmployee(e);</span>
+<span class="fc" id="L241">	    ei.setItem(i);</span>
+<span class="fc" id="L242">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L244">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L245">	    eis.add(ei);</span>
+
+<span class="fc" id="L247">	    i.setEmployeeIssue(eis);</span>
+	    		
+<span class="fc" id="L249">	    Exception ex = new IllegalStateException();</span>
+<span class="fc" id="L250">	    when(iservice.registerItems(any(Item.class))).thenThrow(ex);</span>
+
+<span class="fc" id="L252">		ResponseEntity&lt;String&gt; re=ItemController.insertItem(i);</span>
+		
+<span class="fc" id="L254">		assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());</span>
+<span class="fc" id="L255">		assertEquals(&quot;Error Occured :- &quot;+ex.getMessage(), re.getBody());</span>
+
+<span class="fc" id="L257">		verify(iservice, times(1)).registerItems(any(Item.class));		</span>
+<span class="fc" id="L258">	}</span>
+	
+	
+	@Test
+	void testSaveItem_else() throws ParseException {
+		
+<span class="fc" id="L264">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L265">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L266">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L267">		i.setValuation(5000);</span>
+<span class="fc" id="L268">		i.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L271">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L272">		Employee e = new Employee();</span>
+
+<span class="fc" id="L274">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L275">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L276">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L277">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L278">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L279">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L281">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L282">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L283">	    e.setDob(dob);</span>
+<span class="fc" id="L284">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L285">	    e.setDoj(doj);</span>
+<span class="fc" id="L286">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L288">	    ei.setEmployee(e);</span>
+<span class="fc" id="L289">	    ei.setItem(i);</span>
+<span class="fc" id="L290">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L292">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L293">	    eis.add(ei);</span>
+
+<span class="fc" id="L295">	    i.setEmployeeIssue(eis);</span>
+	    		
+<span class="fc" id="L297">	    when(iservice.registerItems(any(Item.class))).thenReturn(null);</span>
+
+<span class="fc" id="L299">		ResponseEntity&lt;String&gt; re=ItemController.insertItem(i);</span>
+
+<span class="fc" id="L301">		assertEquals(HttpStatus.BAD_REQUEST, re.getStatusCode());</span>
+<span class="fc" id="L302">		assertEquals(&quot;Failed to add Item&quot;, re.getBody());</span>
+
+<span class="fc" id="L304">		verify(iservice, times(1)).registerItems(any(Item.class));</span>
+<span class="fc" id="L305">	}</span>
+	
+	@Test
+	void testGetAllItems_fail() throws ParseException {
+<span class="fc" id="L309">		Item i1 = new Item();</span>
+<span class="fc" id="L310">		Item i2 = new Item();</span>
+
+<span class="fc" id="L312">		i1.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L313">		i1.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L314">		i1.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L315">		i1.setValuation(5000);</span>
+<span class="fc" id="L316">		i1.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L319">		EmployeeIssue ei1 = new EmployeeIssue();</span>
+<span class="fc" id="L320">		Employee e1 = new Employee();</span>
+
+<span class="fc" id="L322">		e1.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L323">	    e1.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L324">	    e1.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L325">	    e1.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L326">	    e1.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L327">	    e1.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L329">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L330">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L331">	    e1.setDob(dob);</span>
+<span class="fc" id="L332">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L333">	    e1.setDoj(doj);</span>
+<span class="fc" id="L334">	    e1.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L336">	    ei1.setEmployee(e1);</span>
+<span class="fc" id="L337">	    ei1.setItem(i);</span>
+<span class="fc" id="L338">	    ei1.setIssueDate(doj);</span>
+
+//	    i1.setEmployeeIssue(ei1);
+
+<span class="fc" id="L342">		i2.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L343">		i2.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L344">		i2.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L345">		i2.setValuation(5000);</span>
+<span class="fc" id="L346">		i2.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L349">		EmployeeIssue ei2 = new EmployeeIssue();</span>
+<span class="fc" id="L350">		Employee e2 = new Employee();</span>
+
+<span class="fc" id="L352">		e2.setEmail(&quot;anubhav@example.com&quot;);</span>
+<span class="fc" id="L353">	    e2.setFname(&quot;anubhav&quot;);</span>
+<span class="fc" id="L354">	    e2.setLname(&quot;rajput&quot;);</span>
+<span class="fc" id="L355">	    e2.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L356">	    e2.setDepartment(&quot;TCOO&quot;);</span>
+<span class="fc" id="L357">	    e2.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L359">	    SimpleDateFormat df2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L360">	    Date dob2=new Date(df2.parse(&quot;2001-04-18&quot;).getTime());</span>
+<span class="fc" id="L361">	    e2.setDob(dob2);</span>
+<span class="fc" id="L362">	    Date doj2=new Date(df2.parse(&quot;2023-07-21&quot;).getTime());</span>
+<span class="fc" id="L363">	    e2.setDoj(doj2);</span>
+<span class="fc" id="L364">	    e2.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L366">	    ei2.setEmployee(e2);</span>
+<span class="fc" id="L367">	    ei2.setItem(i);;</span>
+<span class="fc" id="L368">	    ei2.setIssueDate(doj);</span>
+	    
+<span class="fc" id="L370">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L371">	    eis.add(ei1);</span>
+<span class="fc" id="L372">	    eis.add(ei2);</span>
+
+<span class="fc" id="L374">	    i.setEmployeeIssue(eis);</span>
+<span class="fc" id="L375">	    List&lt;Item&gt; list = new ArrayList&lt;Item&gt;();</span>
+<span class="fc" id="L376">	    list.add(i1);</span>
+<span class="fc" id="L377">	    list.add(i2);</span>
+	 
+<span class="fc" id="L379">	    when(iservice.listAll()).thenReturn(list);</span>
+
+<span class="fc" id="L381">	    ResponseEntity&lt;List&lt;Item&gt;&gt; re = ItemController.getAllItems();</span>
+
+<span class="fc" id="L383">	    assertEquals(2, re.getBody().size());</span>
+<span class="fc" id="L384">	    assertEquals(&quot;Soundbar&quot;, re.getBody().get(0).getDesc());</span>
+<span class="fc" id="L385">	    assertEquals(&quot;Soundbar&quot;, re.getBody().get(1).getDesc());</span>
+
+<span class="fc" id="L387">	    verify(iservice, times(1)).listAll();</span>
+<span class="fc" id="L388">	}</span>
+	
+	@Test
+	void testGetAllItems() throws ParseException {
+<span class="fc" id="L392">		Item i1 = new Item();</span>
+<span class="fc" id="L393">		Item i2 = new Item();</span>
+
+<span class="fc" id="L395">		i1.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L396">		i1.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L397">		i1.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L398">		i1.setValuation(5000);</span>
+<span class="fc" id="L399">		i1.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L402">		EmployeeIssue ei1 = new EmployeeIssue();</span>
+<span class="fc" id="L403">		Employee e1 = new Employee();</span>
+
+<span class="fc" id="L405">		e1.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L406">	    e1.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L407">	    e1.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L408">	    e1.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L409">	    e1.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L410">	    e1.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L412">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L413">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L414">	    e1.setDob(dob);</span>
+<span class="fc" id="L415">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L416">	    e1.setDoj(doj);</span>
+<span class="fc" id="L417">	    e1.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L419">	    ei1.setEmployee(e1);</span>
+<span class="fc" id="L420">	    ei1.setItem(i);</span>
+<span class="fc" id="L421">	    ei1.setIssueDate(doj);</span>
+
+//	    i1.setEmployeeIssue(ei1);
+
+<span class="fc" id="L425">		i2.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L426">		i2.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L427">		i2.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L428">		i2.setValuation(5000);</span>
+<span class="fc" id="L429">		i2.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L432">		EmployeeIssue ei2 = new EmployeeIssue();</span>
+<span class="fc" id="L433">		Employee e2 = new Employee();</span>
+
+<span class="fc" id="L435">		e2.setEmail(&quot;anubhav@example.com&quot;);</span>
+<span class="fc" id="L436">	    e2.setFname(&quot;anubhav&quot;);</span>
+<span class="fc" id="L437">	    e2.setLname(&quot;rajput&quot;);</span>
+<span class="fc" id="L438">	    e2.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L439">	    e2.setDepartment(&quot;TCOO&quot;);</span>
+<span class="fc" id="L440">	    e2.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L442">	    SimpleDateFormat df2 = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L443">	    Date dob2=new Date(df2.parse(&quot;2001-04-18&quot;).getTime());</span>
+<span class="fc" id="L444">	    e2.setDob(dob2);</span>
+<span class="fc" id="L445">	    Date doj2=new Date(df2.parse(&quot;2023-07-21&quot;).getTime());</span>
+<span class="fc" id="L446">	    e2.setDoj(doj2);</span>
+<span class="fc" id="L447">	    e2.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L449">	    ei2.setEmployee(e2);</span>
+<span class="fc" id="L450">	    ei2.setItem(i);;</span>
+<span class="fc" id="L451">	    ei2.setIssueDate(doj);</span>
+	    
+<span class="fc" id="L453">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L454">	    eis.add(ei1);</span>
+<span class="fc" id="L455">	    eis.add(ei2);</span>
+
+<span class="fc" id="L457">	    i.setEmployeeIssue(eis);</span>
+<span class="fc" id="L458">	    List&lt;Item&gt; list = new ArrayList&lt;Item&gt;();</span>
+<span class="fc" id="L459">	    list.add(i1);</span>
+<span class="fc" id="L460">	    list.add(i2);</span>
+	 
+<span class="fc" id="L462">	    Exception ex = new IllegalStateException();</span>
+<span class="fc" id="L463">	    when(iservice.listAll()).thenThrow(ex);</span>
+//	    when(iservice.listAll()).thenReturn(list);
+
+<span class="fc" id="L466">	    ResponseEntity&lt;List&lt;Item&gt;&gt; re = ItemController.getAllItems();</span>
+
+<span class="fc" id="L468">	    assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, re.getStatusCode());</span>
+<span class="fc" id="L469">	    assertNull(re.getBody());</span>
+<span class="fc" id="L470">	    verify(iservice, times(1)).listAll();</span>
+<span class="fc" id="L471">	}</span>
+	
+	@Test
+	void testGetItemById() throws ParseException, ResourceNotFoundException {
+<span class="fc" id="L475">		i.setItemId(1L);</span>
+		
+<span class="fc" id="L477">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L478">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L479">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L480">		i.setValuation(5000);</span>
+<span class="fc" id="L481">		i.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L484">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L485">		Employee e = new Employee();</span>
+
+<span class="fc" id="L487">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L488">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L489">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L490">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L491">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L492">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L494">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L495">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L496">	    e.setDob(dob);</span>
+<span class="fc" id="L497">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L498">	    e.setDoj(doj);</span>
+<span class="fc" id="L499">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L501">	    ei.setEmployee(e);</span>
+<span class="fc" id="L502">	    ei.setItem(i);</span>
+<span class="fc" id="L503">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L505">	    List&lt;EmployeeIssue&gt; ecs = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L506">	    ecs.add(ei);</span>
+
+<span class="fc" id="L508">	    i.setEmployeeIssue(ecs);</span>
+
+<span class="fc" id="L510">	    when(iservice.getItem(1L)).thenReturn(Optional.of(i));</span>
+
+<span class="fc" id="L512">	    ResponseEntity&lt;Item&gt; re = ItemController.getItemsById(1L);</span>
+
+<span class="fc" id="L514">	    assertEquals(HttpStatus.OK, re.getStatusCode());</span>
+<span class="fc" id="L515">	    assertEquals(&quot;Soundbar&quot;, re.getBody().getDesc());</span>
+<span class="fc" id="L516">	    assertEquals(&quot;Wooden&quot;, re.getBody().getMake());</span>
+
+<span class="fc" id="L518">	    verify(iservice, times(1)).getItem(1L);</span>
+<span class="fc" id="L519">	}</span>
+	
+	@Test
+	void testGetItemById_fail() throws ParseException, ResourceNotFoundException {
+<span class="fc" id="L523">		i.setItemId(1L);</span>
+		
+<span class="fc" id="L525">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L526">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L527">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L528">		i.setValuation(5000);</span>
+<span class="fc" id="L529">		i.setCategory(&quot;Appliance&quot;);</span>
+		
+		//setting up the Dummy Item Issue
+<span class="fc" id="L532">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L533">		Employee e = new Employee();</span>
+
+<span class="fc" id="L535">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L536">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L537">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L538">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L539">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L540">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L542">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L543">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L544">	    e.setDob(dob);</span>
+<span class="fc" id="L545">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L546">	    e.setDoj(doj);</span>
+<span class="fc" id="L547">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L549">	    ei.setEmployee(e);</span>
+<span class="fc" id="L550">	    ei.setItem(i);</span>
+<span class="fc" id="L551">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L553">	    List&lt;EmployeeIssue&gt; ecs = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L554">	    ecs.add(ei);</span>
+
+<span class="fc" id="L556">	    i.setEmployeeIssue(ecs);</span>
+<span class="fc" id="L557">	    when(iservice.getItem(1L)).thenReturn(Optional.empty());</span>
+	    try {
+<span class="nc" id="L559">	    	ResponseEntity&lt;Item&gt; re = ItemController.getItemsById(1L);</span>
+<span class="pc" id="L560">	    }catch(Exception ex) {</span>
+<span class="fc" id="L561">	    	assertEquals(&quot;Item not found for this id&quot;+i.getItemId() ,ex.getMessage());</span>
+	    }
+	   
+
+<span class="fc" id="L565">	    verify(iservice, times(1)).getItem(1L);</span>
+<span class="fc" id="L566">	}</span>
+	
+	@Test
+	void testUpdateItem() throws ParseException, ResourceNotFoundException {
+		
+<span class="fc" id="L571">		Item i1 = new Item();</span>
+<span class="fc" id="L572">		Item i2 = new Item();</span>
+
+<span class="fc" id="L574">		i1.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L575">		i1.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L576">		i1.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L577">		i1.setValuation(5000);</span>
+<span class="fc" id="L578">		i1.setCategory(&quot;Appliance&quot;);</span>
+		
+		
+<span class="fc" id="L581">		EmployeeIssue ei1 = new EmployeeIssue();</span>
+<span class="fc" id="L582">		Employee e1 = new Employee();</span>
+
+<span class="fc" id="L584">		e1.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L585">	    e1.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L586">	    e1.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L587">	    e1.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L588">	    e1.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L589">	    e1.setDesignation(&quot;Program Associate&quot;);</span>
+<span class="fc" id="L590">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L591">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L592">	    e1.setDob(dob);</span>
+<span class="fc" id="L593">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L594">	    e1.setDoj(doj);</span>
+<span class="fc" id="L595">	    e1.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L597">	    ei1.setEmployee(e1);</span>
+<span class="fc" id="L598">	    ei1.setItem(i1);</span>
+<span class="fc" id="L599">	    ei1.setIssueDate(doj);</span>
+
+<span class="fc" id="L601">	    List&lt;EmployeeIssue&gt; eis1 = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L602">	    eis1.add(ei1);</span>
+
+<span class="fc" id="L604">	    i1.setEmployeeIssue(eis1);</span>
+
+<span class="fc" id="L606">	    i2.setDesc(&quot;Table&quot;);</span>
+<span class="fc" id="L607">	    i2.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L608">		i2.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L609">		i2.setValuation(5000);</span>
+<span class="fc" id="L610">		i2.setCategory(&quot;Appliance&quot;);</span>
+<span class="fc" id="L611">		i2.setEmployeeIssue(eis1);</span>
+
+<span class="fc" id="L613">		i1.setItemId(1L);</span>
+
+<span class="fc" id="L615">		when(iservice.getItem(1L)).thenReturn(Optional.of(i1));</span>
+<span class="fc" id="L616">		when(iservice.saveItem(any(Item.class))).thenReturn(i2);</span>
+
+<span class="fc" id="L618">		ResponseEntity&lt;Item&gt; re = ItemController.updateItem(1L, i2);</span>
+
+<span class="fc" id="L620">		assertEquals(&quot;Table&quot;, re.getBody().getDesc());</span>
+<span class="fc" id="L621">		assertEquals(5000, re.getBody().getValuation());</span>
+
+<span class="fc" id="L623">		verify(iservice, times(1)).getItem(1L);</span>
+<span class="fc" id="L624">		verify(iservice, times(1)).saveItem(any(Item.class));	</span>
+<span class="fc" id="L625">	}</span>
+	
+	@Test
+	void testUpdateItem_fail() throws ParseException, ResourceNotFoundException {
+		
+<span class="fc" id="L630">		Item i1 = new Item();</span>
+<span class="fc" id="L631">		Item i2 = new Item();</span>
+
+<span class="fc" id="L633">		i1.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L634">		i1.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L635">		i1.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L636">		i1.setValuation(5000);</span>
+<span class="fc" id="L637">		i1.setCategory(&quot;Appliance&quot;);</span>
+		
+		
+<span class="fc" id="L640">		EmployeeIssue ei1 = new EmployeeIssue();</span>
+<span class="fc" id="L641">		Employee e1 = new Employee();</span>
+
+<span class="fc" id="L643">		e1.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L644">	    e1.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L645">	    e1.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L646">	    e1.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L647">	    e1.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L648">	    e1.setDesignation(&quot;Program Associate&quot;);</span>
+<span class="fc" id="L649">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L650">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L651">	    e1.setDob(dob);</span>
+<span class="fc" id="L652">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L653">	    e1.setDoj(doj);</span>
+<span class="fc" id="L654">	    e1.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L656">	    ei1.setEmployee(e1);</span>
+<span class="fc" id="L657">	    ei1.setItem(i1);</span>
+<span class="fc" id="L658">	    ei1.setIssueDate(doj);</span>
+
+<span class="fc" id="L660">	    List&lt;EmployeeIssue&gt; eis1 = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L661">	    eis1.add(ei1);</span>
+
+<span class="fc" id="L663">	    i1.setEmployeeIssue(eis1);</span>
+
+<span class="fc" id="L665">	    i2.setDesc(&quot;Table&quot;);</span>
+<span class="fc" id="L666">	    i1.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L667">		i1.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L668">		i1.setValuation(5000);</span>
+<span class="fc" id="L669">		i1.setCategory(&quot;Appliance&quot;);</span>
+<span class="fc" id="L670">		i2.setEmployeeIssue(eis1);</span>
+
+<span class="fc" id="L672">		i1.setItemId(1L);</span>
+
+<span class="fc" id="L674">		when(iservice.getItem(1L)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L675">		when(iservice.registerItems(any(Item.class))).thenReturn(i2);</span>
+		
+		try {
+<span class="nc" id="L678">			ResponseEntity&lt;Item&gt; re = ItemController.updateItem(1L, i2);</span>
+<span class="nc" id="L679">		}</span>
+<span class="fc" id="L680">		catch(Exception ex) {</span>
+<span class="fc" id="L681">			assertEquals(&quot;Item not found for this id &quot;+i1.getItemId() ,ex.getMessage());</span>
+		}
+
+<span class="fc" id="L684">		verify(iservice, times(1)).getItem(1L);</span>
+//		verify(iservice, times(1)).registerItems(any(Item.class));	
+<span class="fc" id="L686">	}</span>
+	
+	@Test
+	void testDeleteItem() throws ParseException, ResourceNotFoundException {
+<span class="fc" id="L690">		i.setItemId(1L);</span>
+<span class="fc" id="L691">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L692">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L693">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L694">		i.setValuation(5000);</span>
+<span class="fc" id="L695">		i.setCategory(&quot;Appliance&quot;);</span>
+
+<span class="fc" id="L697">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L698">		Employee e = new Employee();</span>
+
+<span class="fc" id="L700">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L701">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L702">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L703">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L704">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L705">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L707">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L708">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L709">	    e.setDob(dob);</span>
+<span class="fc" id="L710">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L711">	    e.setDoj(doj);</span>
+<span class="fc" id="L712">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L714">	    ei.setEmployee(e);</span>
+<span class="fc" id="L715">	    ei.setItem(i);</span>
+<span class="fc" id="L716">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L718">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L719">	    eis.add(ei);</span>
+
+<span class="fc" id="L721">	    i.setEmployeeIssue(eis);</span>
+
+	    //.getItem(1L)).thenReturn(Optional.empty()
+<span class="fc" id="L724">	    when(iservice.getItem(1L)).thenReturn(Optional.of(i));</span>
+<span class="fc" id="L725">	    doNothing().when(iservice).deleteItem(1L);</span>
+
+<span class="fc" id="L727">	    ResponseEntity&lt;Map&lt;String, Boolean&gt;&gt; re = ItemController.deleteItem(1L);</span>
+
+<span class="fc" id="L729">	    assertTrue(re.getBody().containsKey(&quot;Deleted Item&quot;));</span>
+<span class="fc" id="L730">		assertTrue(re.getBody().get(&quot;Deleted Item&quot;));</span>
+
+<span class="fc" id="L732">		verify(iservice, times(1)).getItem(1L);</span>
+<span class="fc" id="L733">		verify(iservice, times(1)).deleteItem(1L);</span>
+
+<span class="fc" id="L735">	}</span>
+	
+	@Test
+	void testDeleteItem_fail() throws ParseException, ResourceNotFoundException {
+<span class="fc" id="L739">		i.setItemId(1L);</span>
+<span class="fc" id="L740">		i.setDesc(&quot;Soundbar&quot;);</span>
+<span class="fc" id="L741">		i.setStatus(&quot;New&quot;);</span>
+<span class="fc" id="L742">		i.setMake(&quot;Wooden&quot;);</span>
+<span class="fc" id="L743">		i.setValuation(5000);</span>
+<span class="fc" id="L744">		i.setCategory(&quot;Appliance&quot;);</span>
+
+<span class="fc" id="L746">		EmployeeIssue ei = new EmployeeIssue();</span>
+<span class="fc" id="L747">		Employee e = new Employee();</span>
+
+<span class="fc" id="L749">		e.setEmail(&quot;arpan@example.com&quot;);</span>
+<span class="fc" id="L750">	    e.setFname(&quot;arpan&quot;);</span>
+<span class="fc" id="L751">	    e.setLname(&quot;ghosh&quot;);</span>
+<span class="fc" id="L752">	    e.setGender(&quot;male&quot;);</span>
+<span class="fc" id="L753">	    e.setDepartment(&quot;CT&quot;);</span>
+<span class="fc" id="L754">	    e.setDesignation(&quot;Program Associate&quot;);</span>
+
+<span class="fc" id="L756">	    SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);</span>
+<span class="fc" id="L757">	    Date dob=new Date(df.parse(&quot;1985-01-01&quot;).getTime());</span>
+<span class="fc" id="L758">	    e.setDob(dob);</span>
+<span class="fc" id="L759">	    Date doj=new Date(df.parse(&quot;2023-08-23&quot;).getTime());</span>
+<span class="fc" id="L760">	    e.setDoj(doj);</span>
+<span class="fc" id="L761">	    e.setPassword(&quot;password&quot;);</span>
+
+<span class="fc" id="L763">	    ei.setEmployee(e);</span>
+<span class="fc" id="L764">	    ei.setItem(i);</span>
+<span class="fc" id="L765">	    ei.setIssueDate(doj);</span>
+
+<span class="fc" id="L767">	    List&lt;EmployeeIssue&gt; eis = new ArrayList&lt;EmployeeIssue&gt;();</span>
+<span class="fc" id="L768">	    eis.add(ei);</span>
+
+<span class="fc" id="L770">	    i.setEmployeeIssue(eis);</span>
+
+	    //.getItem(1L)).thenReturn(Optional.empty
+<span class="fc" id="L773">	    when(iservice.getItem(1L)).thenReturn(Optional.empty());</span>
+<span class="fc" id="L774">	    doNothing().when(iservice).deleteItem(1L);</span>
+
+	    try {
+<span class="nc" id="L777">	    	ResponseEntity&lt;Map&lt;String, Boolean&gt;&gt; re = ItemController.deleteItem(1L);</span>
+<span class="nc" id="L778">	    }</span>
+<span class="fc" id="L779">	    catch(Exception ex) {</span>
+<span class="fc" id="L780">	    	assertEquals(&quot;Item not found for this id &quot;+i.getItemId() ,ex.getMessage());</span>
+	    }
+<span class="fc" id="L782">		verify(iservice, times(1)).getItem(1L);</span>
+
+
+<span class="fc" id="L785">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>Ezloans-spring (02-Oct-2023 5:06:51 pm)</div></body></html>

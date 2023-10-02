@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>LoanCardService.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Ezloans-spring (02-Oct-2023 5:06:51 pm)</a> &gt; <a href="../../index.html" class="el_group">Ezloans-spring</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.wellsfargo.training.ezloans.service</a> &gt; <span class="el_source">LoanCardService.java</span></div><h1>LoanCardService.java</h1><pre class="source lang-java linenums">package com.wellsfargo.training.ezloans.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Service;
+
+import com.wellsfargo.training.ezloans.model.LoanCard;
+import com.wellsfargo.training.ezloans.repository.LoanCardRepository;
+
+import jakarta.transaction.Transactional;
+
+@Service
+@Transactional
+<span class="fc" id="L17">public class LoanCardService {</span>
+	
+	@Autowired
+	private LoanCardRepository lrepo;
+	
+	public LoanCard addLoanCard(LoanCard l) {
+<span class="nc" id="L23">		return lrepo.save(l);</span>
+	}
+	
+	public List&lt;LoanCard&gt; listAll(){
+<span class="nc" id="L27">		return lrepo.findAll(); //Invoke findAll() method of Jpa repository</span>
+	}
+	
+	public Optional&lt;LoanCard&gt; getSingleLoanCard(long lid){
+<span class="nc" id="L31">		return lrepo.findById(lid);</span>
+	}
+	
+	public void deleteLoanCard(long lid) {
+<span class="nc" id="L35">		 lrepo.deleteById(lid);</span>
+<span class="nc" id="L36">	}</span>
+	
+	
+	public Optional&lt;LoanCard&gt; getLoanCardByType(String type){
+<span class="nc" id="L40">		return lrepo.findByType(type);</span>
+	}
+	
+	
+
+	
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>Ezloans-spring (02-Oct-2023 5:06:51 pm)</div></body></html>

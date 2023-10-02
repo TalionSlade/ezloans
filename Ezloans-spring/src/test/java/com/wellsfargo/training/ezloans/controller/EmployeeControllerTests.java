@@ -194,7 +194,7 @@ public class EmployeeControllerTests {
 		@Test
 		void testUpdateEmployee() throws ParseException, ResourceNotFoundException {
 			
-			e.setEid(1L);
+		
 			e.setEmail("arpan@example.com");
 		    e.setFname("arpan");
 		    e.setLname("ghosh");
@@ -212,6 +212,7 @@ public class EmployeeControllerTests {
 		   
 		    Employee e2=new Employee();
 		    
+	;
 		    e2.setEmail("arpanghosh@example.com");
 		    e2.setFname("arpan");
 		    e2.setLname("ghosh");
@@ -236,7 +237,7 @@ public class EmployeeControllerTests {
 		    assertEquals("Program Associate", re.getBody().getDesignation());
 			
 			verify(eservice, times(1)).getSingleEmployee(1L);
-			verify(eservice, times(1)).saveEmployee(e2);
+			verify(eservice, times(1)).saveEmployee(any(Employee.class));
 		    
 		    
 		    

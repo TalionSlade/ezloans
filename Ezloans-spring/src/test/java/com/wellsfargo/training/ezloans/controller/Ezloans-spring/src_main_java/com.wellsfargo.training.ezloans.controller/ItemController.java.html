@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>ItemController.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Ezloans-spring (02-Oct-2023 5:06:51 pm)</a> &gt; <a href="../../index.html" class="el_group">Ezloans-spring</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.wellsfargo.training.ezloans.controller</a> &gt; <span class="el_source">ItemController.java</span></div><h1>ItemController.java</h1><pre class="source lang-java linenums">package com.wellsfargo.training.ezloans.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.wellsfargo.training.ezloans.exception.ResourceNotFoundException;
+import com.wellsfargo.training.ezloans.model.Item;
+import com.wellsfargo.training.ezloans.model.Item;
+import com.wellsfargo.training.ezloans.service.ItemService;
+
+@CrossOrigin(origins=&quot;http://localhost:3000&quot;)
+@RestController
+@RequestMapping(value = &quot;/api&quot;)
+<span class="fc" id="L30">public class ItemController {</span>
+	
+	@Autowired
+	public ItemService iservice;
+	
+	//This function is used to add item in Item Master table
+	/* http://localhost:8085/ezloans/api/additem
+	 * {
+    &quot;desc&quot;:&quot;Spoon&quot;,
+    &quot;make&quot;:&quot;wooden&quot;,
+    &quot;category&quot;:&quot;Crockery&quot;,
+    &quot;valuation&quot;:100,
+    &quot;status&quot;:&quot;Yes&quot;
+}
+	 */
+	@PostMapping(&quot;/additem&quot;)
+	public ResponseEntity&lt;String&gt; insertItem(@Validated @RequestBody Item item){
+		try {
+			
+<span class="fc" id="L49">			Item registeredItem = iservice.registerItems(item);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">			if(registeredItem != null) {</span>
+<span class="fc" id="L51">				return ResponseEntity.ok(&quot;Item successfully registered&quot;);</span>
+			}else {
+<span class="fc" id="L53">				return ResponseEntity.badRequest().body(&quot;Failed to add Item&quot;);</span>
+			}
+			
+<span class="fc" id="L56">		}catch(Exception e) {</span>
+<span class="fc" id="L57">			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(&quot;Error Occured :- &quot;+ e.getMessage());</span>
+		}
+	}
+	
+	//This function is used to return all items ,
+	// GET: http://localhost:8085/ezloans/api/item
+	@GetMapping(&quot;/item&quot;)
+	public ResponseEntity&lt;List&lt;Item&gt;&gt; getAllItems() {
+		
+		try {
+<span class="fc" id="L67">			List&lt;Item&gt; items =  iservice.listAll();</span>
+<span class="fc" id="L68">			return ResponseEntity.ok(items);</span>
+<span class="fc" id="L69">			} catch(Exception e) {</span>
+<span class="fc" id="L70">				e.printStackTrace();</span>
+<span class="fc" id="L71">				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);</span>
+				}
+	}
+	
+	//This function is used to add an item ,
+		// POST: http://localhost:8085/ezloans/api/item
+	@PostMapping(&quot;/item&quot;)
+	public ResponseEntity&lt;Item&gt; saveProduct(@Validated @RequestBody Item item) {
+		try {
+<span class="fc" id="L80">		Item i=iservice.saveItem(item);</span>
+<span class="fc" id="L81">		return ResponseEntity.status(HttpStatus.CREATED).body(i);</span>
+<span class="fc" id="L82">		} catch(Exception e) {</span>
+<span class="fc" id="L83">			e.printStackTrace();</span>
+<span class="fc" id="L84">			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);</span>
+			}
+	}
+		
+	//This function is used to get items having a particular id passed in URL.
+	// GET: http://localhost:8085/ezloans/api/item/1001
+	@GetMapping(&quot;/item/{id}&quot;)
+	public ResponseEntity&lt;Item&gt; getItemsById(@PathVariable(value=&quot;id&quot;) long id) 
+			throws ResourceNotFoundException{
+<span class="fc" id="L93">		Item i=iservice.getItem(id).orElseThrow(()-&gt;new ResourceNotFoundException(&quot;Item not found for this id&quot;+id));</span>
+<span class="fc" id="L94">		return ResponseEntity.ok().body(i);</span>
+	}
+	
+	//This function is used to delete item having a particular id passed in URL.
+	// http://localhost:8085/ezloans/api/item/1001
+	@DeleteMapping(&quot;/item/{id}&quot;)
+	public ResponseEntity&lt;Map&lt;String, Boolean&gt;&gt; deleteItem(@PathVariable(value=&quot;id&quot;) long id)
+	throws ResourceNotFoundException {
+		
+<span class="fc" id="L103">		iservice.getItem(id).orElseThrow(()-&gt;new ResourceNotFoundException(&quot;Item not found for this id &quot;+id));</span>
+<span class="fc" id="L104">		iservice.deleteItem(id);</span>
+		
+<span class="fc" id="L106">		Map&lt;String,Boolean&gt; response = new HashMap&lt;String, Boolean&gt;();</span>
+<span class="fc" id="L107">		response.put(&quot;Deleted Item&quot;,Boolean.TRUE);</span>
+<span class="fc" id="L108">		return ResponseEntity.ok(response);		</span>
+	}
+	
+	//This function is used to update item having a particular id passed in URL with a new item object.
+	// PUT: http://localhost:8085/ezloans/api/item/1001
+	@PutMapping(&quot;/item/{id}&quot;)
+	public ResponseEntity&lt;Item&gt; updateItem(@PathVariable(value=&quot;id&quot;) long id, @Validated @RequestBody Item i) 
+			throws ResourceNotFoundException{
+<span class="fc" id="L116">		Item item=iservice.getItem(id).orElseThrow(()-&gt;new ResourceNotFoundException(&quot;Item not found for this id &quot;+id));</span>
+		
+<span class="fc" id="L118">		item.setDesc(i.getDesc());</span>
+<span class="fc" id="L119">		item.setStatus(i.getStatus());</span>
+<span class="fc" id="L120">		item.setMake(i.getMake());</span>
+<span class="fc" id="L121">		item.setCategory(i.getCategory());</span>
+<span class="fc" id="L122">		item.setValuation(i.getValuation());</span>
+		
+<span class="fc" id="L124">		final Item updatedItem = iservice.saveItem(item);</span>
+<span class="fc" id="L125">		return ResponseEntity.ok().body(updatedItem);</span>
+	}
+	
+	
+	//This function is used to get item descriptions having particular type
+	@GetMapping(&quot;/getdescription/{type}&quot;)
+	public ResponseEntity&lt;List&lt;Map&lt;String,Object&gt;&gt;&gt; getDescriptionByType(@PathVariable(value=&quot;type&quot;) String type) 
+			throws ResourceNotFoundException{
+<span class="nc" id="L133">		List&lt;Object[]&gt;resultlist=iservice.getDescriptionByType(type);</span>
+		
+<span class="nc" id="L135">		List&lt;Map&lt;String,Object&gt;&gt; items= resultlist.stream().map(item-&gt;{</span>
+<span class="nc" id="L136">			Map&lt;String,Object&gt;itemMap=new HashMap&lt;&gt;();</span>
+<span class="nc" id="L137">			itemMap.put(&quot;description&quot;, item[0]);</span>
+<span class="nc" id="L138">			itemMap.put(&quot;Valuation&quot;, item[1]);</span>
+<span class="nc" id="L139">			itemMap.put(&quot;Make&quot;, item[2]);</span>
+
+<span class="nc" id="L141">			return itemMap;</span>
+<span class="nc" id="L142">		}).collect(Collectors.toList());</span>
+<span class="nc" id="L143">		return ResponseEntity.ok().body(items);</span>
+	}
+	
+	
+
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>Ezloans-spring (02-Oct-2023 5:06:51 pm)</div></body></html>

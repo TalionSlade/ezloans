@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeCard.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Ezloans-spring (02-Oct-2023 5:06:51 pm)</a> &gt; <a href="../../index.html" class="el_group">Ezloans-spring</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.wellsfargo.training.ezloans.model</a> &gt; <span class="el_source">EmployeeCard.java</span></div><h1>EmployeeCard.java</h1><pre class="source lang-java linenums">package com.wellsfargo.training.ezloans.model;
+
+import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+<span class="pc bnc" id="L15" title="All 32 branches missed.">@Data</span>
+<span class="fc" id="L16">@NoArgsConstructor</span>
+<span class="nc" id="L17">@AllArgsConstructor</span>
+<span class="nc" id="L18">@Builder</span>
+public class EmployeeCard {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(nullable=false,name = &quot;employee_card_id&quot;)
+	private long cardId;
+	
+	//Many To One Mapping
+	@ManyToOne
+	@JoinColumn(nullable=false,name = &quot;eid&quot;)
+	@JsonManagedReference
+	private Employee employee;
+	
+	//Many To One Mapping
+	@ManyToOne
+	@JoinColumn(nullable=false,name = &quot;loanId&quot;)
+	@JsonManagedReference
+	private LoanCard loanId;
+	
+	
+	@Column(nullable=false,name=&quot;card_issue_date&quot;)
+	@JsonFormat(pattern = &quot;yyyy-MM-dd&quot;)
+	private Date issueDate;
+
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>Ezloans-spring (02-Oct-2023 5:06:51 pm)</div></body></html>

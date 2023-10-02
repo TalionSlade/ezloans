@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../../../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../../../jacoco-resources/report.gif" type="image/gif"/><title>Item.java</title><link rel="stylesheet" href="../../../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../../../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../../../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../../../index.html" class="el_report">Ezloans-spring (02-Oct-2023 5:06:51 pm)</a> &gt; <a href="../../index.html" class="el_group">Ezloans-spring</a> &gt; <a href="../index.html" class="el_bundle">src/main/java</a> &gt; <a href="index.source.html" class="el_package">com.wellsfargo.training.ezloans.model</a> &gt; <span class="el_source">Item.java</span></div><h1>Item.java</h1><pre class="source lang-java linenums">package com.wellsfargo.training.ezloans.model;
+import java.util.List;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name = &quot;item_master&quot;)
+<span class="pc bnc" id="L24" title="All 56 branches missed.">@Data</span>
+<span class="nc" id="L25">@AllArgsConstructor</span>
+<span class="fc" id="L26">@NoArgsConstructor</span>
+<span class="nc" id="L27">@Builder</span>
+public class Item {
+	
+	@Id
+	@SequenceGenerator(name = &quot;item_seq&quot;,initialValue = 100 , allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.IDENTITY , generator = &quot;item_seq&quot;)
+	private Long itemId;
+	
+	@Column(nullable = false, name=&quot;item_desc&quot;,unique = true)
+	private String desc;
+	
+	@Column( nullable = false, name=&quot;item_status&quot;)
+	private String status;
+	
+	@Column(nullable = false, name=&quot;item_make&quot;)
+	private String make;
+	
+	@Column(nullable = false, name=&quot;item_category&quot;)
+	private String category;
+	
+	@Column( nullable = false, name=&quot;item_valuation&quot;)
+	private long valuation;
+	
+	/*
+	 * @JsonManagedReference is the forward part of reference – the one that gets serialized normally.
+	 * @JsonBackReference is the back part of reference – it will be omitted from serialization.
+	 * @JsonIgnore shows you don't need to provide the object of emp_issue while creating item 
+	 */
+	@OneToMany(mappedBy = &quot;item&quot; , cascade = CascadeType.ALL)
+	@JsonBackReference
+	@JsonIgnore
+	private List&lt;EmployeeIssue&gt; employeeIssue;
+
+	}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span>Ezloans-spring (02-Oct-2023 5:06:51 pm)</div></body></html>
