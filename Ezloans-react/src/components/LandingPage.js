@@ -1,14 +1,13 @@
 import React from 'react';
-
 import '../styles/LandingPage.css';
-import axios from 'axios';
 
+// LandingPage() which is rendered as a first page for our application
 const LandingPage = () => {
   return (
     <div className='landing'>
-    <h1>Welcome to EZLoans</h1>
-    <br></br>
-    <h3>Your one step solution to loan management</h3>
+      <h1>Welcome to EZLoans</h1>
+      <br/>
+      <h3>Your one step solution to loan management</h3>
     </div>
   )};
 
