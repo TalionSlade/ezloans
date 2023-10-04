@@ -58,7 +58,7 @@ public class LoanCardController {
     "duration":10
     
     */
-	
+	//Haha
 	@GetMapping("/loancards")
 	public ResponseEntity<List<LoanCard>> getAllloancards(){
 	
